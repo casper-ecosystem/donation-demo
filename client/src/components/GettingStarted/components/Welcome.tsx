@@ -1,0 +1,324 @@
+import styled, { useTheme } from 'styled-components';
+import desktopBgImage from '../../../bg-desktop-full.jpg';
+import mobileBgImage from '../../../bg-mobile-full.jpg';
+import { centerModalStyles, ModalContainer, StyledInput } from '../../common/modal-styles';
+import { useState } from 'react';
+import ReactModal from 'react-modal';
+import { BodyText, Button, FlexRow, Textarea } from '@make-software/cspr-design';
+
+interface WelcomeProps {
+  isConnected: boolean;
+}
+
+const Container = styled.div(({ theme }) =>
+  theme.withMedia({
+    backgroundImage: [
+      `url("${mobileBgImage}")`,
+      `url("${desktopBgImage}")`,
+      `url("${desktopBgImage}")`
+    ],
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'right',
+    height: ['693px', '624px', '624px'],
+    width: '100%'
+  })
+);
+
+const StyledSvgIcon = styled.div<{ theme: any }>(({ theme }) =>
+  theme.withMedia({
+    svg: {
+      height: ['60px', '80px', '80px'],
+      width: ['60px', '80px', '80px'],
+      path: { fill: theme.clickLogo }
+    }
+  })
+);
+
+const StyledWrapper = styled.div(({ theme }) =>
+  theme.withMedia({
+    width: '100%',
+    maxWidth: ['540px', '720px', '960px'],
+    padding: '0 12px',
+    margin: '0 auto'
+  })
+);
+
+const InfoContainer = styled.div(({ theme }) =>
+  theme.withMedia({
+    display: 'flex'
+  })
+);
+const StyledInfo = styled.div(({ theme }) =>
+  theme.withMedia({
+    position: 'relative',
+    top: ['120px', '174px', '174px']
+  })
+);
+
+const GreetingText = styled.div(({ theme }) =>
+  theme.withMedia({
+    color: '#DADCE5',
+    fontSize: ['24px', '40px', '40px'],
+    fontWeight: '600',
+    lineHeight: ['32px', '56px', '56px'],
+    marginTop: ['24px', '40px', '40px']
+  })
+);
+
+const KillerAppText = styled.div(({ theme }) =>
+  theme.withMedia({
+    color: '#A8ADBF',
+    fontSize: '16px',
+    fontWeight: '200',
+    lineHeight: '24px',
+    marginTop: '8px',
+    width: ['81%', '100%', '100%']
+  })
+);
+const StyledButton = styled(Button)(({ theme }) =>
+  theme.withMedia({
+    cursor: 'pointer'
+  })
+);
+
+const StyledTextArea = styled(Textarea)(({ theme }) =>
+  theme.withMedia({
+    width: '100%'
+  })
+);
+
+const LearnMoreButton = styled.div(({ theme }) =>
+  theme.withMedia({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItem: 'center',
+    width: '176px',
+    height: '36px',
+    padding: '8px 16px',
+    borderRadius: '4px',
+    backgroundColor: '#B2332D',
+    fontSize: '14px',
+    lineHeight: '20px',
+    color: '#F2F2F2',
+    marginTop: '32px',
+
+    '&:hover': {
+      cursor: 'pointer',
+      backgroundColor: '#9f211c'
+    }
+  })
+);
+
+export const Welcome = ({ isConnected }: WelcomeProps) => {
+  const theme = useTheme();
+  const modalStyle = {
+    overlay: {
+      backgroundColor: theme.styleguideColors.backgroundOverlay,
+      zIndex: 15
+    },
+    content: {
+      ...centerModalStyles,
+      ...{
+        border: 'none',
+        backgroundColor: theme.styleguideColors.backgroundPrimary,
+        borderTop: `4px solid ${theme.styleguideColors.contentRed}`,
+        borderColor: theme.styleguideColors.contentRed,
+        boxShadow: '0px 16px 48px rgba(26, 25, 25, 0.2)'
+      }
+    }
+  };
+
+  const [showDonationModal, setShowDonationModal] = useState<boolean>(false);
+  const [amount, setAmount] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+
+  const [formErrors, setFormErrors] = useState<Record<'amount' | 'message', string | string>>({
+    amount: '',
+    message: ''
+  });
+
+  const clearForm = () => {
+    setAmount('');
+    setMessage('');
+    setFormErrors({
+      ...formErrors,
+      amount: '',
+      message: ''
+    });
+  };
+
+  const handleOpenDonationModal = () => {
+    setShowDonationModal(true);
+    clearForm();
+  };
+
+  const handleCloseDonationModal = () => {
+    setShowDonationModal(false);
+  };
+
+  const handleOpenConnectAccountModal = () => {
+    window.csprclick.signIn();
+  };
+
+  const handleFillAmount = (amount: string) => {
+    setFormErrors({
+      ...formErrors,
+      amount: ''
+    });
+    setAmount(amount);
+  };
+
+  const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
+
+    setFormErrors({
+      ...formErrors,
+      amount: ''
+    });
+
+    if (val === '') {
+      setAmount(val);
+      return;
+    }
+
+    if (/^(?!0$)(?!0\.0*$)\d*\.?\d*$/.test(val)) {
+      setAmount(val);
+    }
+  };
+
+  const handleOnKeyDownAmount = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+
+    if (allowedKeys.includes(event.key)) return;
+
+    if (event.key === '.') {
+      const value = (event.target as HTMLInputElement).value;
+      if (value.includes('.') || value === '') {
+        event.preventDefault();
+      }
+      return;
+    }
+
+    if (/[0-9]/.test(event.key)) return;
+
+    event.preventDefault();
+  };
+
+  const handleMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
+
+    if (val.length <= 180) {
+      setFormErrors({
+        ...formErrors,
+        message: ''
+      });
+      setMessage(val);
+      setFormErrors({
+        ...formErrors,
+        message: ''
+      });
+    } else {
+      setFormErrors({
+        ...formErrors,
+        message: 'Max limit reached (180 symbols)'
+      });
+    }
+  };
+
+  const handleConfirm = () => {
+    if (!amount.length) {
+      setFormErrors({
+        ...formErrors,
+        amount: 'This field is required'
+      });
+      return;
+    }
+
+    if (!message.length) {
+      setFormErrors({
+        ...formErrors,
+        message: 'This field is required'
+      });
+      return;
+    }
+
+    !formErrors.amount && !formErrors.message && alert('good');
+  };
+
+  return (
+    <Container>
+      <ReactModal
+        isOpen={showDonationModal}
+        onRequestClose={handleCloseDonationModal}
+        style={modalStyle}
+        shouldCloseOnEsc
+        shouldCloseOnOverlayClick
+      >
+        <ModalContainer gap={25}>
+          <FlexRow>
+            <StyledInput
+              value={amount}
+              label={<BodyText size={1}>Donate</BodyText>}
+              placeholder="CSPR Amount"
+              onChange={handleAmount}
+              onKeyDown={handleOnKeyDownAmount}
+              error={!!formErrors.amount}
+              validationText={formErrors.amount}
+            />
+          </FlexRow>
+          <FlexRow gap={10}>
+            <StyledButton onClick={() => handleFillAmount('50')}>50</StyledButton>
+            <StyledButton onClick={() => handleFillAmount('250')}>250</StyledButton>
+            <StyledButton onClick={() => handleFillAmount('1000')}>1000</StyledButton>
+          </FlexRow>
+          <FlexRow>
+            <StyledTextArea
+              value={message}
+              label={<BodyText size={1}>Message</BodyText>}
+              placeholder="Your Message"
+              onChange={handleMessage}
+              error={!!formErrors.message}
+              validationText={formErrors.message}
+            />
+          </FlexRow>
+          <FlexRow>
+            <StyledButton
+              disabled={Boolean(formErrors.amount || formErrors.message)}
+              onClick={handleConfirm}
+            >
+              Send
+            </StyledButton>
+          </FlexRow>
+        </ModalContainer>
+      </ReactModal>
+      <StyledWrapper>
+        <InfoContainer>
+          <StyledInfo>
+            <StyledSvgIcon className="App-logo">
+              <svg
+                width="86"
+                height="88"
+                viewBox="0 0 86 88"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M81.8224 32.5H59.9999C58.6192 32.5 57.4999 31.3807 57.4999 30L57.4999 25.1761C57.4999 18.9556 50.3633 15.4389 45.4306 19.2287L20.2789 38.5526C16.3713 41.5548 16.3713 47.4452 20.2789 50.4474L45.4306 69.7713C50.3633 73.5611 57.4999 70.0444 57.4999 63.8239L57.4999 58C57.4999 56.6193 58.6192 55.5 59.9999 55.5H81.8224C83.4952 55.5 84.4995 57.0016 84.0259 58.3246C78.1465 74.7511 62.4434 86.5 44 86.5C20.5279 86.5 1.5 67.4721 1.5 44C1.5 20.5279 20.5279 1.5 44 1.5C62.4434 1.5 78.1465 13.2489 84.0259 29.6754C84.4995 30.9984 83.4952 32.5 81.8224 32.5Z"
+                  strokeWidth="3"
+                />
+              </svg>
+            </StyledSvgIcon>
+            <GreetingText>Buy Me a Coffee</GreetingText>
+            <KillerAppText>Some subtitle description text.</KillerAppText>
+            <LearnMoreButton
+              onClick={isConnected ? handleOpenDonationModal : handleOpenConnectAccountModal}
+            >
+              {isConnected ? 'Buy' : 'Connect Wallet'}
+            </LearnMoreButton>
+          </StyledInfo>
+        </InfoContainer>
+      </StyledWrapper>
+    </Container>
+  );
+};
