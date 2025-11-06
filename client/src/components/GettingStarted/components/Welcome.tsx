@@ -5,6 +5,21 @@ import { centerModalStyles, ModalContainer, StyledInput } from '../../common/mod
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { BodyText, Button, FlexRow, Textarea } from '@make-software/cspr-design';
+import { makeTransferTransaction } from "./transfer-deploy";
+import { TransactionStatus } from "@make-software/csprclick-core-types";
+import { SendResult } from "@make-software/csprclick-core-client";
+import { useClickRef } from "@make-software/csprclick-ui";
+import {
+    Args,
+    HttpHandler,
+    RpcClient,
+    CLValue,
+    SessionBuilder,
+    CLTypeUInt8,
+    Hash, PublicKey, Transaction, TransactionV1,
+} from "casper-js-sdk";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 interface WelcomeProps {
   isConnected: boolean;
@@ -129,14 +144,23 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
     }
   };
 
+    const recipientPk = '0203596b49460de7900614b5e25a1fa1861b3eb944c42bea18fc7506b220fd4d9d61';
+
   const [showDonationModal, setShowDonationModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+
+    const [transactionHash, setTransactionHash] = useState<string | undefined>(undefined);
+    const [waitingResponse, setWaitingResponse] = useState<boolean>(false);
+
 
   const [formErrors, setFormErrors] = useState<Record<'amount' | 'message', string | string>>({
     amount: '',
     message: ''
   });
+
+    const clickRef = useClickRef();
+    const activeAccount = clickRef?.getActiveAccount();
 
   const clearForm = () => {
     setAmount('');
@@ -226,7 +250,103 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
     }
   };
 
-  const handleConfirm = () => {
+    const getProxyWASM = async (): Promise<Uint8Array> => {
+        const result = await fetch(`${API_URL}/api/proxy-wasm`);
+        if (!result.ok) {
+            throw new Error(await result.text());
+        }
+        const buffer = await result.arrayBuffer();
+        return new Uint8Array(buffer);
+    };
+
+
+  const handleSignTransaction = async (evt: any) => {
+        evt.preventDefault();
+        const sender = activeAccount?.public_key?.toLowerCase() || '';
+        // const transaction = makeTransferTransaction(
+        //     sender,
+        //     recipientPk,
+        //     // '50' + '000000000',
+        //     amount,
+        //     clickRef.chainName!
+        // );
+        // debugger;
+        // console.log('TRANSACTION', transaction);
+        // ////
+
+      // const owner = sender.toString();
+      const contractWasm = await getProxyWASM();
+      // const contractWasm = await fs.readFile(options.proxy_caller);
+
+      const tipArgs = Args.fromMap({
+          praise: CLValue.newCLString(message),
+      });
+      const serialized_args = CLValue.newCLList(
+          CLTypeUInt8,
+          Array.from(tipArgs.toBytes()).map((value) => CLValue.newCLUint8(value))
+      );
+
+      const args = Args.fromMap({
+          amount: CLValue.newCLUInt512(amount + '000000000'),
+          attached_value: CLValue.newCLUInt512(amount + '000000000'),
+          entry_point: CLValue.newCLString("tip_the_barista"),
+          package_hash: CLValue.newCLByteArray(
+              Hash.fromHex('ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035').toBytes()
+          ),
+          args: serialized_args,
+      });
+
+      const sessionTransaction = new SessionBuilder()
+          .from(PublicKey.fromHex(sender))
+          // .from(sender)
+          .runtimeArgs(args)
+          .wasm(new Uint8Array(contractWasm))
+          .payment(12000000000) // Amount in motes
+          .chainName(clickRef.chainName!)
+          .build();
+
+
+      // sessionTransaction.toJSON()
+        ////
+      // { transaction: { Version1: TransactionV1.toJSON(transaction.getTransactionV1()!) } }
+        // signAndSend(sessionTransaction.toJSON() as object, sender);
+        signAndSend({ transaction: { Version1: TransactionV1.toJSON(sessionTransaction.getTransactionV1()!) } } as object, sender);
+    };
+
+    const signAndSend = (tbs: object, sender: string) => {
+        const onStatusUpdate = (status: string, data: any) => {
+            console.log('STATUS UPDATE', status, data);
+            if (status === TransactionStatus.SENT) setWaitingResponse(true);
+        };
+        debugger;
+
+        clickRef
+            ?.send(tbs, sender, onStatusUpdate)
+            .then((res: SendResult | undefined) => {
+                setWaitingResponse(false);
+                if (res?.transactionHash) {
+                    setTransactionHash(res.transactionHash);
+                    alert(
+                        'Transaction sent successfully: ' +
+                        res.transactionHash +
+                        '\n Status: ' +
+                        res.status +
+                        '\n Timestamp: ' +
+                        res.csprCloudTransaction.timestamp
+                    );
+                } else if (res?.cancelled) {
+                    alert('Sign cancelled');
+                } else {
+                    alert('Error in send(): ' + res?.error + '\n' + res?.errorData);
+                }
+            })
+            .catch((err: any) => {
+                alert('Error: ' + err);
+                throw err;
+            });
+    };
+
+  const handleConfirm = (ev: any) => {
     if (!amount.length) {
       setFormErrors({
         ...formErrors,
@@ -243,7 +363,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
       return;
     }
 
-    !formErrors.amount && !formErrors.message && alert('good');
+    !formErrors.amount && !formErrors.message && handleSignTransaction(ev)
   };
 
   return (
@@ -285,7 +405,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
           <FlexRow>
             <StyledButton
               disabled={Boolean(formErrors.amount || formErrors.message)}
-              onClick={handleConfirm}
+              onClick={(e) => handleConfirm(e)}
             >
               Send
             </StyledButton>
