@@ -11,7 +11,7 @@ export interface Donation {
 
 // Fetch all donations
 export async function getAllDonations(): Promise<Donation[]> {
-    const res = await fetch(`${API_URL}/api/donations`);
+    const res = await fetch(`${API_URL}/donations`);
     if (!res.ok) throw new Error('Failed to fetch donations');
     return res.json();
 }

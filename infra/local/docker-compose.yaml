@@ -25,31 +25,27 @@ services:
 #      mysql:
 #        condition: service_healthy
 #
-#  api:
-#    build:
-#      context: ../../
-#      dockerfile: ./infra/docker/api.dockerfile
-#    ports:
-#      - "3001:3001"
-#    networks:
-#      - donation-demo-local
-#    env_file: ../../server/.env
-#    environment:
-#      DB_URI: "mysql://root:password@mysql:3306/lottery"
-#    depends_on:
-#      - db_migrator
-#
-#  handler:
-#    build:
-#      context: ../../
-#      dockerfile: ./infra/docker/event-handler.dockerfile
-#    env_file: ../../server/.env
-#    environment:
-#      DB_URI: "mysql://root:password@mysql:3306/lottery"
-#    networks:
-#      - donation-demo-local
-#    depends_on:
-#      - db_migrator
+  api:
+    build:
+      context: ../../
+      dockerfile: ./infra/docker/api.dockerfile
+    ports:
+      - "3001:3001"
+    networks:
+      - donation-demo-local
+    env_file: ../../server-1/.env
+    environment:
+      DB_URI: "mysql://root:password@mysql:3306/donation"
+
+  handler:
+    build:
+      context: ../../
+      dockerfile: ./infra/docker/event-handler.dockerfile
+    env_file: ../../server-1/.env
+    environment:
+      DB_URI: "mysql://root:password@mysql:3306/donation"
+    networks:
+      - donation-demo-local
 #
 #  client:
 #    build:

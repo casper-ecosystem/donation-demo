@@ -251,7 +251,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
   };
 
     const getProxyWASM = async (): Promise<Uint8Array> => {
-        const result = await fetch(`${API_URL}/api/proxy-wasm`);
+        const result = await fetch(`${API_URL}/proxy-wasm`);
         if (!result.ok) {
             throw new Error(await result.text());
         }
@@ -298,7 +298,6 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
 
       const sessionTransaction = new SessionBuilder()
           .from(PublicKey.fromHex(sender))
-          // .from(sender)
           .runtimeArgs(args)
           .wasm(new Uint8Array(contractWasm))
           .payment(12000000000) // Amount in motes
@@ -329,10 +328,11 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
                     alert(
                         'Transaction sent successfully: ' +
                         res.transactionHash +
-                        '\n Status: ' +
-                        res.status +
-                        '\n Timestamp: ' +
-                        res.csprCloudTransaction.timestamp
+                        '\n Status: '
+                        // +
+                        // res.status +
+                        // '\n Timestamp: ' +
+                        // res.csprCloudTransaction.timestamp
                     );
                 } else if (res?.cancelled) {
                     alert('Sign cancelled');

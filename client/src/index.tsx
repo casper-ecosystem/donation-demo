@@ -7,7 +7,7 @@ import { CONTENT_MODE } from '@make-software/csprclick-core-types';
 import App from './App';
 
 const clickOptions: CsprClickInitOptions = {
-  appName: 'CSPR.app',
+  appName: 'CSPR.api',
   contentMode: CONTENT_MODE.IFRAME,
   providers: ['casper-wallet', 'ledger', 'metamask-snap'],
   appId: 'csprclick-template'

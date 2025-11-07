@@ -13,7 +13,7 @@ FLUSH PRIVILEGES;
 CREATE TABLE IF NOT EXISTS `donation`.`donations` (
     id VARCHAR(36) PRIMARY KEY,
     sender_public_key VARCHAR(255),
-    amount_cspr DECIMAL(10, 2),
+    amount_cspr BIGINT UNSIGNED,
     message TEXT,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     transaction_hash VARCHAR(255),

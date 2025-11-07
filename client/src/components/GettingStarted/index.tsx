@@ -24,7 +24,9 @@ export const LandingBrief = () => {
         const updated = await getAllDonations();
         setDonations(updated);
     };
-  return (
+
+    console.log('donations -> ',donations);
+    return (
     <Container>
       <h3>✨ Your donations</h3>
         <Section>
