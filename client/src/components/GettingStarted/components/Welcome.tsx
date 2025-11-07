@@ -32,6 +32,7 @@ import {
 import { LoadingContent } from '../../common/loading-content/loading-content';
 import { SuccessContent } from '../../common/success-content/success-content';
 import { CanceledContent } from '../../common/canceled-content/canceled-content';
+import { ErrorContent } from '../../common/error-content/error-content';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -167,6 +168,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
   const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
   const [successScreen, setSuccessScreen] = useState<boolean>(false);
   const [canceledScreen, setCanceledScreen] = useState<boolean>(false);
+  const [errorScreen, setErrorScreen] = useState<boolean>(false);
 
   const [formErrors, setFormErrors] = useState<Record<'amount' | 'message', string | string>>({
     amount: '',
@@ -275,6 +277,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
 
   const handleSignTransaction = async (evt: any) => {
     evt.preventDefault();
+    setErrorScreen(false);
     const sender = activeAccount?.public_key?.toLowerCase() || '';
     const contractWasm = await getProxyWASM();
 
@@ -326,7 +329,6 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
         if (res?.transactionHash) {
           setLoadingScreen(false);
           setSuccessScreen(true);
-          // alert('Transaction sent successfully: ' + res.transactionHash + '\n Status: ');
         } else if (res?.cancelled) {
           setCanceledScreen(true);
           setLoadingScreen(false);
@@ -334,10 +336,11 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
         } else {
           setLoadingScreen(false);
           setShowDonationModal(false);
-          alert('Error in send(): ' + res?.error + '\n' + res?.errorData);
+          setErrorScreen(true);
         }
       })
       .catch((err: any) => {
+        setErrorScreen(true);
         setLoadingScreen(false);
         setShowDonationModal(false);
         setSuccessScreen(false);
@@ -384,6 +387,8 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
             <SuccessContent />
           ) : canceledScreen ? (
             <CanceledContent />
+          ) : errorScreen ? (
+            <ErrorContent />
           ) : (
             <FlexColumn gap={25}>
               <FlexRow>

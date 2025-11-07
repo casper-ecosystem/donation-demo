@@ -1,34 +1,6 @@
-import styled from 'styled-components';
-import { FlexColumn, FlexRow, SubtitleText, SvgIcon } from '@make-software/cspr-design';
+import { FlexRow } from '@make-software/cspr-design';
 import LoadingIcon from '../../../assets/icons/loading.svg';
-
-const StyledFlexColumn = styled(FlexColumn)(({ theme }) =>
-  theme.withMedia({
-    textAlign: 'center',
-    height: 'inherit'
-  })
-);
-
-const LoadingContainer = styled(StyledFlexColumn)(({ theme }) =>
-  theme.withMedia({
-    width: '300px'
-  })
-);
-
-const LoadingSvgIcon = styled(SvgIcon)(() => ({
-  animationName: 'spin',
-  animationDuration: '5000ms',
-  animationIterationCount: 'infinite',
-  animationTimingFunction: 'linear'
-}));
-
-const StyledTitle = styled(SubtitleText)(({ theme }) =>
-  theme.withMedia({
-    fontWeight: 700,
-    color: theme.styleguideColors.contentPrimary,
-    marginBottom: '32px'
-  })
-);
+import { LoadingContainer, LoadingSvgIcon, StyledTitle } from '../modal-styles';
 
 export const LoadingContent = () => {
   return (
@@ -36,7 +8,7 @@ export const LoadingContent = () => {
       <FlexRow justify={'center'}>
         <LoadingContainer itemsSpacing={54} align={'center'}>
           <LoadingSvgIcon src={LoadingIcon} width={100} height={100} />
-          <StyledTitle size={1} scale="lg">
+          <StyledTitle size={1} scale="lg" margin={'0 0 32px 0'}>
             Donation processing...
           </StyledTitle>
         </LoadingContainer>

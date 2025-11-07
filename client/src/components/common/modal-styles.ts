@@ -5,7 +5,8 @@ import {
   FlexColumn,
   FlexRow,
   Input,
-  SubtitleText
+  SubtitleText,
+  SvgIcon
 } from '@make-software/cspr-design';
 
 export const centerModalStyles = {
@@ -137,6 +138,34 @@ export const StyledToggle = styled.div(({ theme }) =>
     alignItems: 'center',
     borderTop: `1px solid ${theme.styleguideColors.borderSecondary}`,
     borderBottom: `1px solid ${theme.styleguideColors.borderSecondary}`
+  })
+);
+
+export const StyledFlexColumn = styled(FlexColumn)(({ theme }) =>
+  theme.withMedia({
+    textAlign: 'center',
+    height: 'inherit'
+  })
+);
+
+export const LoadingContainer = styled(StyledFlexColumn)(({ theme }) =>
+  theme.withMedia({
+    width: '300px'
+  })
+);
+
+export const LoadingSvgIcon = styled(SvgIcon)(() => ({
+  animationName: 'spin',
+  animationDuration: '5000ms',
+  animationIterationCount: 'infinite',
+  animationTimingFunction: 'linear'
+}));
+
+export const StyledTitle = styled(SubtitleText)<{ margin?: string }>(({ theme, margin }) =>
+  theme.withMedia({
+    fontWeight: 700,
+    color: theme.styleguideColors.contentPrimary,
+    margin: margin ? margin : '0 0 32px 0'
   })
 );
 
