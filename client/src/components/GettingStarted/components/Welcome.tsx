@@ -4,20 +4,34 @@ import mobileBgImage from '../../../bg-mobile-full.jpg';
 import { centerModalStyles, ModalContainer, StyledInput } from '../../common/modal-styles';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
-import { BodyText, Button, FlexRow, Textarea } from '@make-software/cspr-design';
-import { makeTransferTransaction } from "./transfer-deploy";
-import { TransactionStatus } from "@make-software/csprclick-core-types";
-import { SendResult } from "@make-software/csprclick-core-client";
-import { useClickRef } from "@make-software/csprclick-ui";
 import {
-    Args,
-    HttpHandler,
-    RpcClient,
-    CLValue,
-    SessionBuilder,
-    CLTypeUInt8,
-    Hash, PublicKey, Transaction, TransactionV1,
-} from "casper-js-sdk";
+  BodyText,
+  Button,
+  FlexColumn,
+  FlexRow,
+  ModalHeader,
+  SvgIcon,
+  Textarea
+} from '@make-software/cspr-design';
+import { makeTransferTransaction } from './transfer-deploy';
+import { TransactionStatus } from '@make-software/csprclick-core-types';
+import { SendResult } from '@make-software/csprclick-core-client';
+import { useClickRef } from '@make-software/csprclick-ui';
+import {
+  Args,
+  HttpHandler,
+  RpcClient,
+  CLValue,
+  SessionBuilder,
+  CLTypeUInt8,
+  Hash,
+  PublicKey,
+  Transaction,
+  TransactionV1
+} from 'casper-js-sdk';
+import { LoadingContent } from '../../common/loading-content/loading-content';
+import { SuccessContent } from '../../common/success-content/success-content';
+import { CanceledContent } from '../../common/canceled-content/canceled-content';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -135,6 +149,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
     content: {
       ...centerModalStyles,
       ...{
+        paddingTop: '20px',
         border: 'none',
         backgroundColor: theme.styleguideColors.backgroundPrimary,
         borderTop: `4px solid ${theme.styleguideColors.contentRed}`,
@@ -144,23 +159,22 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
     }
   };
 
-    const recipientPk = '0203596b49460de7900614b5e25a1fa1861b3eb944c42bea18fc7506b220fd4d9d61';
-
   const [showDonationModal, setShowDonationModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-    const [transactionHash, setTransactionHash] = useState<string | undefined>(undefined);
-    const [waitingResponse, setWaitingResponse] = useState<boolean>(false);
-
+  const [waitingResponse, setWaitingResponse] = useState<boolean>(false);
+  const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
+  const [successScreen, setSuccessScreen] = useState<boolean>(false);
+  const [canceledScreen, setCanceledScreen] = useState<boolean>(false);
 
   const [formErrors, setFormErrors] = useState<Record<'amount' | 'message', string | string>>({
     amount: '',
     message: ''
   });
 
-    const clickRef = useClickRef();
-    const activeAccount = clickRef?.getActiveAccount();
+  const clickRef = useClickRef();
+  const activeAccount = clickRef?.getActiveAccount();
 
   const clearForm = () => {
     setAmount('');
@@ -250,101 +264,88 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
     }
   };
 
-    const getProxyWASM = async (): Promise<Uint8Array> => {
-        const result = await fetch(`${API_URL}/proxy-wasm`);
-        if (!result.ok) {
-            throw new Error(await result.text());
-        }
-        const buffer = await result.arrayBuffer();
-        return new Uint8Array(buffer);
-    };
-
+  const getProxyWASM = async (): Promise<Uint8Array> => {
+    const result = await fetch(`${API_URL}/proxy-wasm`);
+    if (!result.ok) {
+      throw new Error(await result.text());
+    }
+    const buffer = await result.arrayBuffer();
+    return new Uint8Array(buffer);
+  };
 
   const handleSignTransaction = async (evt: any) => {
-        evt.preventDefault();
-        const sender = activeAccount?.public_key?.toLowerCase() || '';
-        // const transaction = makeTransferTransaction(
-        //     sender,
-        //     recipientPk,
-        //     // '50' + '000000000',
-        //     amount,
-        //     clickRef.chainName!
-        // );
-        // debugger;
-        // console.log('TRANSACTION', transaction);
-        // ////
+    evt.preventDefault();
+    const sender = activeAccount?.public_key?.toLowerCase() || '';
+    const contractWasm = await getProxyWASM();
 
-      // const owner = sender.toString();
-      const contractWasm = await getProxyWASM();
-      // const contractWasm = await fs.readFile(options.proxy_caller);
+    const tipArgs = Args.fromMap({
+      praise: CLValue.newCLString(message)
+    });
+    const serialized_args = CLValue.newCLList(
+      CLTypeUInt8,
+      Array.from(tipArgs.toBytes()).map((value) => CLValue.newCLUint8(value))
+    );
 
-      const tipArgs = Args.fromMap({
-          praise: CLValue.newCLString(message),
-      });
-      const serialized_args = CLValue.newCLList(
-          CLTypeUInt8,
-          Array.from(tipArgs.toBytes()).map((value) => CLValue.newCLUint8(value))
-      );
+    const args = Args.fromMap({
+      amount: CLValue.newCLUInt512(amount + '000000000'),
+      attached_value: CLValue.newCLUInt512(amount + '000000000'),
+      entry_point: CLValue.newCLString('tip_the_barista'),
+      package_hash: CLValue.newCLByteArray(
+        Hash.fromHex('ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035').toBytes()
+      ),
+      args: serialized_args
+    });
 
-      const args = Args.fromMap({
-          amount: CLValue.newCLUInt512(amount + '000000000'),
-          attached_value: CLValue.newCLUInt512(amount + '000000000'),
-          entry_point: CLValue.newCLString("tip_the_barista"),
-          package_hash: CLValue.newCLByteArray(
-              Hash.fromHex('ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035').toBytes()
-          ),
-          args: serialized_args,
-      });
+    const sessionTransaction = new SessionBuilder()
+      .from(PublicKey.fromHex(sender))
+      .runtimeArgs(args)
+      .wasm(new Uint8Array(contractWasm))
+      .payment(12000000000) // Amount in motes
+      .chainName(clickRef.chainName!)
+      .build();
 
-      const sessionTransaction = new SessionBuilder()
-          .from(PublicKey.fromHex(sender))
-          .runtimeArgs(args)
-          .wasm(new Uint8Array(contractWasm))
-          .payment(12000000000) // Amount in motes
-          .chainName(clickRef.chainName!)
-          .build();
+    signAndSend(
+      {
+        transaction: { Version1: TransactionV1.toJSON(sessionTransaction.getTransactionV1()!) }
+      } as object,
+      sender
+    );
+  };
 
-
-      // sessionTransaction.toJSON()
-        ////
-      // { transaction: { Version1: TransactionV1.toJSON(transaction.getTransactionV1()!) } }
-        // signAndSend(sessionTransaction.toJSON() as object, sender);
-        signAndSend({ transaction: { Version1: TransactionV1.toJSON(sessionTransaction.getTransactionV1()!) } } as object, sender);
+  const signAndSend = (tbs: object, sender: string) => {
+    setLoadingScreen(true);
+    const onStatusUpdate = (status: string, data: any) => {
+      console.log('STATUS UPDATE', status, data);
+      if (status === TransactionStatus.SENT) setWaitingResponse(true);
     };
 
-    const signAndSend = (tbs: object, sender: string) => {
-        const onStatusUpdate = (status: string, data: any) => {
-            console.log('STATUS UPDATE', status, data);
-            if (status === TransactionStatus.SENT) setWaitingResponse(true);
-        };
-        debugger;
-
-        clickRef
-            ?.send(tbs, sender, onStatusUpdate)
-            .then((res: SendResult | undefined) => {
-                setWaitingResponse(false);
-                if (res?.transactionHash) {
-                    setTransactionHash(res.transactionHash);
-                    alert(
-                        'Transaction sent successfully: ' +
-                        res.transactionHash +
-                        '\n Status: '
-                        // +
-                        // res.status +
-                        // '\n Timestamp: ' +
-                        // res.csprCloudTransaction.timestamp
-                    );
-                } else if (res?.cancelled) {
-                    alert('Sign cancelled');
-                } else {
-                    alert('Error in send(): ' + res?.error + '\n' + res?.errorData);
-                }
-            })
-            .catch((err: any) => {
-                alert('Error: ' + err);
-                throw err;
-            });
-    };
+    clickRef
+      ?.send(tbs, sender, onStatusUpdate)
+      .then((res: SendResult | undefined) => {
+        setWaitingResponse(false);
+        if (res?.transactionHash) {
+          setLoadingScreen(false);
+          setSuccessScreen(true);
+          // alert('Transaction sent successfully: ' + res.transactionHash + '\n Status: ');
+        } else if (res?.cancelled) {
+          setCanceledScreen(true);
+          setLoadingScreen(false);
+          setShowDonationModal(false);
+        } else {
+          setLoadingScreen(false);
+          setShowDonationModal(false);
+          alert('Error in send(): ' + res?.error + '\n' + res?.errorData);
+        }
+      })
+      .catch((err: any) => {
+        setLoadingScreen(false);
+        setShowDonationModal(false);
+        setSuccessScreen(false);
+        setCanceledScreen(false);
+        alert('Error: ' + err);
+        throw err;
+      });
+  };
 
   const handleConfirm = (ev: any) => {
     if (!amount.length) {
@@ -363,7 +364,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
       return;
     }
 
-    !formErrors.amount && !formErrors.message && handleSignTransaction(ev)
+    !formErrors.amount && !formErrors.message && handleSignTransaction(ev);
   };
 
   return (
@@ -375,41 +376,52 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
         shouldCloseOnEsc
         shouldCloseOnOverlayClick
       >
-        <ModalContainer gap={25}>
-          <FlexRow>
-            <StyledInput
-              value={amount}
-              label={<BodyText size={1}>Donate</BodyText>}
-              placeholder="CSPR Amount"
-              onChange={handleAmount}
-              onKeyDown={handleOnKeyDownAmount}
-              error={!!formErrors.amount}
-              validationText={formErrors.amount}
-            />
-          </FlexRow>
-          <FlexRow gap={10}>
-            <StyledButton onClick={() => handleFillAmount('50')}>50</StyledButton>
-            <StyledButton onClick={() => handleFillAmount('250')}>250</StyledButton>
-            <StyledButton onClick={() => handleFillAmount('1000')}>1000</StyledButton>
-          </FlexRow>
-          <FlexRow>
-            <StyledTextArea
-              value={message}
-              label={<BodyText size={1}>Message</BodyText>}
-              placeholder="Your Message"
-              onChange={handleMessage}
-              error={!!formErrors.message}
-              validationText={formErrors.message}
-            />
-          </FlexRow>
-          <FlexRow>
-            <StyledButton
-              disabled={Boolean(formErrors.amount || formErrors.message)}
-              onClick={(e) => handleConfirm(e)}
-            >
-              Send
-            </StyledButton>
-          </FlexRow>
+        <ModalContainer>
+          <ModalHeader onClose={handleCloseDonationModal} marginBottom={'0'} />
+          {loadingScreen ? (
+            <LoadingContent />
+          ) : successScreen ? (
+            <SuccessContent />
+          ) : canceledScreen ? (
+            <CanceledContent />
+          ) : (
+            <FlexColumn gap={25}>
+              <FlexRow>
+                <StyledInput
+                  value={amount}
+                  label={<BodyText size={1}>Donate</BodyText>}
+                  placeholder="CSPR Amount"
+                  onChange={handleAmount}
+                  onKeyDown={handleOnKeyDownAmount}
+                  error={!!formErrors.amount}
+                  validationText={formErrors.amount}
+                />
+              </FlexRow>
+              <FlexRow gap={10}>
+                <StyledButton onClick={() => handleFillAmount('50')}>50</StyledButton>
+                <StyledButton onClick={() => handleFillAmount('250')}>250</StyledButton>
+                <StyledButton onClick={() => handleFillAmount('1000')}>1000</StyledButton>
+              </FlexRow>
+              <FlexRow>
+                <StyledTextArea
+                  value={message}
+                  label={<BodyText size={1}>Message</BodyText>}
+                  placeholder="Your Message"
+                  onChange={handleMessage}
+                  error={!!formErrors.message}
+                  validationText={formErrors.message}
+                />
+              </FlexRow>
+              <FlexRow>
+                <StyledButton
+                  disabled={Boolean(formErrors.amount || formErrors.message)}
+                  onClick={(e) => handleConfirm(e)}
+                >
+                  Send
+                </StyledButton>
+              </FlexRow>
+            </FlexColumn>
+          )}
         </ModalContainer>
       </ReactModal>
       <StyledWrapper>
