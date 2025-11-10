@@ -33,7 +33,7 @@ services:
       - "3001:3001"
     networks:
       - donation-demo-local
-    env_file: ../../server-1/.env
+    env_file: ../../server/.env
     environment:
       DB_URI: "mysql://root:password@mysql:3306/donation"
 
@@ -41,7 +41,7 @@ services:
     build:
       context: ../../
       dockerfile: ./infra/docker/event-handler.dockerfile
-    env_file: ../../server-1/.env
+    env_file: ../../server/.env
     environment:
       DB_URI: "mysql://root:password@mysql:3306/donation"
     networks:

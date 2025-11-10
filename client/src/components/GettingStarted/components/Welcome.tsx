@@ -2,7 +2,7 @@ import styled, { useTheme } from 'styled-components';
 import desktopBgImage from '../../../bg-desktop-full.jpg';
 import mobileBgImage from '../../../bg-mobile-full.jpg';
 import { centerModalStyles, ModalContainer, StyledInput } from '../../common/modal-styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import {
   BodyText,
@@ -10,23 +10,18 @@ import {
   FlexColumn,
   FlexRow,
   ModalHeader,
-  SvgIcon,
   Textarea
 } from '@make-software/cspr-design';
-import { makeTransferTransaction } from './transfer-deploy';
 import { TransactionStatus } from '@make-software/csprclick-core-types';
 import { SendResult } from '@make-software/csprclick-core-client';
 import { useClickRef } from '@make-software/csprclick-ui';
 import {
   Args,
-  HttpHandler,
-  RpcClient,
   CLValue,
   SessionBuilder,
   CLTypeUInt8,
   Hash,
   PublicKey,
-  Transaction,
   TransactionV1
 } from 'casper-js-sdk';
 import { LoadingContent } from '../../common/loading-content/loading-content';
@@ -38,6 +33,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 interface WelcomeProps {
   isConnected: boolean;
+  onUpdateDonation: () => void;
 }
 
 const Container = styled.div(({ theme }) =>
@@ -68,7 +64,7 @@ const StyledSvgIcon = styled.div<{ theme: any }>(({ theme }) =>
 const StyledWrapper = styled.div(({ theme }) =>
   theme.withMedia({
     width: '100%',
-    maxWidth: ['540px', '720px', '960px'],
+    maxWidth: ['540px', '720px', '1200px'],
     padding: '0 12px',
     margin: '0 auto'
   })
@@ -140,7 +136,7 @@ const LearnMoreButton = styled.div(({ theme }) =>
   })
 );
 
-export const Welcome = ({ isConnected }: WelcomeProps) => {
+export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
   const theme = useTheme();
   const modalStyle = {
     overlay: {
@@ -175,6 +171,8 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
     message: ''
   });
 
+  useEffect(() => {}, [successScreen]);
+
   const clickRef = useClickRef();
   const activeAccount = clickRef?.getActiveAccount();
 
@@ -187,6 +185,13 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
       message: ''
     });
   };
+
+  useEffect(() => {
+    setLoadingScreen(false);
+    setErrorScreen(false);
+    setCanceledScreen(false);
+    setSuccessScreen(false);
+  }, [showDonationModal]);
 
   const handleOpenDonationModal = () => {
     setShowDonationModal(true);
@@ -329,6 +334,7 @@ export const Welcome = ({ isConnected }: WelcomeProps) => {
         if (res?.transactionHash) {
           setLoadingScreen(false);
           setSuccessScreen(true);
+          onUpdateDonation();
         } else if (res?.cancelled) {
           setCanceledScreen(true);
           setLoadingScreen(false);

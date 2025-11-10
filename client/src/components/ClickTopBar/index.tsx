@@ -23,7 +23,7 @@ const TopBarContainer = styled.div(({ theme }) =>
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    maxWidth: ['540px', '720px', '960px'],
+    maxWidth: ['540px', '720px', '1200px'],
     margin: '0 auto',
     padding: '0 12px'
   })

@@ -150,7 +150,8 @@ export const StyledFlexColumn = styled(FlexColumn)(({ theme }) =>
 
 export const LoadingContainer = styled(StyledFlexColumn)(({ theme }) =>
   theme.withMedia({
-    width: '300px'
+    width: '100%',
+    height: '300px'
   })
 );
 

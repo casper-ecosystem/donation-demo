@@ -9,7 +9,8 @@ import { AppTheme } from './settings/theme';
 
 const GettingStartedContainer = styled.div(({ theme }) =>
   theme.withMedia({
-    maxWidth: ['100%', '720px', '960px'],
+    maxWidth: ['100%', '720px', '1200px'],
+    width: '100%',
     padding: '0 12px',
     margin: '0 auto'
   })
@@ -19,6 +20,7 @@ const App = () => {
   const clickRef = useClickRef();
   const [themeMode, setThemeMode] = useState<ThemeModeType>(ThemeModeType.light);
   const [activeAccount, setActiveAccount] = useState<any>(null);
+  const [updateViewFlag, setUpdateViewFlag] = useState<boolean>(false);
 
   useEffect(() => {
     clickRef?.on('csprclick:signed_in', async (evt: any) => {
@@ -35,6 +37,10 @@ const App = () => {
     });
   }, [clickRef?.on]);
 
+  const handleUpdateDonation = () => {
+    setUpdateViewFlag((prevState) => !prevState);
+  };
+
   return (
     <ThemeProvider theme={AppTheme[themeMode]}>
       <ClickTopBar
@@ -44,9 +50,9 @@ const App = () => {
         }
       />
       <Container>
-        <Welcome isConnected={!!activeAccount} />
+        <Welcome isConnected={!!activeAccount} onUpdateDonation={handleUpdateDonation} />
         <GettingStartedContainer id={'getting-started'}>
-          <LandingBrief />
+          <LandingBrief updateViewFlag={updateViewFlag} />
         </GettingStartedContainer>
       </Container>
     </ThemeProvider>

@@ -38,17 +38,42 @@ async function main() {
     }
   });
 
-  app.get('/donations', async (_req, res) => {
+  app.get('/donations', async (req, res) => {
     try {
+      const { offset } = req.query;
 
-      const result = await AppDataSource.query('SELECT * FROM donations ORDER BY timestamp DESC');
+      const [{ total }] = await AppDataSource.query('SELECT COUNT(*) AS total FROM donations');
+
+      const query =
+          offset === '-1'
+              ? 'SELECT * FROM donations ORDER BY timestamp DESC'
+              : 'SELECT * FROM donations ORDER BY timestamp DESC LIMIT 5';
+      ;
+      const result = await AppDataSource.query(query);
       const rows = Array.isArray(result) ? result : Object.values(result);
-      res.json(rows);
+
+      res.json({
+        total: Number(total),
+        items: rows,
+      });
     } catch (err: any) {
       console.error('❌ Database error:', err.message);
       res.status(500).json({ error: 'Database error', details: err.message });
     }
   });
+
+
+  // app.get('/donations', async (_req, res) => {
+  //   try {
+  //
+  //     const result = await AppDataSource.query('SELECT * FROM donations ORDER BY timestamp DESC');
+  //     const rows = Array.isArray(result) ? result : Object.values(result);
+  //     res.json(rows);
+  //   } catch (err: any) {
+  //     console.error('❌ Database error:', err.message);
+  //     res.status(500).json({ error: 'Database error', details: err.message });
+  //   }
+  // });
 
   server.listen(config.httpPort, () => console.log(`Server running on http://localhost:${config.httpPort}`));
 }

@@ -5,7 +5,7 @@ export const SuccessContent = () => {
   return (
     <>
       <FlexRow justify={'center'}>
-        <LoadingContainer itemsSpacing={54} align={'center'}>
+        <LoadingContainer itemsSpacing={54} align={'center'} justify={'center'}>
           <StyledTitle size={1} scale="lg" margin={'32px 0'}>
             You have successfully donated! Thank you!
           </StyledTitle>
