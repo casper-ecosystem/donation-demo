@@ -49,7 +49,7 @@ const DonationDataHeaders = ({ itemCounter }: DonationDataHeadersProps) => (
   <>
     <PaginationContainer>
       <BodyText size={3} variation="darkGray">
-        {itemCounter || 0} {'donation'}
+        {itemCounter || 0} {'tip'}
         {(itemCounter || 0) > 1 ? 's' : ''}
       </BodyText>
     </PaginationContainer>
