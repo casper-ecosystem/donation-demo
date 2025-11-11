@@ -54,7 +54,12 @@ const DonationDataHeaders = ({ itemCounter }: DonationDataHeadersProps) => (
       </BodyText>
     </PaginationContainer>
     <StyledTableRow>
-      <StyledTableDataHeader fixedWidthRem={12}>
+      <StyledTableDataHeader fixedWidthRem={14}>
+        <StyledBodyText size={1} scale={'md'}>
+          Sender
+        </StyledBodyText>
+      </StyledTableDataHeader>
+      <StyledTableDataHeader fixedWidthRem={10}>
         <StyledBodyText size={1} scale={'md'}>
           CSPR Amount
         </StyledBodyText>
@@ -66,13 +71,13 @@ const DonationDataHeaders = ({ itemCounter }: DonationDataHeadersProps) => (
         </StyledBodyText>
       </StyledTableDataHeader>
 
-      <StyledTableDataHeader fixedWidthRem={20}>
+      <StyledTableDataHeader fixedWidthRem={11}>
         <StyledBodyText size={1} scale={'md'}>
           Transaction Hash
         </StyledBodyText>
       </StyledTableDataHeader>
 
-      <StyledTableDataHeader fixedWidthRem={20}>
+      <StyledTableDataHeader fixedWidthRem={10}>
         <BodyText size={1} scale={'xs'}>
           Time
         </BodyText>

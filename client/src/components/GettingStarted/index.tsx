@@ -10,7 +10,7 @@ interface LandingBriefProps {
 export const LandingBrief = ({ updateViewFlag }: LandingBriefProps) => {
   return (
     <Container>
-      <h3>✨ Your donations</h3>
+      <h3>✨ Previously tips</h3>
       <Section>
         <DonationsList updateViewFlag={updateViewFlag} />
       </Section>

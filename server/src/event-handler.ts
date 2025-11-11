@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { config } from './config';
 import WebSocket from 'ws';
-import { DonationEventPayload, Event } from './events';
 import { v4 as uuidv4 } from "uuid";
 import { AppDataSource } from "./data-source";
+import { CSPRCloudAPIClient } from "./cspr-cloud/api-client";
 
 async function main() {
 
@@ -42,12 +42,14 @@ async function main() {
     }
 
     try {
-      console.log('New event: ', rawData);
 
-      // const event = JSON.parse(rawData) as Event<DonationEventPayload>;
+      const csprCloudClient = new CSPRCloudAPIClient(config.csprCloudApiUrl, config.csprCloudAccessKey);
       const event = JSON.parse(rawData);
 
       console.log('Event -> ',event);
+
+      const account = await csprCloudClient.getAccount(event.data.data.sender.replace('account-hash-', ''));
+      const senderPublicKey = account.data.public_key;
 
       const id = uuidv4();
       const rawTimestamp = event.timestamp;
@@ -55,7 +57,7 @@ async function main() {
 
       await AppDataSource.query(
           'INSERT INTO donations (id, sender_public_key, amount_cspr, message, transaction_hash, timestamp) VALUES (?, ?, ?, ?, ?, ?)',
-          [id, event.data.data.sender, event.data.data.amount, event.data.data.praise, event.extra.deploy_hash, timestamp],
+          [id, senderPublicKey, event.data.data.amount, event.data.data.praise, event.extra.deploy_hash, timestamp],
       );
     } catch (err) {
       console.log('Error parsing message:', err);

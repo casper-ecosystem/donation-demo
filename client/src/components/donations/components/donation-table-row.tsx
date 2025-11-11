@@ -4,6 +4,7 @@ import { formatHash, formatTimestamp, HashLength } from '../../../utils/formatte
 import styled from 'styled-components';
 import { HistoryLink } from '../../common/history-link/history-link';
 import { Donation } from '../../../api/donation-requests';
+import AccountInfoCell from '../../account-info-cell/account-info-cell';
 
 const StyledMessageText = styled.div(({ theme }) =>
   theme.withMedia({
@@ -12,12 +13,12 @@ const StyledMessageText = styled.div(({ theme }) =>
   })
 );
 
-const StyledContentBlock = styled(TableData)<{ width: number }>(({ theme, width }) =>
+const StyledContentBlock = styled(TableData)<{ width?: number }>(({ theme, width }) =>
   theme.withMedia({
-    width: [width + 'px'],
-    maxWidth: [width + 'px'],
+    width: [width + '%'],
+    maxWidth: [width + '%'],
     minWidth: ['200px', 'unset', 'unset'],
-    paddingLeft: '0',
+    // paddingLeft: '0',
     td: {
       ':first-of-type': {
         paddingLeft: '0',
@@ -29,7 +30,7 @@ const StyledContentBlock = styled(TableData)<{ width: number }>(({ theme, width 
 
 const StyledTimeText = styled(BodyText)(({ theme }) =>
   theme.withMedia({
-    color: theme.styleguideColors.fillPrimaryBlue
+    color: theme.styleguideColors.contentPrimary
   })
 );
 
@@ -38,18 +39,25 @@ const DonationTableRow = ({ donation }: { donation: Donation }) => {
   const accountPath = `${CSPR_LIVE_URL}/transaction/${donation.transaction_hash}`;
   return (
     <TableRow key={donation.id}>
-      <StyledContentBlock width={202}>
+      <StyledContentBlock width={19}>
+        <AccountInfoCell
+          accountHash={donation.transaction_hash}
+          publicKey={donation.sender_public_key}
+        />
+      </StyledContentBlock>
+
+      <StyledContentBlock width={14}>
         <PrizeCell amount={donation.amount_cspr} />
       </StyledContentBlock>
-      <StyledContentBlock width={320}>
+      <StyledContentBlock width={27}>
         <StyledMessageText>{donation.message}</StyledMessageText>
       </StyledContentBlock>
-      <StyledContentBlock width={323}>
+      <StyledContentBlock width={16}>
         <HistoryLink href={accountPath} target={'_blank'} monotype>
-          {formatHash(donation.transaction_hash, HashLength.SMALL)}
+          {formatHash(donation.transaction_hash, HashLength.TINY)}
         </HistoryLink>
       </StyledContentBlock>
-      <StyledContentBlock width={200}>
+      <StyledContentBlock width={100}>
         <StyledTimeText size={3} monotype>
           {formatTimestamp(donation.timestamp)}
         </StyledTimeText>
