@@ -9,7 +9,7 @@ export const LoadingContent = () => {
         <LoadingContainer itemsSpacing={54} align={'center'} justify={'center'}>
           <LoadingSvgIcon src={LoadingIcon} width={100} height={100} />
           <StyledTitle size={1} scale="lg" margin={'0 0 32px 0'}>
-            Donation processing...
+            Sending tips...
           </StyledTitle>
         </LoadingContainer>
       </FlexRow>

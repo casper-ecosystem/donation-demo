@@ -453,7 +453,7 @@ export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
               </svg>
             </StyledSvgIcon>
             <GreetingText>Buy Me a Coffee</GreetingText>
-            <KillerAppText>Some subtitle description text.</KillerAppText>
+            <KillerAppText>Send some tips.</KillerAppText>
             <LearnMoreButton
               onClick={isConnected ? handleOpenDonationModal : handleOpenConnectAccountModal}
             >
