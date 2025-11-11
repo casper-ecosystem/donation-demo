@@ -13,19 +13,20 @@ const StyledMessageText = styled.div(({ theme }) =>
   })
 );
 
-const StyledContentBlock = styled(TableData)<{ width?: number }>(({ theme, width }) =>
-  theme.withMedia({
-    width: [width + '%'],
-    maxWidth: [width + '%'],
-    minWidth: ['200px', 'unset', 'unset'],
-    // paddingLeft: '0',
-    td: {
-      ':first-of-type': {
-        paddingLeft: '0',
-        paddingRight: '10px'
+const StyledContentBlock = styled(TableData)<{ width?: number; minWidth?: number }>(
+  ({ theme, width, minWidth }) =>
+    theme.withMedia({
+      width: [width + '%'],
+      maxWidth: [width + '%'],
+      minWidth: [minWidth + 'px', minWidth + 'px', 'unset'],
+      // paddingLeft: '0',
+      td: {
+        ':first-of-type': {
+          paddingLeft: '0',
+          paddingRight: '10px'
+        }
       }
-    }
-  })
+    })
 );
 
 const StyledTimeText = styled(BodyText)(({ theme }) =>
@@ -39,14 +40,14 @@ const DonationTableRow = ({ donation }: { donation: Donation }) => {
   const accountPath = `${CSPR_LIVE_URL}/transaction/${donation.transaction_hash}`;
   return (
     <TableRow key={donation.id}>
-      <StyledContentBlock width={19}>
+      <StyledContentBlock width={19} minWidth={100}>
         <AccountInfoCell
           accountHash={donation.transaction_hash}
           publicKey={donation.sender_public_key}
         />
       </StyledContentBlock>
 
-      <StyledContentBlock width={14}>
+      <StyledContentBlock width={14} minWidth={132}>
         <PrizeCell amount={donation.amount_cspr} />
       </StyledContentBlock>
       <StyledContentBlock width={27}>
@@ -57,7 +58,7 @@ const DonationTableRow = ({ donation }: { donation: Donation }) => {
           {formatHash(donation.transaction_hash, HashLength.TINY)}
         </HistoryLink>
       </StyledContentBlock>
-      <StyledContentBlock width={100}>
+      <StyledContentBlock width={100} minWidth={300}>
         <StyledTimeText size={3} monotype>
           {formatTimestamp(donation.timestamp)}
         </StyledTimeText>
