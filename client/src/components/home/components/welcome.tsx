@@ -12,8 +12,7 @@ import {
   ModalHeader,
   Textarea
 } from '@make-software/cspr-design';
-import { TransactionStatus } from '@make-software/csprclick-core-types';
-import { SendResult } from '@make-software/csprclick-core-client';
+import { TransactionStatus, SendResult } from '@make-software/csprclick-core-types';
 import { useClickRef } from '@make-software/csprclick-ui';
 import {
   Args,
