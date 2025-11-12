@@ -5,7 +5,7 @@ interface TableTileProps {
   children: React.ReactNode;
 }
 
-export const TableTile = ({ title, children }: TableTileProps) => {
+export const TipsTableTile = ({ title, children }: TableTileProps) => {
   return (
     <FlexColumn itemsSpacing={24}>
       <HeaderText size={4} scale={'sm'}>
@@ -16,4 +16,4 @@ export const TableTile = ({ title, children }: TableTileProps) => {
   );
 };
 
-export default TableTile;
+export default TipsTableTile;

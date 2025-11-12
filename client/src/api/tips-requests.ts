@@ -1,8 +1,8 @@
-import useApi, { GetResponseType } from './hooks/useApi';
+import useApi, { GetResponseType } from './hooks/use-api';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export interface Donation {
+export interface Tip {
   id: string;
   sender_public_key: string;
   amount_cspr: string;
@@ -11,14 +11,14 @@ export interface Donation {
   transaction_hash: string;
 }
 
-export interface DonationResponse {
-  items: Donation[];
+export interface TipsResponse {
+  items: Tip[];
   total: number;
 }
 
-export const getAllDonations = async (
+export const getCommunityTips = async (
   offset?: string
-): Promise<GetResponseType<DonationResponse>> => {
+): Promise<GetResponseType<TipsResponse>> => {
   const { data, error, loading, httpCode } = await useApi(
     `${API_URL}/donations${offset ? '?offset=' + offset : ''}`,
     'GET',

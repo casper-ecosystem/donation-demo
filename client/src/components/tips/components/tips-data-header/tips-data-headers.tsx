@@ -1,7 +1,7 @@
 import { BodyText, FlexRow, TableDataHeaderProps, TableRow } from '@make-software/cspr-design';
 import styled from 'styled-components';
 
-interface DonationDataHeadersProps {
+interface TipsDataHeadersProps {
   itemCounter: number;
 }
 const StyledTableDataHeader = styled.th<TableDataHeaderProps>(
@@ -45,7 +45,7 @@ const PaginationContainer = styled(FlexRow)(({ theme }) =>
   })
 );
 
-const DonationDataHeaders = ({ itemCounter }: DonationDataHeadersProps) => (
+const TipsDataHeaders = ({ itemCounter }: TipsDataHeadersProps) => (
   <>
     <PaginationContainer>
       <BodyText size={3} variation="darkGray">
@@ -86,4 +86,4 @@ const DonationDataHeaders = ({ itemCounter }: DonationDataHeadersProps) => (
   </>
 );
 
-export default DonationDataHeaders;
+export default TipsDataHeaders;

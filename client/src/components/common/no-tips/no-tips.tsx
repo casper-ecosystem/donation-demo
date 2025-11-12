@@ -10,7 +10,7 @@ const StyledFlexColumn = styled(FlexColumn)(() => ({
   width: '400px'
 }));
 
-const NoDonations = () => {
+const NoTips = () => {
   return (
     <StyledPageTile>
       <FlexRow align={'center'} justify={'center'}>
@@ -26,4 +26,4 @@ const NoDonations = () => {
   );
 };
 
-export default NoDonations;
+export default NoTips;

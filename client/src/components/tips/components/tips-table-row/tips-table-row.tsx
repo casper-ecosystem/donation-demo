@@ -1,10 +1,14 @@
 import { BodyText, TableData, TableRow, formatHash } from '@make-software/cspr-design';
-import PrizeCell from '../../common/prize-cell/prize-cell';
-import { formatTimestamp, HashLength } from '../../../utils/formatters';
+import PrizeCell from '../../../common/prize-cell/prize-cell';
+import { formatTimestamp, HashLength } from '../../../../utils/formatters';
 import styled from 'styled-components';
-import { HistoryLink } from '../../common/history-link/history-link';
-import { Donation } from '../../../api/donation-requests';
-import AccountInfoCell from '../../account-info-cell/account-info-cell';
+import { HistoryLink } from '../../../common/history-link/history-link';
+import { Tip } from '../../../../api/tips-requests';
+import AccountInfoCell from '../../../common/account-info-cell/account-info-cell';
+
+interface TipsTableRowProps {
+    tip: Tip
+}
 
 const StyledMessageText = styled.div(({ theme }) =>
   theme.withMedia({
@@ -35,36 +39,36 @@ const StyledTimeText = styled(BodyText)(({ theme }) =>
   })
 );
 
-const DonationTableRow = ({ donation }: { donation: Donation }) => {
+const TipsTableRow = ({ tip }: TipsTableRowProps) => {
   const CSPR_LIVE_URL = process.env.REACT_APP_CSPR_LIVE_URL;
-  const accountPath = `${CSPR_LIVE_URL}/transaction/${donation.transaction_hash}`;
+  const accountPath = `${CSPR_LIVE_URL}/transaction/${tip.transaction_hash}`;
   return (
-    <TableRow key={donation.id}>
+    <TableRow key={tip.id}>
       <StyledContentBlock width={19} minWidth={100}>
         <AccountInfoCell
-          accountHash={donation.transaction_hash}
-          publicKey={donation.sender_public_key}
+          accountHash={tip.transaction_hash}
+          publicKey={tip.sender_public_key}
         />
       </StyledContentBlock>
 
       <StyledContentBlock width={14} minWidth={132}>
-        <PrizeCell amount={donation.amount_cspr} />
+        <PrizeCell amount={tip.amount_cspr} />
       </StyledContentBlock>
       <StyledContentBlock width={27}>
-        <StyledMessageText>{donation.message}</StyledMessageText>
+        <StyledMessageText>{tip.message}</StyledMessageText>
       </StyledContentBlock>
       <StyledContentBlock width={16}>
         <HistoryLink href={accountPath} target={'_blank'} monotype>
-          {formatHash(donation.transaction_hash, HashLength.TINY)}
+          {formatHash(tip.transaction_hash, HashLength.TINY)}
         </HistoryLink>
       </StyledContentBlock>
       <StyledContentBlock width={100} minWidth={300}>
         <StyledTimeText size={3} monotype>
-          {formatTimestamp(donation.timestamp)}
+          {formatTimestamp(tip.timestamp)}
         </StyledTimeText>
       </StyledContentBlock>
     </TableRow>
   );
 };
 
-export default DonationTableRow;
+export default TipsTableRow;

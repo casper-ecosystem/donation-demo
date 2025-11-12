@@ -42,12 +42,12 @@ async function main() {
     try {
       const { offset } = req.query;
 
-      const [{ total }] = await AppDataSource.query('SELECT COUNT(*) AS total FROM donations');
+      const [{ total }] = await AppDataSource.query('SELECT COUNT(*) AS total FROM tips');
 
       const query =
           offset === '-1'
-              ? 'SELECT * FROM donations ORDER BY timestamp DESC'
-              : 'SELECT * FROM donations ORDER BY timestamp DESC LIMIT 5';
+              ? 'SELECT * FROM tips ORDER BY timestamp DESC'
+              : 'SELECT * FROM tips ORDER BY timestamp DESC LIMIT 5';
 
       const result = await AppDataSource.query(query);
       const rows = Array.isArray(result) ? result : Object.values(result);
