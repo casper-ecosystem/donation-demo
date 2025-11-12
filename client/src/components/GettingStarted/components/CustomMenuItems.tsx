@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Section } from './Section';
 import Prism from 'prismjs';
-import AccountMenu from './../../../../src/account-menu.jpg';
 
 const AccountMenuExample = styled.img(({ theme }) =>
   theme.withMedia({
@@ -62,9 +61,6 @@ export const CustomMenuItems = () => {
       <Section>
         <div style={{ marginBottom: '10px' }}>
           <span>You will see update Account Menu:</span>
-        </div>
-        <div>
-          <AccountMenuExample src={AccountMenu} alt="Account menu example" />
         </div>
       </Section>
     </>

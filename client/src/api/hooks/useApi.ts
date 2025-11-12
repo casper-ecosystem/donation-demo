@@ -1,13 +1,12 @@
-import { AUTH_TOKEN, statusCode } from '../../constants';
+import { statusCode } from '../../constants';
 
 export interface ErrorResult {
-  code: string;
-  message: string;
-  description?: string | React.ReactElement;
+  error: string;
+  details: string;
 }
 
 export interface GetResponseType<Entity extends any> {
-  loading: boolean;
+  loading?: boolean;
   error: ErrorResult | null;
   httpCode?: number;
   data: Entity | null;
@@ -17,13 +16,10 @@ const useApi = async (
   url: string,
   method: string,
   payload: any,
-  headers: object,
-  withAuth: boolean,
-  authToken?: string
+  headers: object
 ): Promise<GetResponseType<any>> => {
   const result: GetResponseType<any> = {
     httpCode: 0,
-    loading: true,
     error: null as ErrorResult | null,
     data: null
   };
@@ -41,10 +37,6 @@ const useApi = async (
 
   payload && (requestOptions['body'] = JSON.stringify(payload));
 
-  withAuth &&
-    (requestOptions.headers['Authorization'] =
-      `Bearer ${authToken ? authToken : localStorage.getItem(AUTH_TOKEN)}`);
-
   try {
     const response = await fetch(url, requestOptions);
     httpCode = response.status;
@@ -53,18 +45,16 @@ const useApi = async (
       return {
         data: {},
         httpCode,
-        error: null,
-        loading: false
+        error: null
       };
     }
 
     if (httpCode >= statusCode.unexpected_error) {
-      const message = await response.text();
+      const details = await response.text();
       result.error = {
-        code: '',
-        message: message
+        error: '',
+        details: details
       };
-      result.loading = false;
       return result;
     }
     const data = await response.json();
@@ -74,20 +64,17 @@ const useApi = async (
     if (data?.error) {
       result.data = null;
       result.error = data.error;
-      result.loading = false;
       return result;
     }
 
     result.data = data;
-    result.loading = false;
 
     return result;
-  } catch (error: any) {
+  } catch (er: any) {
     result.error = {
-      code: error.code,
-      message: error.message
+      error: er,
+      details: er.details
     };
-    result.loading = false;
 
     return result;
   }

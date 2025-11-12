@@ -25,7 +25,7 @@ const DonationTable = ({ updateViewFlag }: DonationListProps) => {
   }
 
   if (error) {
-    return <ErrorTile message={error.message} />;
+    return <ErrorTile message={error.details || error.error} />;
   }
 
   if (!data || !data.items || data.items?.length < 1) {

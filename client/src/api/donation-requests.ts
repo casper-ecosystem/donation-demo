@@ -24,7 +24,6 @@ export const getAllDonations = async (
     'GET',
     null,
     {},
-    false
   );
   return {
     data,
@@ -33,18 +32,3 @@ export const getAllDonations = async (
     loading
   };
 };
-
-export interface NewDonation {
-  sender_public_key: string;
-  amount_cspr: number;
-  message?: string;
-}
-
-export async function addDonation(data: NewDonation): Promise<void> {
-  const res = await fetch(`${API_URL}/api/donations`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  if (!res.ok) throw new Error('Failed to add donation');
-}

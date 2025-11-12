@@ -43,25 +43,6 @@ export enum HashLength {
   LARGE = 25
 }
 
-export const formatHash = (hash: string, visibleHashLength: HashLength = HashLength.TINY) => {
-  const MIN_TRUNCATE_HASH_LENGTH = HashLength.TINY * 2 + 3;
-
-  const [hashWithoutSuffix, lastDigits] = hash.split('-');
-
-  const hashLength = hashWithoutSuffix.length;
-
-  if (visibleHashLength === HashLength.FULL || hashLength <= MIN_TRUNCATE_HASH_LENGTH) {
-    return hash;
-  }
-
-  const firstPart = hashWithoutSuffix.substring(0, visibleHashLength);
-  const secondPart = hashWithoutSuffix.substring(hashLength - visibleHashLength);
-
-  const truncatedHash = `${firstPart}...${secondPart}`;
-
-  return lastDigits ? `${truncatedHash}-${lastDigits}` : `${truncatedHash}`;
-};
-
 export const formatTimestamp = (value: string): string => {
   const date = new Date(value);
   const locale = i18next.language || 'en';
@@ -76,21 +57,4 @@ export const formatTimestamp = (value: string): string => {
   });
 
   return `${nativeIntl.format(date)}`;
-};
-
-const isJSON = (str: string) => {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
-
-export const isDeploy = (message: string) => {
-  if (isJSON(message)) {
-    const value = JSON.parse(message);
-    return !!value?.data?.deploy_hash;
-  }
-  return false;
 };

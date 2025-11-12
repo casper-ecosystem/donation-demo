@@ -1,6 +1,6 @@
-import { BodyText, TableData, TableRow } from '@make-software/cspr-design';
+import { BodyText, TableData, TableRow, formatHash } from '@make-software/cspr-design';
 import PrizeCell from '../../common/prize-cell/prize-cell';
-import { formatHash, formatTimestamp, HashLength } from '../../../utils/formatters';
+import { formatTimestamp, HashLength } from '../../../utils/formatters';
 import styled from 'styled-components';
 import { HistoryLink } from '../../common/history-link/history-link';
 import { Donation } from '../../../api/donation-requests';
