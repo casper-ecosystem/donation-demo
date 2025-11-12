@@ -159,7 +159,6 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
   const [amount, setAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-  const [waitingResponse, setWaitingResponse] = useState<boolean>(false);
   const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
   const [successScreen, setSuccessScreen] = useState<boolean>(false);
   const [canceledScreen, setCanceledScreen] = useState<boolean>(false);
@@ -323,17 +322,17 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
     setLoadingScreen(true);
     const onStatusUpdate = (status: string, data: any) => {
       console.log('STATUS UPDATE', status, data);
-      if (status === TransactionStatus.SENT) setWaitingResponse(true);
+      if (status === TransactionStatus.PROCESSED) {
+        setTimeout(() => onUpdateTipsList(), 3000);
+      }
     };
 
     clickRef
       ?.send(tbs, sender, onStatusUpdate)
       .then((res: SendResult | undefined) => {
-        setWaitingResponse(false);
         if (res?.transactionHash) {
           setLoadingScreen(false);
           setSuccessScreen(true);
-          onUpdateTipsList();
         } else if (res?.cancelled) {
           setCanceledScreen(true);
           setLoadingScreen(false);

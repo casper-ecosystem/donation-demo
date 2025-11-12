@@ -7,20 +7,18 @@ import TipsTableRow from './components/tips-table-row/tips-table-row';
 import TipsDataHeaders from './components/tips-data-header/tips-data-headers';
 import { useGetTips } from 'api/hooks/use-get-tips';
 import { Tip } from 'api/tips-requests';
-import NoTips from "components//common/no-tips/no-tips";
+import NoTips from 'components//common/no-tips/no-tips';
 
 interface TipsListProps {
-    shouldRefetch: boolean;
+  refetchSignal: number;
 }
 
-const TipsTable = ({ shouldRefetch }: TipsListProps) => {
+const TipsTable = ({ refetchSignal }: TipsListProps) => {
   const { loading, error, data, refetch } = useGetTips();
 
   useEffect(() => {
-      if(shouldRefetch) {
-          refetch();
-      }
-  }, [shouldRefetch]);
+    refetch();
+  }, [refetchSignal]);
 
   if (loading) {
     return <TableLoader columnsLength={1} />;
@@ -53,10 +51,10 @@ const TipsTable = ({ shouldRefetch }: TipsListProps) => {
   );
 };
 
-const TipsList = ({ shouldRefetch }: TipsListProps) => {
+const TipsList = ({ refetchSignal }: TipsListProps) => {
   return (
     <TipsTableTile title={''}>
-      <TipsTable shouldRefetch={shouldRefetch} />
+      <TipsTable refetchSignal={refetchSignal} />
     </TipsTableTile>
   );
 };

@@ -1,6 +1,16 @@
-import useApi, { GetResponseType } from './hooks/use-api';
-
 const API_URL = config.donation_api_url;
+
+export interface ErrorResult {
+  error: string;
+  details: string;
+}
+
+export interface GetResponseType<Entity extends any> {
+  loading?: boolean;
+  error: ErrorResult | null;
+  httpCode?: number;
+  data: Entity | null;
+}
 
 export interface Tip {
   id: string;
@@ -17,16 +27,28 @@ export interface TipsResponse {
 }
 
 export const getCommunityTips = async (offset?: string): Promise<GetResponseType<TipsResponse>> => {
-  const { data, error, loading, httpCode } = await useApi(
-    `${API_URL}/donations${offset ? '?offset=' + offset : ''}`,
-    'GET',
-    null,
-    {}
-  );
-  return {
-    data,
-    httpCode,
-    error,
-    loading
-  };
+  try {
+    const res = await fetch(`${API_URL}/donations${offset ? '?offset=' + offset : ''}`, {
+      cache: 'no-store'
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.details || data.error || 'Unknown API error');
+    }
+
+    return {
+      data,
+      httpCode: res.status,
+      loading: false,
+      error: null
+    };
+  } catch (err: any) {
+    return {
+      data: null,
+      httpCode: 500,
+      loading: false,
+      error: err
+    };
+  }
 };

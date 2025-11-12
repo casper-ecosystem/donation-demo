@@ -4,15 +4,15 @@ import TipsList from '../tips/tips';
 import { Section } from 'components/common/section/section';
 
 interface TipsContainerProps {
-    shouldRefetch: boolean;
+  refetchSignal: number;
 }
 
-export const TipsContainer = ({ shouldRefetch }: TipsContainerProps) => {
+export const TipsContainer = ({ refetchSignal }: TipsContainerProps) => {
   return (
     <Container>
       <h3>Community Appreciation</h3>
       <Section>
-        <TipsList shouldRefetch={shouldRefetch} />
+        <TipsList refetchSignal={refetchSignal} />
       </Section>
     </Container>
   );

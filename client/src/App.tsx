@@ -20,7 +20,7 @@ const App = () => {
   const clickRef = useClickRef();
   const [themeMode, setThemeMode] = useState<ThemeModeType>(ThemeModeType.light);
   const [activeAccount, setActiveAccount] = useState<any>(null);
-  const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
+  const [refetchSignal, setRefetchSignal] = useState<number>(0);
 
   useEffect(() => {
     clickRef?.on('csprclick:signed_in', async (evt: any) => {
@@ -38,7 +38,7 @@ const App = () => {
   }, [clickRef?.on]);
 
   const handleUpdateTips = () => {
-    setShouldRefetch(true);
+    setRefetchSignal(Date.now());
   };
 
   return (
@@ -52,7 +52,7 @@ const App = () => {
       <Container>
         <Welcome isConnected={!!activeAccount} onUpdateTipsList={handleUpdateTips} />
         <HomeContainer id={'getting-started'}>
-          <TipsContainer shouldRefetch={shouldRefetch} />
+          <TipsContainer refetchSignal={refetchSignal} />
         </HomeContainer>
       </Container>
     </ThemeProvider>
