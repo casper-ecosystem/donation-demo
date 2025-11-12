@@ -3,7 +3,7 @@ import {
   CopyHashMenuItem,
   AccountCardMenuItem
 } from '@make-software/csprclick-ui';
-import CSPRClickIcon from '../../../logo.svg';
+import CSPRClickIcon from 'logo.svg';
 
 export const accountMenuItems = [
   <AccountCardMenuItem key={0} />,

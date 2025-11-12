@@ -1,6 +1,6 @@
 import useApi, { GetResponseType } from './hooks/use-api';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = config.donation_api_url;
 
 export interface Tip {
   id: string;
@@ -16,14 +16,12 @@ export interface TipsResponse {
   total: number;
 }
 
-export const getCommunityTips = async (
-  offset?: string
-): Promise<GetResponseType<TipsResponse>> => {
+export const getCommunityTips = async (offset?: string): Promise<GetResponseType<TipsResponse>> => {
   const { data, error, loading, httpCode } = await useApi(
     `${API_URL}/donations${offset ? '?offset=' + offset : ''}`,
     'GET',
     null,
-    {},
+    {}
   );
   return {
     data,

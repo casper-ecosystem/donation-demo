@@ -1,13 +1,13 @@
 import { BodyText, TableData, TableRow, formatHash } from '@make-software/cspr-design';
-import PrizeCell from '../../../common/prize-cell/prize-cell';
-import { formatTimestamp, HashLength } from '../../../../utils/formatters';
+import PrizeCell from 'components/common/prize-cell/prize-cell';
+import { formatTimestamp, HashLength } from 'utils/formatters';
 import styled from 'styled-components';
-import { HistoryLink } from '../../../common/history-link/history-link';
-import { Tip } from '../../../../api/tips-requests';
-import AccountInfoCell from '../../../common/account-info-cell/account-info-cell';
+import { HistoryLink } from 'components/common/history-link/history-link';
+import { Tip } from 'api/tips-requests';
+import AccountInfoCell from 'components/common/account-info-cell/account-info-cell';
 
 interface TipsTableRowProps {
-    tip: Tip
+  tip: Tip;
 }
 
 const StyledMessageText = styled.div(({ theme }) =>
@@ -40,15 +40,11 @@ const StyledTimeText = styled(BodyText)(({ theme }) =>
 );
 
 const TipsTableRow = ({ tip }: TipsTableRowProps) => {
-  const CSPR_LIVE_URL = process.env.REACT_APP_CSPR_LIVE_URL;
-  const accountPath = `${CSPR_LIVE_URL}/transaction/${tip.transaction_hash}`;
+  const accountPath = `${config.cspr_live_url}/transaction/${tip.transaction_hash}`;
   return (
     <TableRow key={tip.id}>
       <StyledContentBlock width={19} minWidth={100}>
-        <AccountInfoCell
-          accountHash={tip.transaction_hash}
-          publicKey={tip.sender_public_key}
-        />
+        <AccountInfoCell accountHash={tip.transaction_hash} publicKey={tip.sender_public_key} />
       </StyledContentBlock>
 
       <StyledContentBlock width={14} minWidth={132}>

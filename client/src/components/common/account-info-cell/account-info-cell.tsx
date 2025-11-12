@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { AccountIdenticon } from '@make-software/csprclick-ui';
-import { HashLength } from '../../../utils/formatters';
+import { HashLength } from 'utils/formatters';
 import { BodyText, FlexRow, TableData, formatHash } from '@make-software/cspr-design';
 import { HistoryLink } from '../history-link/history-link';
 
@@ -15,8 +15,7 @@ interface AccountInfoCellProps {
 
 export const AccountInfoCell = ({ publicKey, accountHash }: AccountInfoCellProps) => {
   const hash = publicKey || accountHash || '';
-  const CSPR_LIVE_URL = process.env.REACT_APP_CSPR_LIVE_URL;
-  const accountPath = `${CSPR_LIVE_URL}/account/${publicKey}`;
+  const accountPath = `${config.cspr_live_url}/account/${hash}`;
   return (
     <StyledTableData>
       <FlexRow align="center" itemsSpacing={12}>

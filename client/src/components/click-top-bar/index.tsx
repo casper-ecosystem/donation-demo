@@ -1,8 +1,5 @@
-
 import { ClickUI, ThemeModeType, useClickBadge } from '@make-software/csprclick-ui';
-import {
-  accountMenuItems,
-} from './settings';
+import { accountMenuItems } from './settings';
 import styled from 'styled-components';
 export * from './settings';
 
@@ -30,7 +27,6 @@ export interface TopBarProps {
 }
 
 const ClickTopBar = ({ themeMode, onThemeSwitch }: TopBarProps) => {
-
   const { setLeftBadge } = useClickBadge();
 
   setLeftBadge({
@@ -46,7 +42,7 @@ const ClickTopBar = ({ themeMode, onThemeSwitch }: TopBarProps) => {
         <ClickUI
           topBarSettings={{
             onThemeSwitch: onThemeSwitch,
-            accountMenuItems: accountMenuItems,
+            accountMenuItems: accountMenuItems
           }}
           themeMode={themeMode}
         />

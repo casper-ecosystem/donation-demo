@@ -1,5 +1,3 @@
-export const VISIBLE_TABLE_DATA_LENGTH = 10;
-
 export const statusCode = {
   success: 200,
   no_content: 204,

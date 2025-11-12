@@ -5,7 +5,7 @@ import ClickTopBar from './components/click-top-bar';
 import Container from './components/common/container/container';
 import { Welcome } from './components/home/components';
 import { AppTheme } from './settings/theme';
-import { TipsContainer } from "./components/home";
+import { TipsContainer } from './components/home';
 
 const HomeContainer = styled.div(({ theme }) =>
   theme.withMedia({

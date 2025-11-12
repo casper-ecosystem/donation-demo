@@ -1,7 +1,7 @@
 import styled, { useTheme } from 'styled-components';
-import desktopBgImage from '../../../bg-desktop-full.jpg';
-import mobileBgImage from '../../../bg-mobile-full.jpg';
-import { centerModalStyles, ModalContainer, StyledInput } from '../../common/modal-styles';
+import desktopBgImage from 'assets/backgrounds/bg-desktop-full.jpg';
+import mobileBgImage from 'assets/backgrounds/bg-mobile-full.jpg';
+import { centerModalStyles, ModalContainer, StyledInput } from 'components/common/modal-styles';
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import {
@@ -24,12 +24,10 @@ import {
   PublicKey,
   TransactionV1
 } from 'casper-js-sdk';
-import { LoadingContent } from '../../common/loading-content/loading-content';
-import { SuccessContent } from '../../common/success-content/success-content';
-import { CanceledContent } from '../../common/canceled-content/canceled-content';
-import { ErrorContent } from '../../common/error-content/error-content';
-
-const API_URL = process.env.REACT_APP_API_URL;
+import { LoadingContent } from 'components/common/loading-content/loading-content';
+import { SuccessContent } from 'components/common/success-content/success-content';
+import { CanceledContent } from 'components/common/canceled-content/canceled-content';
+import { ErrorContent } from 'components/common/error-content/error-content';
 
 interface WelcomeProps {
   isConnected: boolean;
@@ -155,6 +153,8 @@ export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
       }
     }
   };
+
+  const API_URL = config.donation_api_url;
 
   const [showDonationModal, setShowDonationModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>('');
@@ -400,7 +400,11 @@ export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
               <FlexRow>
                 <StyledInput
                   value={amount}
-                  label={<BodyText size={1}>Donate</BodyText>}
+                  label={
+                    <BodyText size={1} variation={'black'}>
+                      Tips
+                    </BodyText>
+                  }
                   placeholder="CSPR Amount"
                   onChange={handleAmount}
                   onKeyDown={handleOnKeyDownAmount}
@@ -416,7 +420,11 @@ export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
               <FlexRow>
                 <StyledTextArea
                   value={message}
-                  label={<BodyText size={1}>Message</BodyText>}
+                  label={
+                    <BodyText size={1} variation={'black'}>
+                      Message
+                    </BodyText>
+                  }
                   placeholder="Your Message"
                   onChange={handleMessage}
                   error={!!formErrors.message}
@@ -453,7 +461,9 @@ export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
               </svg>
             </StyledSvgIcon>
             <GreetingText>Tip the barista</GreetingText>
-            <KillerAppText>Say thanks. Support the developer. Keep open-source thriving.</KillerAppText>
+            <KillerAppText>
+              Say thanks. Support the developer. Keep open-source thriving.
+            </KillerAppText>
             <LearnMoreButton
               onClick={isConnected ? handleOpenDonationModal : handleOpenConnectAccountModal}
             >
