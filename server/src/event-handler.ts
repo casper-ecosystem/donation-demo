@@ -56,7 +56,7 @@ async function main() {
       const timestamp = new Date(rawTimestamp).toISOString().slice(0, 19).replace('T', ' ');
 
       await AppDataSource.query(
-          'INSERT INTO tips (id, sender_public_key, amount_cspr, message, transaction_hash, timestamp) VALUES (?, ?, ?, ?, ?, ?)',
+          'INSERT INTO donations (id, sender_public_key, amount_cspr, message, transaction_hash, timestamp) VALUES (?, ?, ?, ?, ?, ?)',
           [id, senderPublicKey, event.data.data.amount, event.data.data.praise, event.extra.deploy_hash, timestamp],
       );
     } catch (err) {
