@@ -1,24 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Table, TableLoader } from '@make-software/cspr-design';
-import { ErrorTile } from 'components//common/error-tile';
-import NoDonations from 'components//common/no-tips/no-tips';
+import { ErrorTile } from 'components/common/error-tile';
 import TipsTableTile from './components/tips-table-tile/tips-table-tile';
 import { LoadMoreButton } from 'components/common/load-more-button/load-more-button';
 import TipsTableRow from './components/tips-table-row/tips-table-row';
 import TipsDataHeaders from './components/tips-data-header/tips-data-headers';
 import { useGetTips } from 'api/hooks/use-get-tips';
 import { Tip } from 'api/tips-requests';
+import NoTips from "components//common/no-tips/no-tips";
 
 interface TipsListProps {
-  updateViewFlag: boolean;
+    shouldRefetch: boolean;
 }
 
-const TipsTable = ({ updateViewFlag }: TipsListProps) => {
+const TipsTable = ({ shouldRefetch }: TipsListProps) => {
   const { loading, error, data, refetch } = useGetTips();
 
   useEffect(() => {
-    refetch();
-  }, [updateViewFlag]);
+      if(shouldRefetch) {
+          refetch();
+      }
+  }, [shouldRefetch]);
 
   if (loading) {
     return <TableLoader columnsLength={1} />;
@@ -29,7 +31,7 @@ const TipsTable = ({ updateViewFlag }: TipsListProps) => {
   }
 
   if (!data || !data.items || data.items?.length < 1) {
-    return <NoDonations />;
+    return <NoTips />;
   }
 
   return (
@@ -51,10 +53,10 @@ const TipsTable = ({ updateViewFlag }: TipsListProps) => {
   );
 };
 
-const TipsList = ({ updateViewFlag }: TipsListProps) => {
+const TipsList = ({ shouldRefetch }: TipsListProps) => {
   return (
     <TipsTableTile title={''}>
-      <TipsTable updateViewFlag={updateViewFlag} />
+      <TipsTable shouldRefetch={shouldRefetch} />
     </TipsTableTile>
   );
 };

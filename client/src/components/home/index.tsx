@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from 'components/common/container/container';
-import DonationsList from '../tips/tips';
+import TipsList from '../tips/tips';
 import { Section } from 'components/common/section/section';
 
 interface TipsContainerProps {
-  updateViewFlag: boolean;
+    shouldRefetch: boolean;
 }
 
-export const TipsContainer = ({ updateViewFlag }: TipsContainerProps) => {
+export const TipsContainer = ({ shouldRefetch }: TipsContainerProps) => {
   return (
     <Container>
       <h3>Community Appreciation</h3>
       <Section>
-        <DonationsList updateViewFlag={updateViewFlag} />
+        <TipsList shouldRefetch={shouldRefetch} />
       </Section>
     </Container>
   );

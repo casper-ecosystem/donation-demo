@@ -31,7 +31,7 @@ import { ErrorContent } from 'components/common/error-content/error-content';
 
 interface WelcomeProps {
   isConnected: boolean;
-  onUpdateDonation: () => void;
+  onUpdateTipsList: () => void;
 }
 
 const Container = styled.div(({ theme }) =>
@@ -134,7 +134,7 @@ const LearnMoreButton = styled.div(({ theme }) =>
   })
 );
 
-export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
+export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
   const theme = useTheme();
   const modalStyle = {
     overlay: {
@@ -334,7 +334,7 @@ export const Welcome = ({ isConnected, onUpdateDonation }: WelcomeProps) => {
         if (res?.transactionHash) {
           setLoadingScreen(false);
           setSuccessScreen(true);
-          onUpdateDonation();
+          onUpdateTipsList();
         } else if (res?.cancelled) {
           setCanceledScreen(true);
           setLoadingScreen(false);
