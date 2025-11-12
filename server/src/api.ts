@@ -52,7 +52,7 @@ async function main() {
         items: rows,
       });
     } catch (err: any) {
-      console.error('❌ Database error:', err.message);
+      console.error('Database error:', err.message);
       res.status(500).json({ error: 'Database error', details: err.message });
     }
   });
