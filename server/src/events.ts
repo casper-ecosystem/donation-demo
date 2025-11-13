@@ -1,9 +1,7 @@
 export interface DonationEventPayload {
-  sender_public_key: string;
-  amount_cspr: number;
-  message: string;
-  transaction_hash: string;
-  timestamp: number;
+  sender: string;
+  amount: number;
+  praise: string;
 }
 
 export interface Event<T> {
@@ -12,7 +10,7 @@ export interface Event<T> {
     contract_package_hash: string;
     contract_hash: string;
     name: string;
-    data: T;
+    data: DonationEventPayload;
   };
   extra: {
     deploy_hash: string;

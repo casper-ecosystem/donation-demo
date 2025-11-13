@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { AppDataSource } from "./data-source";
 import { CSPRCloudAPIClient } from "./cspr-cloud/api-client";
 import { formatDate } from "./utils";
+import { DonationEventPayload, Event } from "./events";
 
 async function main() {
 
@@ -44,7 +45,7 @@ async function main() {
     try {
 
       const csprCloudClient = new CSPRCloudAPIClient(config.csprCloudApiUrl, config.csprCloudAccessKey);
-      const event = JSON.parse(rawData);
+      const event = JSON.parse(rawData) as Event<DonationEventPayload>;
 
       console.log('Event -> ',event);
 

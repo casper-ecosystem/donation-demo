@@ -323,7 +323,7 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
     const onStatusUpdate = (status: string, data: any) => {
       console.log('STATUS UPDATE', status, data);
       if (status === TransactionStatus.PROCESSED) {
-        setTimeout(() => onUpdateTipsList(), 3000);
+        setTimeout(() => onUpdateTipsList(), 4000);
       }
     };
 
