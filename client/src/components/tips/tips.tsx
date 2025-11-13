@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Table, TableLoader } from '@make-software/cspr-design';
 import { ErrorTile } from 'components/common/error-tile';
 import TipsTableTile from './components/tips-table-tile/tips-table-tile';
@@ -25,7 +25,7 @@ const TipsTable = ({ refetchSignal }: TipsListProps) => {
   }
 
   if (error) {
-    return <ErrorTile message={error.details || error.error} />;
+    return <ErrorTile error={error} />;
   }
 
   if (!data || !data.items || data.items?.length < 1) {

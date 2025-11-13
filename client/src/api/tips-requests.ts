@@ -34,7 +34,16 @@ export const getCommunityTips = async (limit?: string): Promise<GetResponseType<
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.details || data.error || 'Unknown API error');
+      debugger;
+      return {
+        data: null,
+        httpCode: res.status,
+        loading: false,
+        error: {
+          error: data.error,
+          details: data.details
+        }
+      };
     }
 
     return {

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { BodyText, FlexColumn, FlexRow, HeaderText } from '@make-software/cspr-design';
+import { ErrorResult } from '../../api/tips-requests';
 
 const StyledFlexColumn = styled(FlexColumn)(() => ({
   width: '400px',
@@ -7,19 +8,19 @@ const StyledFlexColumn = styled(FlexColumn)(() => ({
 }));
 
 interface ErrorTileProps {
-  message: string;
+  error: ErrorResult;
 }
 
-export const ErrorTile = ({ message }: ErrorTileProps) => {
+export const ErrorTile = ({ error }: ErrorTileProps) => {
   return (
     <FlexRow align={'center'} justify={'center'}>
       <StyledFlexColumn itemsSpacing={24} align={'center'} justify={'center'}>
         <FlexColumn itemsSpacing={16} align={'center'} justify={'center'}>
           <HeaderText size={3} scale={'xs'} variation={'black'}>
-            Error
+            {error?.error || 'Something went wrong.'}
           </HeaderText>
           <BodyText size={3} scale={'sm'} variation={'red'}>
-            {message}
+            {error?.details}
           </BodyText>
         </FlexColumn>
       </StyledFlexColumn>
