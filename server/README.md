@@ -13,7 +13,7 @@ cp .env.example .env
 ```
 
 Next, update the following configuration values:
-1. Change `LOTTERY_CONTRACT_PACKAGE_HASH` if you deployed your own contract. If you want to use the [demo application](https://lottery-demo.casper.network) contract, keep the default value.
+1. Change `DONATION_CONTRACT_PACKAGE_HASH` if you deployed your own contract. If you want to use the donation application contract, keep the default value.
 2. Change `CSPR_CLOUD_ACCESS_KEY` to your CSPR.cloud access key from [CSPR.build Console](https://console.cspr.build)
 
 The rest of the values should remain the same for the local development, unless you made corresponding changes in other places.
@@ -37,7 +37,7 @@ This command will create a build folder with optimized production-ready files.
 To run and set up the database, execute:
 
 ```bash
-docker compose -f ../infra/local/docker-compose.yaml --project-name lottery up -d mysql
+docker compose -f ../infra/local/docker-compose.yaml --project-name donation up -d mysql
 npm run typeorm migration:run
 ```
 
