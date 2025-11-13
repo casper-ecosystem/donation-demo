@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GetResponseType } from './use-api';
-import { TipsResponse, getCommunityTips } from '../tips-requests';
+import { TipsResponse, getCommunityTips, GetResponseType } from '../tips-requests';
 
 export const useGetTips = (offset?: string) => {
   const [getTipsResponse, setGeTipsResponse] = useState<GetResponseType<TipsResponse>>({
