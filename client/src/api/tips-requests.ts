@@ -26,9 +26,9 @@ export interface TipsResponse {
   total: number;
 }
 
-export const getCommunityTips = async (offset?: string): Promise<GetResponseType<TipsResponse>> => {
+export const getCommunityTips = async (limit?: string): Promise<GetResponseType<TipsResponse>> => {
   try {
-    const res = await fetch(`${API_URL}/donations${offset ? '?offset=' + offset : ''}`, {
+    const res = await fetch(`${API_URL}/donations${limit ? '?limit=' + limit : ''}`, {
       cache: 'no-store'
     });
     const data = await res.json();

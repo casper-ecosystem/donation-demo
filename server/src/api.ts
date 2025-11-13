@@ -33,14 +33,13 @@ async function main() {
 
   app.get('/donations', async (req, res) => {
     try {
-      const { offset } = req.query;
+      const { limit } = req.query;
 
       const [{ total }] = await AppDataSource.query('SELECT COUNT(*) AS total FROM donations');
+      const GET_ALL_DONATION = 'SELECT * FROM donations ORDER BY timestamp DESC';
+      const GET_DONATION_WITH_LIMIT = `SELECT * FROM donations ORDER BY timestamp DESC LIMIT ${limit}`
 
-      const query =
-          offset === '-1'
-              ? 'SELECT * FROM donations ORDER BY timestamp DESC'
-              : 'SELECT * FROM donations ORDER BY timestamp DESC LIMIT 5';
+      const query = !limit ? GET_ALL_DONATION : GET_DONATION_WITH_LIMIT;
 
       const result = await AppDataSource.query(query);
       const rows = Array.isArray(result) ? result : Object.values(result);

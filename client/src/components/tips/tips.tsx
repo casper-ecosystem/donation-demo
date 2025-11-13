@@ -14,7 +14,7 @@ interface TipsListProps {
 }
 
 const TipsTable = ({ refetchSignal }: TipsListProps) => {
-  const { loading, error, data, refetch } = useGetTips();
+  const { loading, error, data, refetch } = useGetTips('5');
 
   useEffect(() => {
     refetch();
@@ -40,8 +40,8 @@ const TipsTable = ({ refetchSignal }: TipsListProps) => {
         data.items?.length >= 5 ? (
           <LoadMoreButton
             isCollapsed={data.items?.length < data?.total}
-            handleLoadMore={() => refetch('-1')}
-            handleReset={() => refetch()}
+            handleLoadMore={() => refetch()}
+            handleReset={() => refetch('5')}
           />
         ) : (
           <></>
