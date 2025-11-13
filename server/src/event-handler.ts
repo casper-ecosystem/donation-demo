@@ -1,9 +1,9 @@
-import 'reflect-metadata';
 import { config } from './config';
 import WebSocket from 'ws';
 import { v4 as uuidv4 } from "uuid";
 import { AppDataSource } from "./data-source";
 import { CSPRCloudAPIClient } from "./cspr-cloud/api-client";
+import { formatDate } from "./utils";
 
 async function main() {
 
@@ -48,15 +48,16 @@ async function main() {
 
       console.log('Event -> ',event);
 
-      const account = await csprCloudClient.getAccount(event.data.data.sender.replace('account-hash-', ''));
+      const account = await csprCloudClient.getAccount(event.data.data.sender);
       const senderPublicKey = account.data.public_key;
 
       const id = uuidv4();
-      const rawTimestamp = event.timestamp;
-      const timestamp = new Date(rawTimestamp).toISOString().slice(0, 19).replace('T', ' ');
+      const timestamp = formatDate( event.timestamp);
+
+      const INSERT_DONATION = 'INSERT INTO donations (id, sender_public_key, amount_cspr, message, transaction_hash, timestamp) VALUES (?, ?, ?, ?, ?, ?)'
 
       await AppDataSource.query(
-          'INSERT INTO donations (id, sender_public_key, amount_cspr, message, transaction_hash, timestamp) VALUES (?, ?, ?, ?, ?, ?)',
+          INSERT_DONATION,
           [id, senderPublicKey, event.data.data.amount, event.data.data.praise, event.extra.deploy_hash, timestamp],
       );
     } catch (err) {

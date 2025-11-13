@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Container from 'components/common/container/container';
 import TipsList from '../tips/tips';
 import { Section } from 'components/common/section/section';

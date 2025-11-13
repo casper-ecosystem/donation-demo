@@ -1,5 +1,3 @@
-import 'reflect-metadata';
-
 import http from 'http';
 import path from 'path';
 import cors from 'cors';

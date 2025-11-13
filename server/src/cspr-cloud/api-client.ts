@@ -23,8 +23,9 @@ export class CSPRCloudAPIClient {
 
 
   async getAccount(accountIdentifier: string): Promise<Response<Account>> {
+    const accHash = accountIdentifier.replace('account-hash-', '');
 
-    const response = await this.client.get<Response<Account>>(`/accounts/${accountIdentifier}`);
+    const response = await this.client.get<Response<Account>>(`/accounts/${accHash}`);
 
     const result = response.data;
 
