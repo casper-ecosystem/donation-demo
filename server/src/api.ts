@@ -5,6 +5,7 @@ import express, { Express, Request, Response } from 'express';
 import { AppDataSource } from './data-source';
 import { config } from './config';
 import fs from 'fs';
+import { DonationEntity } from "./entity/donation.entity";
 
 
 const app: Express = express();
@@ -34,20 +35,13 @@ async function main() {
   app.get('/donations', async (req, res) => {
     try {
       const { limit } = req.query;
-
-      const [{ total }] = await AppDataSource.query('SELECT COUNT(*) AS total FROM donations');
-      const GET_ALL_DONATION = 'SELECT * FROM donations ORDER BY timestamp DESC';
-      const GET_DONATION_WITH_LIMIT = `SELECT * FROM donations ORDER BY timestamp DESC LIMIT ${limit}`
-
-      const query = !limit ? GET_ALL_DONATION : GET_DONATION_WITH_LIMIT;
-
-      const result = await AppDataSource.query(query);
-      const rows = Array.isArray(result) ? result : Object.values(result);
-
-      res.json({
-        total: Number(total),
-        items: rows,
+      const donationRepo = AppDataSource.getRepository(DonationEntity);
+      const [items, total] = await donationRepo.findAndCount({
+        order: { timestamp: 'DESC' },
+        take: limit ? Number(limit) : undefined,
       });
+
+      res.json({ total, items });
     } catch (err: any) {
       console.error('Database error:', err.message);
       res.status(500).json({ error: 'Database error', details: err.message });

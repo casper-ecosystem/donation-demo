@@ -5,6 +5,7 @@ import { AppDataSource } from "./data-source";
 import { CSPRCloudAPIClient } from "./cspr-cloud/api-client";
 import { formatDate } from "./utils";
 import { DonationEventPayload, Event } from "./events";
+import { DonationEntity } from "./entity/donation.entity";
 
 async function main() {
 
@@ -52,15 +53,18 @@ async function main() {
       const account = await csprCloudClient.getAccount(event.data.data.sender);
       const senderPublicKey = account.data.public_key;
 
-      const id = uuidv4();
-      const timestamp = formatDate( event.timestamp);
+      const donationRepo = AppDataSource.getRepository(DonationEntity);
 
-      const INSERT_DONATION = 'INSERT INTO donations (id, sender_public_key, amount_cspr, message, transaction_hash, timestamp) VALUES (?, ?, ?, ?, ?, ?)'
+      const donation = donationRepo.create({
+        id: uuidv4(),
+        sender_public_key: senderPublicKey,
+        amount_cspr: String(event.data.data.amount),
+        message: event.data.data.praise,
+        transaction_hash: event.extra.deploy_hash,
+        timestamp: formatDate( event.timestamp),
+      });
 
-      await AppDataSource.query(
-          INSERT_DONATION,
-          [id, senderPublicKey, event.data.data.amount, event.data.data.praise, event.extra.deploy_hash, timestamp],
-      );
+      await donationRepo.save(donation);
     } catch (err) {
       console.log('Error parsing message:', err);
     }
