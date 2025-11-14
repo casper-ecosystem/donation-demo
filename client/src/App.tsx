@@ -6,6 +6,7 @@ import Container from './components/common/container/container';
 import { Welcome } from './components/home/components';
 import { AppTheme } from './settings/theme';
 import { TipsContainer } from './components/home';
+import { PageFooter } from './components/layout/page-footer';
 
 const HomeContainer = styled.div(({ theme }) =>
   theme.withMedia({
@@ -55,6 +56,7 @@ const App = () => {
           <TipsContainer refetchSignal={refetchSignal} />
         </HomeContainer>
       </Container>
+      <PageFooter />
     </ThemeProvider>
   );
 };
