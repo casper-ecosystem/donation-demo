@@ -15,7 +15,7 @@ interface Config {
 }
 
 export const config: Config = {
-  httpPort: process.env.HTTP_PORT ? parseInt(process.env.HTTP_PORT) : 3001,
+  httpPort: process.env.HTTP_PORT ? parseInt(process.env.HTTP_PORT) : 4000,
   csprCloudApiUrl: process.env.CSPR_CLOUD_URL as string,
   csprCloudStreamingUrl: process.env.CSPR_CLOUD_STREAMING_URL as string,
   csprCloudAccessKey: process.env.CSPR_CLOUD_ACCESS_KEY as string,

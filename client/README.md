@@ -24,6 +24,14 @@ The global state management is carried out by utilizing the `@make-software/cspr
 
 Ensure that you have npm, Node.js and TypeScript installed on your local machine.
 
+## Docker Setup
+
+To run the application using Docker, please follow these steps:
+
+1. Make sure Docker is installed on your machine.
+2. Build the Docker image using the provided `client.dockerfile`:
+3. Inside `infra/local/docker-compose.yaml` run client container and your client app should be visible through port:3000
+
 ## Tech Stack
 
 This application is primarily built with the following stack:

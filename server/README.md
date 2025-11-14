@@ -1,4 +1,4 @@
-# Lottery Demo dApp Server
+# Donation demo Server
 
 The server side consists of two applications:
 - Event listener that listens to the [smart contract events](../smart-contract/README.md#events) and indexes them in a MySQL database
@@ -50,4 +50,6 @@ To run the API, use:
 ```bash
 npm run api:dev
 ```
+
+Your server app should be visible through port:4000
 
