@@ -6,9 +6,8 @@ export interface ErrorResult {
 }
 
 export interface GetResponseType<Entity extends any> {
-  loading?: boolean;
   error: ErrorResult | null;
-  httpCode?: number;
+  httpCode: number;
   data: Entity | null;
 }
 
@@ -34,11 +33,9 @@ export const getCommunityTips = async (limit?: string): Promise<GetResponseType<
     const data = await res.json();
 
     if (!res.ok) {
-      debugger;
       return {
         data: null,
         httpCode: res.status,
-        loading: false,
         error: {
           error: data.error,
           details: data.details
@@ -49,15 +46,17 @@ export const getCommunityTips = async (limit?: string): Promise<GetResponseType<
     return {
       data,
       httpCode: res.status,
-      loading: false,
       error: null
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
     return {
       data: null,
-      httpCode: 500,
-      loading: false,
-      error: err
+      httpCode: 0,
+      error: {
+        error: 'Network error',
+        details: message
+      }
     };
   }
 };

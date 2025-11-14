@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { TipsResponse, getCommunityTips, GetResponseType } from '../tips-requests';
 
 export const useGetTips = (limit?: string) => {
-  const [getTipsResponse, setGeTipsResponse] = useState<GetResponseType<TipsResponse>>({
+  const [getTipsResponse, setGeTipsResponse] = useState<
+    GetResponseType<TipsResponse> & { loading: boolean }
+  >({
     data: null,
-    loading: false,
-    error: null
+    httpCode: 0,
+    error: null,
+    loading: false
   });
 
   const fetchTips = async (limit?: string) => {
@@ -13,13 +16,14 @@ export const useGetTips = (limit?: string) => {
 
     getCommunityTips(limit)
       .then((response) => {
-        setGeTipsResponse({ ...response });
+        setGeTipsResponse({ ...response, loading: false });
       })
       .catch((err) => {
         setGeTipsResponse({
           data: null,
-          loading: false,
-          error: err
+          httpCode: 0,
+          error: err,
+          loading: false
         });
       });
   };

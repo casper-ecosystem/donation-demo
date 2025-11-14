@@ -4,13 +4,13 @@ export interface DonationEventPayload {
   praise: string;
 }
 
-export interface Event<T> {
+export interface ContractEvent<T> {
   action: string;
   data: {
     contract_package_hash: string;
     contract_hash: string;
     name: string;
-    data: DonationEventPayload;
+    data: T;
   };
   extra: {
     deploy_hash: string;

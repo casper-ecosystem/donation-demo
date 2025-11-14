@@ -1,5 +1,4 @@
 name: "donation-demo"
-
 services:
   mysql:
     image: mysql:8.0.33
@@ -12,6 +11,7 @@ services:
       retries: 10
     ports:
       - "3306:3306"
+    hostname: donation-mysql
     networks:
       - donation-demo-local
     volumes:
@@ -19,16 +19,17 @@ services:
       - mysql-data:/var/lib/mysql
 
   api:
+    container_name: api
     build:
       context: ../../
       dockerfile: ./infra/docker/api.dockerfile
     ports:
-      - "3001:3001"
+      - "4000:4000"
     networks:
       - donation-demo-local
     env_file: ../../server/.env
     environment:
-      DB_URI: "mysql://root:password@mysql:3306/donation"
+      DB_URI: "mysql://root:password@donation-mysql:3306/donation"
 
   handler:
     build:
@@ -36,7 +37,7 @@ services:
       dockerfile: ./infra/docker/event-handler.dockerfile
     env_file: ../../server/.env
     environment:
-      DB_URI: "mysql://root:password@mysql:3306/donation"
+      DB_URI: "mysql://root:password@donation-mysql:3306/donation"
     networks:
       - donation-demo-local
 
@@ -46,12 +47,11 @@ services:
       dockerfile: ./infra/docker/client.dockerfile
     environment:
       DONATION_CONTRACT_PACKAGE_HASH: "ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035"
-      DONATION_API_URL: "http://localhost:4000"
+      DONATION_API_URL: "http://localhost:3001"
       CSPR_CLICK_APP_NAME: "Donation Demo"
-      CSPR_CLICK_APP_ID: "cspr-donation-demo"
+      CSPR_CLICK_APP_ID: "csprclick-template"
       CSPR_LIVE_URL: "https://testnet.cspr.live"
-      CSPR_CHAIN_NAME: "casper-test"
-      GAS_PRICE_IN_CSPR: "10"
+      TRANSACTION_PAYMENT: "10000000000"
     networks:
       - donation-demo-local
     ports:

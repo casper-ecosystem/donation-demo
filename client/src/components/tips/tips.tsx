@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Table, TableLoader } from '@make-software/cspr-design';
-import { ErrorTile } from 'components/common/error-tile';
+import { ErrorTile } from 'components/common/error-tile/error-tile';
 import TipsTableTile from './components/tips-table-tile/tips-table-tile';
 import { LoadMoreButton } from 'components/common/load-more-button/load-more-button';
 import TipsTableRow from './components/tips-table-row/tips-table-row';

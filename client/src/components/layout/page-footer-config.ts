@@ -3,7 +3,7 @@ export const makeSocialChannels = () => {
     {
       label: 'website',
       key: 'website',
-      urlUserId: 'https://make.services/'
+      urlUserId: 'https://makegroup.io/'
     },
     {
       label: 'LinkedIn',
@@ -30,7 +30,7 @@ export const aboutMake = () => {
     },
     {
       label: 'Contact Us',
-      url: 'https://make.services/#section-contact'
+      url: 'https://makegroup.io/contact-us/'
     }
   ];
 };

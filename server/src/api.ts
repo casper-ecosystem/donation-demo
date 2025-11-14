@@ -7,13 +7,11 @@ import { config } from './config';
 import fs from 'fs';
 import { DonationEntity } from "./entity/donation.entity";
 
-
 const app: Express = express();
 app.use(cors<Request>());
 app.use(express.json({ limit: '1mb' }));
 
 const server = http.createServer(app);
-
 
 async function main() {
   await AppDataSource.initialize();
@@ -42,9 +40,10 @@ async function main() {
       });
 
       res.json({ total, items });
-    } catch (err: any) {
-      console.error('Database error:', err.message);
-      res.status(500).json({ error: 'Database error', details: err.message });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error('Database error:', message);
+      res.status(500).json({ error: 'Database error', details: message });
     }
   });
 

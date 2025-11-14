@@ -8,7 +8,7 @@ interface ErrorResponse {
 }
 export interface Response<T> {
   data?: T;
-  error?: ErrorResponse
+  error?: ErrorResponse;
 }
 
 export class CSPRCloudAPIClient {
@@ -21,14 +21,11 @@ export class CSPRCloudAPIClient {
     });
   }
 
-
   async getAccount(accountIdentifier: string): Promise<Response<Account>> {
     const accHash = accountIdentifier.replace('account-hash-', '');
 
     const response = await this.client.get<Response<Account>>(`/accounts/${accHash}`);
 
-    const result = response.data;
-
-    return result;
+    return response.data;
   }
 }

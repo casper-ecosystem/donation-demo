@@ -10,7 +10,6 @@ interface Config {
   csprCloudAccessKey: string;
   donationContractPackageHash: string;
   dbURI: string;
-  clientURL: string[];
   pingCheckIntervalInMilliseconds: number;
 }
 
@@ -21,6 +20,5 @@ export const config: Config = {
   csprCloudAccessKey: process.env.CSPR_CLOUD_ACCESS_KEY as string,
   donationContractPackageHash: process.env.DONATION_CONTRACT_PACKAGE_HASH as string,
   dbURI: process.env.DB_URI as string,
-  clientURL: process.env.CLIENT_URL ? (process.env.CLIENT_URL as string).split(',') : [],
   pingCheckIntervalInMilliseconds: 60000,
 };

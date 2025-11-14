@@ -7,10 +7,10 @@ import App from './App';
 import ReactModal from 'react-modal';
 
 const clickOptions: CsprClickInitOptions = {
-  appName: 'CSPR.api',
+  appName: config.cspr_click_app_name,
+  appId: config.cspr_click_app_id,
   contentMode: CONTENT_MODE.IFRAME,
-  providers: ['casper-wallet', 'ledger', 'metamask-snap'],
-  appId: 'csprclick-template'
+  providers: ['casper-wallet', 'ledger', 'metamask-snap']
 };
 
 ReactModal.setAppElement('#root');

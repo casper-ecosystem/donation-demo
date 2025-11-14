@@ -1,7 +1,17 @@
 {
-  "name": "tip-the-barista",
-  "version": "0.1.0",
+  "name": "tip-the-barista-client",
+  "version": "1.0.0",
+  "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "cross-env BUILD_PATH='./build' react-app-rewired build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+  },
   "dependencies": {
     "@formatjs/intl": "^2.10.4",
     "@make-software/cspr-design": "github:make-software/cspr-design",
@@ -14,15 +24,6 @@
     "prismjs": "^1.30.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "cross-env BUILD_PATH='./build' react-app-rewired build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [

@@ -1,7 +1,6 @@
 import { ClickUI, ThemeModeType, useClickBadge } from '@make-software/csprclick-ui';
-import { accountMenuItems } from './settings';
+import { accountMenuItems } from './settings/account-menu';
 import styled from 'styled-components';
-export * from './settings';
 
 const TopBarSection = styled.section<{ theme: any }>(({ theme }) => ({
   backgroundColor: theme.topBarSectionBackgroundColor,

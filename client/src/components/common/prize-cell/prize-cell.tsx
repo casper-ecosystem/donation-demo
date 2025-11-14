@@ -1,7 +1,11 @@
-import { BodyText, FlexRow, TableData } from '@make-software/cspr-design';
-import { formatNumber } from 'utils/formatters';
-import { motesToCSPR } from 'utils/currency';
-import { SMALL_PRECISION } from '../../../constants';
+import {
+  BodyText,
+  FlexRow,
+  formatNumber,
+  motesToCSPR,
+  SMALL_PRECISION,
+  TableData
+} from '@make-software/cspr-design';
 
 interface PrizeCellProps {
   amount?: string;

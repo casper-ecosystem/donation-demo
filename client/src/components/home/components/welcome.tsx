@@ -14,19 +14,11 @@ import {
 } from '@make-software/cspr-design';
 import { TransactionStatus, SendResult } from '@make-software/csprclick-core-types';
 import { useClickRef } from '@make-software/csprclick-ui';
-import {
-  Args,
-  CLValue,
-  SessionBuilder,
-  CLTypeUInt8,
-  Hash,
-  PublicKey,
-  TransactionV1
-} from 'casper-js-sdk';
 import { LoadingContent } from 'components/common/loading-content/loading-content';
 import { SuccessContent } from 'components/common/success-content/success-content';
 import { CanceledContent } from 'components/common/canceled-content/canceled-content';
 import { ErrorContent } from 'components/common/error-content/error-content';
+import { buildTipTransaction } from '../../../utils/tip-transaction';
 
 interface WelcomeProps {
   isConnected: boolean;
@@ -133,6 +125,8 @@ const LearnMoreButton = styled.div(({ theme }) =>
   })
 );
 
+type ModalScreen = 'form' | 'loading' | 'success' | 'cancelled' | 'error' | null;
+
 export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
   const theme = useTheme();
   const modalStyle = {
@@ -153,23 +147,15 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
     }
   };
 
-  const API_URL = config.donation_api_url;
-
-  const [showDonationModal, setShowDonationModal] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-  const [loadingScreen, setLoadingScreen] = useState<boolean>(false);
-  const [successScreen, setSuccessScreen] = useState<boolean>(false);
-  const [canceledScreen, setCanceledScreen] = useState<boolean>(false);
-  const [errorScreen, setErrorScreen] = useState<boolean>(false);
+  const [modalScreen, setModalScreen] = useState<ModalScreen>(null);
 
   const [formErrors, setFormErrors] = useState<Record<'amount' | 'message', string | string>>({
     amount: '',
     message: ''
   });
-
-  useEffect(() => {}, [successScreen]);
 
   const clickRef = useClickRef();
   const activeAccount = clickRef?.getActiveAccount();
@@ -184,20 +170,13 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
     });
   };
 
-  useEffect(() => {
-    setLoadingScreen(false);
-    setErrorScreen(false);
-    setCanceledScreen(false);
-    setSuccessScreen(false);
-  }, [showDonationModal]);
-
   const handleOpenDonationModal = () => {
-    setShowDonationModal(true);
-    clearForm();
-  };
-
-  const handleCloseDonationModal = () => {
-    setShowDonationModal(false);
+    if (isConnected) {
+      setModalScreen('form');
+      clearForm();
+    } else {
+      window.csprclick.signIn();
+    }
   };
 
   const handleOpenConnectAccountModal = () => {
@@ -269,89 +248,33 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
     }
   };
 
-  const getProxyWASM = async (): Promise<Uint8Array> => {
-    const result = await fetch(`${API_URL}/proxy-wasm`);
-    if (!result.ok) {
-      throw new Error(await result.text());
-    }
-    const buffer = await result.arrayBuffer();
-    return new Uint8Array(buffer);
-  };
-
   const handleSignTransaction = async (evt: any) => {
     evt.preventDefault();
-    setErrorScreen(false);
     const sender = activeAccount?.public_key?.toLowerCase() || '';
-    const contractWasm = await getProxyWASM();
 
-    const tipArgs = Args.fromMap({
-      praise: CLValue.newCLString(message)
-    });
-    const serialized_args = CLValue.newCLList(
-      CLTypeUInt8,
-      Array.from(tipArgs.toBytes()).map((value) => CLValue.newCLUint8(value))
-    );
+    const tipTransaction = await buildTipTransaction(sender, amount, message);
 
-    const args = Args.fromMap({
-      amount: CLValue.newCLUInt512(amount + '000000000'),
-      attached_value: CLValue.newCLUInt512(amount + '000000000'),
-      entry_point: CLValue.newCLString('tip_the_barista'),
-      package_hash: CLValue.newCLByteArray(
-        Hash.fromHex('ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035').toBytes()
-      ),
-      args: serialized_args
-    });
-
-    const sessionTransaction = new SessionBuilder()
-      .from(PublicKey.fromHex(sender))
-      .runtimeArgs(args)
-      .wasm(new Uint8Array(contractWasm))
-      .payment(12000000000) // Amount in motes
-      .chainName(clickRef.chainName!)
-      .build();
-
-    signAndSend(
-      {
-        transaction: { Version1: TransactionV1.toJSON(sessionTransaction.getTransactionV1()!) }
-      } as object,
-      sender
-    );
-  };
-
-  const signAndSend = (tbs: object, sender: string) => {
-    setLoadingScreen(true);
     const onStatusUpdate = (status: string, data: any) => {
       console.log('STATUS UPDATE', status, data);
+      if (status === TransactionStatus.CANCELLED) {
+        setModalScreen('cancelled');
+      }
       if (status === TransactionStatus.PROCESSED) {
-        setTimeout(() => onUpdateTipsList(), 4000);
+        if (data.csprCloudTransaction?.error_message === null) {
+          setModalScreen('success');
+          setTimeout(() => onUpdateTipsList(), 4000);
+        } else {
+          setModalScreen('error');
+        }
       }
     };
 
-    clickRef
-      ?.send(tbs, sender, onStatusUpdate)
-      .then((res: SendResult | undefined) => {
-        if (res?.transactionHash) {
-          setLoadingScreen(false);
-          setSuccessScreen(true);
-        } else if (res?.cancelled) {
-          setCanceledScreen(true);
-          setLoadingScreen(false);
-          setShowDonationModal(false);
-        } else {
-          setLoadingScreen(false);
-          setShowDonationModal(false);
-          setErrorScreen(true);
-        }
-      })
-      .catch((err: any) => {
-        setErrorScreen(true);
-        setLoadingScreen(false);
-        setShowDonationModal(false);
-        setSuccessScreen(false);
-        setCanceledScreen(false);
-        alert('Error: ' + err);
-        throw err;
-      });
+    setModalScreen('loading');
+
+    clickRef?.send(tipTransaction, sender, onStatusUpdate).catch((err: any) => {
+      setModalScreen('error');
+      alert('Error: ' + err);
+    });
   };
 
   const handleConfirm = (ev: any) => {
@@ -377,21 +300,21 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
   return (
     <Container>
       <ReactModal
-        isOpen={showDonationModal}
-        onRequestClose={handleCloseDonationModal}
+        isOpen={modalScreen !== null}
+        onRequestClose={() => setModalScreen(null)}
         style={modalStyle}
         shouldCloseOnEsc
         shouldCloseOnOverlayClick
       >
         <ModalContainer>
-          <ModalHeader onClose={handleCloseDonationModal} marginBottom={'0'} />
-          {loadingScreen ? (
+          <ModalHeader onClose={() => setModalScreen(null)} marginBottom={'0'} />
+          {modalScreen === 'loading' ? (
             <LoadingContent />
-          ) : successScreen ? (
+          ) : modalScreen === 'success' ? (
             <SuccessContent />
-          ) : canceledScreen ? (
+          ) : modalScreen === 'cancelled' ? (
             <CanceledContent />
-          ) : errorScreen ? (
+          ) : modalScreen === 'error' ? (
             <ErrorContent />
           ) : (
             <FlexColumn gap={25}>
@@ -400,7 +323,7 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
                   value={amount}
                   label={
                     <BodyText size={1} variation={'black'}>
-                      Tips
+                      Tip
                     </BodyText>
                   }
                   placeholder="CSPR Amount"
@@ -462,9 +385,7 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
             <KillerAppText>
               Say thanks. Support the developer. Keep open-source thriving.
             </KillerAppText>
-            <LearnMoreButton
-              onClick={isConnected ? handleOpenDonationModal : handleOpenConnectAccountModal}
-            >
+            <LearnMoreButton onClick={handleOpenDonationModal}>
               {isConnected ? 'Send a tip' : 'Connect Wallet'}
             </LearnMoreButton>
           </StyledInfo>

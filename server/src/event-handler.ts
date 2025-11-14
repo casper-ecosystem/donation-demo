@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { AppDataSource } from "./data-source";
 import { CSPRCloudAPIClient } from "./cspr-cloud/api-client";
 import { formatDate } from "./utils";
-import { DonationEventPayload, Event } from "./events";
+import { DonationEventPayload, ContractEvent } from "./events";
 import { DonationEntity } from "./entity/donation.entity";
 
 async function main() {
@@ -46,7 +46,7 @@ async function main() {
     try {
 
       const csprCloudClient = new CSPRCloudAPIClient(config.csprCloudApiUrl, config.csprCloudAccessKey);
-      const event = JSON.parse(rawData) as Event<DonationEventPayload>;
+      const event = JSON.parse(rawData) as ContractEvent<DonationEventPayload>;
 
       console.log('Event -> ',event);
 
@@ -66,7 +66,7 @@ async function main() {
 
       await donationRepo.save(donation);
     } catch (err) {
-      console.log('Error parsing message:', err);
+      console.log('Error processing event:', err);
     }
   });
 

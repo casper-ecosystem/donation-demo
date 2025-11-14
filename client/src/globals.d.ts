@@ -4,8 +4,7 @@ type GlobalConfig = {
   cspr_click_app_name: string;
   cspr_click_app_id: string;
   cspr_live_url: string;
-  cspr_chain_name: string;
-  gas_price_in_cspr: string;
+  transaction_payment: string;
 };
 
 declare const config: GlobalConfig;

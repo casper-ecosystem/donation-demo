@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BodyText, FlexColumn, FlexRow, HeaderText } from '@make-software/cspr-design';
-import { ErrorResult } from '../../api/tips-requests';
+import { ErrorResult } from '../../../api/tips-requests';
 
 const StyledFlexColumn = styled(FlexColumn)(() => ({
   width: '400px',

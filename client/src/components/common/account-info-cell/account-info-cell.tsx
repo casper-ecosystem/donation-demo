@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { AccountIdenticon } from '@make-software/csprclick-ui';
-import { HashLength } from 'utils/formatters';
-import { BodyText, FlexRow, TableData, formatHash } from '@make-software/cspr-design';
+import { BodyText, FlexRow, TableData, formatHash, HashLength } from '@make-software/cspr-design';
 import { HistoryLink } from '../history-link/history-link';
 
 export const StyledTableData = styled(TableData)(() => ({

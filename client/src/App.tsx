@@ -4,7 +4,7 @@ import { useClickRef, ThemeModeType } from '@make-software/csprclick-ui';
 import ClickTopBar from './components/click-top-bar';
 import Container from './components/common/container/container';
 import { Welcome } from './components/home/components';
-import { AppTheme } from './settings/theme';
+import { AppTheme } from './utils/theme';
 import { TipsContainer } from './components/home';
 import { PageFooter } from './components/layout/page-footer';
 
