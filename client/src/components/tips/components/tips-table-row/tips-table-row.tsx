@@ -52,7 +52,6 @@ const TipsTableRow = ({ tip }: TipsTableRowProps) => {
       <StyledContentBlock width={19} minWidth={100}>
         <AccountInfoCell accountHash={tip.transaction_hash} publicKey={tip.sender_public_key} />
       </StyledContentBlock>
-
       <StyledContentBlock width={14} minWidth={132}>
         <PrizeCell amount={tip.amount_cspr} />
       </StyledContentBlock>

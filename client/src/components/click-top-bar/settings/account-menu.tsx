@@ -1,15 +1,10 @@
-import {
-  AccountMenuItem,
-  CopyHashMenuItem,
-  AccountCardMenuItem
-} from '@make-software/csprclick-ui';
+import { AccountCardMenuItem, AccountMenuItem } from '@make-software/csprclick-ui';
 import CSPRClickIcon from 'assets/logos/click-logo.svg';
 
 export const accountMenuItems = [
   <AccountCardMenuItem key={0} />,
-  <CopyHashMenuItem key={1} />,
   <AccountMenuItem
-    key={2}
+    key={1}
     onClick={() => {
       window.open('https://docs.cspr.click', '_blank');
     }}

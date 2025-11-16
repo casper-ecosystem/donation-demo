@@ -1,25 +1,18 @@
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import desktopBgImage from 'assets/backgrounds/bg-desktop-full.jpg';
 import mobileBgImage from 'assets/backgrounds/bg-mobile-full.jpg';
-import { centerModalStyles, ModalContainer } from 'components/common/modal-styles';
 import { useState } from 'react';
-import ReactModal from 'react-modal';
-import { ModalHeader } from '@make-software/cspr-design';
 import { TransactionStatus } from '@make-software/csprclick-core-types';
 import { useClickRef } from '@make-software/csprclick-ui';
-import { LoadingContent } from 'components/common/loading-content/loading-content';
-import { SuccessContent } from 'components/common/success-content/success-content';
-import { CanceledContent } from 'components/common/canceled-content/canceled-content';
-import { ErrorContent } from 'components/common/error-content/error-content';
-import { TipForm } from './tip-form';
-import {buildTipTransaction} from "utils/tip-transaction";
+import { TipModal, ModalScreen } from './components/tip-modal';
+import { buildTipTransaction } from 'utils/tip-transaction';
 
 interface WelcomeProps {
   isConnected: boolean;
   onUpdateTipsList: () => void;
 }
 
-const Container = styled.div(({ theme }) =>
+const Container = styled.section(({ theme }) =>
   theme.withMedia({
     backgroundImage: [
       `url("${mobileBgImage}")`,
@@ -108,28 +101,7 @@ const LearnMoreButton = styled.div(({ theme }) =>
   })
 );
 
-type ModalScreen = 'form' | 'loading' | 'success' | 'cancelled' | 'error' | null;
-
-export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
-  const theme = useTheme();
-  const modalStyles = {
-    overlay: {
-      backgroundColor: theme.styleguideColors.backgroundOverlay,
-      zIndex: 15
-    },
-    content: {
-      ...centerModalStyles,
-      ...{
-        paddingTop: '20px',
-        border: 'none',
-        backgroundColor: theme.styleguideColors.backgroundPrimary,
-        borderTop: `4px solid ${theme.styleguideColors.contentRed}`,
-        borderColor: theme.styleguideColors.contentRed,
-        boxShadow: '0px 16px 48px rgba(26, 25, 25, 0.2)'
-      }
-    }
-  };
-
+export const HeroSection = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
   const [modalScreen, setModalScreen] = useState<ModalScreen>(null);
 
   const clickRef = useClickRef();
@@ -173,28 +145,11 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
 
   return (
     <Container>
-      <ReactModal
-        isOpen={modalScreen !== null}
-        onRequestClose={() => setModalScreen(null)}
-        style={modalStyles}
-        shouldCloseOnEsc
-        shouldCloseOnOverlayClick
-      >
-        <ModalContainer>
-          <ModalHeader onClose={() => setModalScreen(null)} marginBottom={'0'} />
-          {modalScreen === 'loading' ? (
-            <LoadingContent />
-          ) : modalScreen === 'success' ? (
-            <SuccessContent />
-          ) : modalScreen === 'cancelled' ? (
-            <CanceledContent />
-          ) : modalScreen === 'error' ? (
-            <ErrorContent />
-          ) : (
-            <TipForm onConfirm={handleSignTransaction} />
-          )}
-        </ModalContainer>
-      </ReactModal>
+      <TipModal
+        modalScreen={modalScreen}
+        onClose={() => setModalScreen(null)}
+        onConfirm={handleSignTransaction}
+      />
       <StyledWrapper>
         <InfoContainer>
           <StyledInfo>
@@ -211,3 +166,5 @@ export const Welcome = ({ isConnected, onUpdateTipsList }: WelcomeProps) => {
     </Container>
   );
 };
+
+export default HeroSection;

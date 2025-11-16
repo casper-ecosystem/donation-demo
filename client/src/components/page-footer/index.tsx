@@ -224,3 +224,5 @@ export const PageFooter = () => {
     </>
   );
 };
+
+export default PageFooter;

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useClickRef, ThemeModeType } from '@make-software/csprclick-ui';
+import { AccountType } from '@make-software/csprclick-core-types';
+import { AppTheme } from './utils/theme';
 import ClickTopBar from './components/click-top-bar';
 import Container from './components/common/container/container';
-import { Welcome } from './components/home/components';
-import { AppTheme } from './utils/theme';
-import { TipsContainer } from './components/home';
-import { PageFooter } from './components/layout/page-footer';
+import HeroSection from './components/hero-section';
+import TipsList from './components/tips';
+import PageFooter from './components/page-footer';
 
-const HomeContainer = styled.div(({ theme }) =>
+const MainSection = styled.section(({ theme }) =>
   theme.withMedia({
     maxWidth: ['100%', '720px', '1200px'],
     width: '100%',
@@ -20,27 +21,15 @@ const HomeContainer = styled.div(({ theme }) =>
 const App = () => {
   const clickRef = useClickRef();
   const [themeMode, setThemeMode] = useState<ThemeModeType>(ThemeModeType.light);
-  const [activeAccount, setActiveAccount] = useState<any>(null);
+  const [activeAccount, setActiveAccount] = useState<AccountType | null>(null);
   const [refetchSignal, setRefetchSignal] = useState<number>(0);
 
   useEffect(() => {
-    clickRef?.on('csprclick:signed_in', async (evt: any) => {
-      await setActiveAccount(evt.account);
-    });
-    clickRef?.on('csprclick:switched_account', async (evt: any) => {
-      await setActiveAccount(evt.account);
-    });
-    clickRef?.on('csprclick:signed_out', async (evt: any) => {
-      setActiveAccount(null);
-    });
-    clickRef?.on('csprclick:disconnected', async (evt: any) => {
-      setActiveAccount(null);
-    });
+    clickRef?.on('csprclick:signed_in', (evt: any) => setActiveAccount(evt.account));
+    clickRef?.on('csprclick:switched_account', (evt: any) => setActiveAccount(evt.account));
+    clickRef?.on('csprclick:signed_out', () => setActiveAccount(null));
+    clickRef?.on('csprclick:switched_account', () => setActiveAccount(null));
   }, [clickRef?.on]);
-
-  const handleUpdateTips = () => {
-    setRefetchSignal(Date.now());
-  };
 
   return (
     <ThemeProvider theme={AppTheme[themeMode]}>
@@ -51,10 +40,14 @@ const App = () => {
         }
       />
       <Container>
-        <Welcome isConnected={!!activeAccount} onUpdateTipsList={handleUpdateTips} />
-        <HomeContainer id={'getting-started'}>
-          <TipsContainer refetchSignal={refetchSignal} />
-        </HomeContainer>
+        <HeroSection
+          isConnected={!!activeAccount}
+          onUpdateTipsList={() => setRefetchSignal(Date.now())}
+        />
+        <MainSection>
+          <h3>Community Appreciation</h3>
+          <TipsList refetchSignal={refetchSignal} />
+        </MainSection>
       </Container>
       <PageFooter />
     </ThemeProvider>

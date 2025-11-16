@@ -4,6 +4,7 @@ const config = {
   donation_api_url: 'http://localhost:4000',
   cspr_click_app_name: 'Donation Demo',
   cspr_click_app_id: 'csprclick-template',
+  cspr_click_providers: '["casper-wallet", "ledger", "metamask-snap"]',
   cspr_live_url: 'https://testnet.cspr.live',
   transaction_payment: '10000000000'
 };

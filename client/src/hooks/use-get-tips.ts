@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TipsResponse, getCommunityTips, GetResponseType } from '../tips-requests';
+import { TipsResponse, getCommunityTips, GetResponseType } from '../api/tips-requests';
 
 export const useGetTips = (limit?: string) => {
   const [getTipsResponse, setGeTipsResponse] = useState<
@@ -8,12 +8,11 @@ export const useGetTips = (limit?: string) => {
     data: null,
     httpCode: 0,
     error: null,
-    loading: false
+    loading: true
   });
 
   const fetchTips = async (limit?: string) => {
     setGeTipsResponse((prev) => ({ ...prev, loading: true, error: null }));
-
     getCommunityTips(limit)
       .then((response) => {
         setGeTipsResponse({ ...response, loading: false });

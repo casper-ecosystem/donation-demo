@@ -59,8 +59,7 @@ export const aboutCSPRSuite = () => {
     },
     {
       label: 'CSPR.build',
-      url: 'https://console.cspr.build/',
-      target: '_blank'
+      url: 'https://cspr.build/'
     },
     {
       label: 'CSPR.name',
