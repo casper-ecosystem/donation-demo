@@ -1,4 +1,4 @@
-# tip-the-barista
+# tip-the-barista Client
 
 ## Description
 

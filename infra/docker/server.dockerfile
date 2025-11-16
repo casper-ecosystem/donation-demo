@@ -1,17 +1,18 @@
-FROM node:20.12.0-alpine3.18 as builder
+FROM node:20-alpine3.22 AS builder
 
 WORKDIR /build
 
 COPY server/package*.json ./
 
-RUN npm ci \
+RUN npm config set update-notifier false \
+    && npm ci \
     && npm cache clean --force
 
 COPY server/. .
 
 RUN npm run build
 
-FROM node:20.12.0-alpine3.18
+FROM node:20-alpine3.22
 
 WORKDIR /app
 

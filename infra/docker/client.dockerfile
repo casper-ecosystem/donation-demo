@@ -1,26 +1,22 @@
-FROM node:20.12.0-alpine3.18 as builder
+FROM node:20-alpine3.22 AS builder
 
-WORKDIR /api/builder
+WORKDIR /build
 
 COPY client/package*.json ./
 
-RUN npm config set registry https://registry.npmmirror.com
-RUN npm config set update-notifier false
-
-RUN npm install --legacy-peer-deps
+RUN npm config set update-notifier false && \
+    npm install --legacy-peer-deps
 
 COPY client/. .
-COPY client/public/config.js.template ./public/config.js.template
 
 RUN npm run build
 
-FROM nginx:1.22.0
+FROM nginx:1.29-alpine3.22
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /api/builder/build ./
-COPY --from=builder /api/builder/public/config.js.template ./config.js.template
-COPY --from=builder /api/builder/public/favicon* ./
+COPY --from=builder /build/build ./
+COPY client/public/config.js.template ./config.js.template
 
 COPY infra/docker/client-nginx/nginx.conf /etc/nginx/nginx.conf
 COPY infra/docker/client-nginx/100-build-env-specific-assets.sh /docker-entrypoint.d
