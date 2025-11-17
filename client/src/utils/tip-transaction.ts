@@ -33,7 +33,7 @@ export const buildTipTransaction = async (sender: string, amount: string, messag
   const args = Args.fromMap({
     amount: CLValue.newCLUInt512(amount + '000000000'),
     attached_value: CLValue.newCLUInt512(amount + '000000000'),
-    entry_point: CLValue.newCLString('tip_the_barista'),
+    entry_point: CLValue.newCLString('donate'),
     package_hash: CLValue.newCLByteArray(
       Hash.fromHex(config.donation_contract_package_hash).toBytes()
     ),

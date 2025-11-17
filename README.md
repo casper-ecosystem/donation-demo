@@ -8,6 +8,8 @@ The example use case is very simple. The dApp allows users to send tips with CSP
 
 You can run all components in the demo application using [Docker compose](https://docs.docker.com/compose/install).
 
+Copy the `server/.env.example` to `server/.env`. The default values are fine for running the application with the contract on testnet an Docker.
+
 ```bash
 docker compose -f infra/local/docker-compose.yaml --project-name lottery up -d
 ```
@@ -22,7 +24,7 @@ Register a free [CSPR.build](https://console.cspr.build) account to create CSPR.
 
 ### Smart contract
 
-Build and deploy the smart contract to [Casper Testnet](https://testnet.cspr.live) as described [here](smart-contract/README.md#deploy-to-testnet). You can skip this step and use the existing [Testnet smart contract](https://testnet.cspr.live/contract-package/ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035) package hash `ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035`, which is already provided in the default configuration.
+Build and deploy the smart contract to [Casper Testnet](https://testnet.cspr.live) as described [here](smart-contract/README.md#deploy-to-testnet). You can skip this step and use the existing [Testnet smart contract](https://testnet.cspr.live/contract-package/c447e9d334a710bc3e0a47cbea854c269e41637d7b9aa9d37a745596f651ed7a) package hash `c447e9d334a710bc3e0a47cbea854c269e41637d7b9aa9d37a745596f651ed7a`, which is already provided in the default configuration.
 
 ### Server
 

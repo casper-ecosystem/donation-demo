@@ -72,15 +72,15 @@ impl TipTheBarista {
     pub fn init(&mut self) {
         let caller = self.env().caller();
         self.recipient.set(caller);
-        self.contract_name.set("TipTheBarista".to_string());
-        self.contract_description.set("A simple smart contract to demonstrate how easy it is to build a simple dApp.".to_string());
-        self.contract_icon_uri.set("https://example.com/icon.png".to_string());
-        self.contract_project_uri.set("https://example.com/project".to_string());
+        self.contract_name.set("Tip The Barista".to_string());
+        self.contract_description.set("A beginner-friendly smart contract designed to show how easy it is to build and deploy a basic dApp on the Casper Network.".to_string());
+        self.contract_icon_uri.set("https://donation-demo.casper.network/contract-icon.jpg".to_string());
+        self.contract_project_uri.set("https://donation-demo.casper.network".to_string());
     }
 
     /// Send a tip to the contract owner.
     #[odra(payable)]
-    pub fn tip_the_barista(&mut self, praise: String) {
+    pub fn donate(&mut self, praise: String) {
         let cspr_amount = self.env().attached_value();
         if cspr_amount < U512::from(MINIMUM_AMOUNT) {
             self.env().revert(ContractErrors::BelowMinimumAmount);
@@ -118,7 +118,7 @@ mod tests {
         let buy_amount_u512 = U512::from(10_000_000_000u64);
         env.set_caller(alice);
         let praise = "Your work is inspiring. Cheers from another dev!".to_string();
-        let result = contract.with_tokens(buy_amount_u512).try_tip_the_barista(praise.clone());
+        let result = contract.with_tokens(buy_amount_u512).try_donate(praise.clone());
 
         // Then it should succeed...
         assert!(result.is_ok());

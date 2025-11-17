@@ -60,7 +60,7 @@ impl Scenario for TipTheBaristaScenario {
 
         env.set_caller(env.get_account(1));
         env.set_gas(9_000_000_000);
-        contract.with_tokens(amount).tip_the_barista(praise);
+        contract.with_tokens(amount).donate(praise);
 
         Ok(())
     }

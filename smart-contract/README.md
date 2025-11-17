@@ -4,7 +4,7 @@ A simple smart contract for the tips demo dApp.
 
 ## Entry Points (Contract Functions)
 
-### `tip_the_barista`
+### `donate`
 
 Sends a tip to the contract owner. The tip must be at least 10 CSPR.
 

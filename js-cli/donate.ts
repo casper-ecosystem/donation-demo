@@ -53,7 +53,7 @@ const sendTip = async () => {
   const args = Args.fromMap({
     amount: CLValue.newCLUInt512(options.amount),
     attached_value: CLValue.newCLUInt512(options.amount),
-    entry_point: CLValue.newCLString("tip_the_barista"),
+    entry_point: CLValue.newCLString("donate"),
     package_hash: CLValue.newCLByteArray(
       Hash.fromHex(options.contract_package_hash).toBytes()
     ),
