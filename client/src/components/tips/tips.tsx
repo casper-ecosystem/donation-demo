@@ -36,12 +36,12 @@ const TipsTable = ({ refetchSignal }: TipsListProps) => {
 
   return (
     <Table
-      itemCount={data.total}
+      itemCount={data.items?.length}
       renderHeaders={() => <TipsDataHeaders />}
       renderData={() => data.items?.map((t: Tip) => <TipsTableRow tip={t} key={t.id} />)}
       renderFooterButton={() => (
         <LoadMoreButton
-          isCollapsed={data.items?.length < data?.total}
+          isCollapsed={data.items.length < data?.total}
           handleLoadMore={() => refetch()}
           handleReset={() => refetch('5')}
         />

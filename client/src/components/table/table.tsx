@@ -61,7 +61,7 @@ export interface TableProps {
 }
 
 export const Table = (props: TableProps) => {
-  const { renderData, renderHeaders, renderFooterButton, itemCount, itemsLabel = 'play' } = props;
+  const { renderData, renderHeaders, renderFooterButton, itemCount, itemsLabel = 'tip' } = props;
 
   return (
     <>
@@ -77,7 +77,7 @@ export const Table = (props: TableProps) => {
           {renderData && <TableBody>{renderData()}</TableBody>}
         </StyledTable>
       </TableContainer>
-      {renderFooterButton && (itemCount || 0) > 5 && renderFooterButton()}
+      {renderFooterButton && (itemCount || 0) >= 5 && renderFooterButton()}
     </>
   );
 };
