@@ -1,56 +1,22 @@
 # tip-the-barista Client
 
-## Description
+The `client` project is a React 18 application that serves as the frontend for the Tip the barista dApp. It uses the CSPR.click UI library for authentication and interaction with wallets. It also uses the CSPR Design System for the UI. And the `casper-js-sdk` for building transactions.
 
-This project involves a robust application built on the TypeScript language (version 4.9.5). It uses the JavaScript component frameworks React (version 18.3.1) with tools such as eslint (version 8.57.1), eslint-plugin-formatjs (version 4.13.3) and several others. It also uses a few CSS libraries like `@make-software/cspr-design`. A noteworthy library included here is `big.js` for precision math calculations.
+## Build and run
 
-Other core packages:
+Before building and running the client application, please update the configuration in `public/config.js` to match your environment.
 
-- `react-dom`: 18.3.1
-- `@types/node`: 18.19.130
-- `@formatjs/intl`: 2.10.4
-- `casper-js-sdk`: 5.0.6
-- `cross-env`: 7.0.3
-- `@metamask/safe-event-emitter`: 2.0.0
-- `@nrwl/eslint-plugin-nx`: 19.8.4
+1. Change `donation_contract_package_hash` if you deployed your own contract. If you want to use the donation smart contract deployed on testnet, keep the default value.
+2. Change `cspr_click_app_id` to your CSPR.click application id obtained from [CSPR.build Console](https://console.cspr.build).
 
-The global state management is carried out by utilizing the `@make-software/csprclick-ui: 1.12.0` package and i18next is used for managing app localization.
+The rest of the configuration values can be left as is most of the time.
 
-## Setup
+To install the dependencies, run:
+```bash
+npm install
+```
 
-1. Clone the repository.
-2. Run `npm install` to install all the dependencies.
-3. Use `npm run start` to start the development server or use `npm run build` to build the production bundle.
-
-Ensure that you have npm, Node.js and TypeScript installed on your local machine.
-
-## Docker Setup
-
-To run the application using Docker, please follow these steps:
-
-1. Make sure Docker is installed on your machine.
-2. Build the Docker image using the provided `client.dockerfile`:
-3. Inside `infra/local/docker-compose.yaml` run client container and your client app should be visible through port:3000
-
-## Tech Stack
-
-This application is primarily built with the following stack:
-
-- Language: TypeScript
-- Framework: React
-- Packages and configurations: Please refer to the description section.
-
-## Usage
-
-1. Open the application either in your local environment or the deployed version.
-2. Use the functionalities provided on the UI to perform the operations.
-
-_Note: Please replace this section with more detailed and project-specific examples._
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+To run the application, use:
+```bash
+npm run dev
+```

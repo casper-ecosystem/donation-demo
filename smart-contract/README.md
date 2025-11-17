@@ -76,3 +76,19 @@ To send a tip, run the following command:
 ```
 $ just cli scenario tip --amount 10000000000 --praise "Great\ job\ dear\ barista."
 ```
+
+### Deploy to Testnet
+
+To deploy the contract to the testnet, you need to update the `.env` file with the testnet credentials. Modify the following lines:
+
+```bash
+ODRA_CASPER_LIVENET_NODE_ADDRESS=https://node.testnet.casper.network/rpc
+ODRA_CASPER_LIVENET_CHAIN_NAME=casper-test
+ODRA_CASPER_LIVENET_SECRET_KEY_PATH=./your_testnet_key.pem
+```
+
+And then run the following command:
+
+```
+$ just cli deploy
+```
