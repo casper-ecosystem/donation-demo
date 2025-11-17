@@ -125,12 +125,17 @@ export const HeroSection = ({ isConnected, onUpdateTipsList }: WelcomeProps) => 
       if (status === TransactionStatus.CANCELLED) {
         setModalScreen('cancelled');
       }
+      if (status === TransactionStatus.ERROR) {
+        console.error('Error: ', data?.error + '(' + data?.errorData + ')');
+        setModalScreen('error');
+      }
       if (status === TransactionStatus.PROCESSED) {
         if (data.csprCloudTransaction?.error_message === null) {
           setModalScreen('success');
           setTimeout(() => onUpdateTipsList(), 4000);
         } else {
-          setModalScreen('error');
+            console.error('Error: ', data?.error + '(' + data?.errorData + ')');
+            setModalScreen('error');
         }
       }
     };
