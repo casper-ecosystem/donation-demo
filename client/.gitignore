@@ -3,6 +3,9 @@
 tmp
 /out-tsc
 build/
+dist/
+dist-ssr
+*.local
 
 # dependencies
 node_modules

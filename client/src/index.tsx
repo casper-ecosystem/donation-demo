@@ -10,7 +10,7 @@ const clickOptions: CsprClickInitOptions = {
   appName: config.cspr_click_app_name,
   appId: config.cspr_click_app_id,
   contentMode: CONTENT_MODE.IFRAME,
-  providers: JSON.parse(config.cspr_click_providers)
+  providers: config.cspr_click_providers
 };
 
 ReactModal.setAppElement('#root');

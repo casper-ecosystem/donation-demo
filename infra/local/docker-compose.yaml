@@ -51,7 +51,7 @@ services:
       DONATION_API_URL: "http://localhost:4000"
       CSPR_CLICK_APP_NAME: "Donation Demo"
       CSPR_CLICK_APP_ID: "csprclick-template"
-      CSPR_CLICK_PROVIDERS: "['casper-wallet', 'ledger', 'metamask-snap']"
+      CSPR_CLICK_PROVIDERS: '["casper-wallet", "ledger", "metamask-snap"]'
       CSPR_LIVE_URL: "https://testnet.cspr.live"
       TRANSACTION_PAYMENT: "10000000000"
     networks:

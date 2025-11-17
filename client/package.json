@@ -4,10 +4,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "cross-env BUILD_PATH='./build' react-app-rewired build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
@@ -22,13 +22,8 @@
     "casper-js-sdk": "^5.0.6",
     "i18next": "^23.11.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "react-dom": "^18.3.1",
+    "react-is": "^19.2.0"
   },
   "browserslist": {
     "production": [
@@ -57,14 +52,15 @@
     "@types/styled-components": "^5.1.35",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
+    "@vitejs/plugin-react": "^4.7.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.2",
     "eslint-plugin-formatjs": "^4.13.3",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
-    "react-app-rewired": "^2.2.1",
-    "react-scripts": "^5.0.1",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vite": "^5.4.21",
+    "vite-plugin-svgr": "^4.5.0"
   }
 }

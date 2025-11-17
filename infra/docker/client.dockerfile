@@ -1,6 +1,6 @@
 FROM node:20-alpine3.22 AS builder
 
-WORKDIR /build
+WORKDIR /client
 
 COPY client/package*.json ./
 
@@ -15,7 +15,7 @@ FROM nginx:1.29-alpine3.22
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /build/build ./
+COPY --from=builder /client/build/ ./
 COPY client/public/config.js.template ./config.js.template
 
 COPY infra/docker/client-nginx/nginx.conf /etc/nginx/nginx.conf
