@@ -12,11 +12,9 @@ export const PrizeCell = ({ amount }: PrizeCellProps) => {
     precision: SMALL_PRECISION
   });
   return (
-    <TableData align="right">
-      <FlexRow align={'center'} justify={'flex-end'}>
+      <FlexRow align={'center'}>
         <BodyText size={3}>{prizeAmount} CSPR</BodyText>
       </FlexRow>
-    </TableData>
   );
 };
 
