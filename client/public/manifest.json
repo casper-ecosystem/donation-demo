@@ -1,6 +1,6 @@
 {
-  "short_name": "CSPR.App",
-  "name": "CSPR.click CRA Sample",
+  "short_name": "Tip the barista",
+  "name": "Tip the barista Demo dApp",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "favicon-128x128.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "128x128"
     },
     {
-      "src": "logo512.png",
+      "src": "favicon-256x256.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "256x256"
     }
   ],
   "start_url": ".",
