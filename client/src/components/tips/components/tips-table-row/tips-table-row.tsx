@@ -17,22 +17,6 @@ const StyledMessageText = styled.div(({ theme }) =>
   })
 );
 
-const StyledContentBlock = styled(TableData)<{ width?: number; minWidth?: number }>(
-  ({ theme, width, minWidth }) =>
-    theme.withMedia({
-      width: [width + '%'],
-      maxWidth: [width + '%'],
-      minWidth: [minWidth + 'px', minWidth + 'px', 'unset'],
-      // paddingLeft: '0',
-      td: {
-        ':first-of-type': {
-          paddingLeft: '0',
-          paddingRight: '10px'
-        }
-      }
-    })
-);
-
 const StyledTimeText = styled(BodyText)(({ theme }) =>
   theme.withMedia({
     color: theme.styleguideColors.contentPrimary
@@ -43,26 +27,26 @@ const TipsTableRow = ({ tip }: TipsTableRowProps) => {
   const accountPath = `${config.cspr_live_url}/transaction/${tip.transaction_hash}`;
   return (
     <TableRow key={tip.id}>
-      <StyledContentBlock width={19} minWidth={100}>
+      <TableData>
         <AccountInfoCell accountHash={tip.transaction_hash} publicKey={tip.sender_public_key} />
-      </StyledContentBlock>
+      </TableData>
 
-      <StyledContentBlock width={14} minWidth={132}>
+      <TableData>
         <PrizeCell amount={tip.amount_cspr} />
-      </StyledContentBlock>
-      <StyledContentBlock width={27}>
+      </TableData>
+      <TableData>
         <StyledMessageText>{tip.message}</StyledMessageText>
-      </StyledContentBlock>
-      <StyledContentBlock width={16}>
+      </TableData>
+      <TableData>
         <HistoryLink href={accountPath} target={'_blank'} monotype>
           {formatHash(tip.transaction_hash, HashLength.TINY)}
         </HistoryLink>
-      </StyledContentBlock>
-      <StyledContentBlock width={100} minWidth={300}>
+      </TableData>
+      <TableData>
         <StyledTimeText size={3} monotype>
           {formatTimestamp(tip.timestamp)}
         </StyledTimeText>
-      </StyledContentBlock>
+      </TableData>
     </TableRow>
   );
 };
