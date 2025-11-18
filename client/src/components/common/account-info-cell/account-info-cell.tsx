@@ -1,11 +1,5 @@
-import styled from 'styled-components';
 import { AccountIdenticon } from '@make-software/csprclick-ui';
-import { BodyText, FlexRow, TableData, formatHash, HashLength } from '@make-software/cspr-design';
-import { HistoryLink } from '../history-link/history-link';
-
-export const StyledTableData = styled(TableData)(() => ({
-  padding: '12px 8px'
-}));
+import {BodyText, FlexRow, formatHash, HashLength, Link} from '@make-software/cspr-design';
 
 interface AccountInfoCellProps {
   accountHash?: string;
@@ -16,16 +10,14 @@ export const AccountInfoCell = ({ publicKey, accountHash }: AccountInfoCellProps
   const hash = publicKey || accountHash || '';
   const accountPath = `${config.cspr_live_url}/account/${hash}`;
   return (
-    <StyledTableData>
-      <FlexRow align="center" itemsSpacing={12}>
+      <FlexRow align="center" itemsSpacing={12} style={{padding: '12px 8px'}}>
         <AccountIdenticon hex={hash} size="m" />
         <BodyText variation="darkGray" size={3} scale={'sm'}>
-          <HistoryLink href={accountPath} target={'_blank'} monotype>
-            {formatHash(hash, HashLength.TINY)}
-          </HistoryLink>
+          <Link href={accountPath} target={'_blank'} color={'hash'}>
+            <BodyText size={1} variation={'darkGray'} monotype>{formatHash(hash, HashLength.TINY)}</BodyText>
+          </Link>
         </BodyText>
       </FlexRow>
-    </StyledTableData>
   );
 };
 
