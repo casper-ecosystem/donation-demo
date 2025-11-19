@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+
+# IDEs and editors
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+user-?-keys/
