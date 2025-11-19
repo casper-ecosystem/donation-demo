@@ -1,29 +1,6 @@
+import { GetResponseType, TipsResponse } from '@/entities';
+
 const API_URL = config.donation_api_url;
-
-export interface ErrorResult {
-  error: string;
-  details: string;
-}
-
-export interface GetResponseType<Entity extends any> {
-  error: ErrorResult | null;
-  httpCode: number;
-  data: Entity | null;
-}
-
-export interface Tip {
-  id: string;
-  sender_public_key: string;
-  amount_cspr: string;
-  message: string;
-  timestamp: string;
-  transaction_hash: string;
-}
-
-export interface TipsResponse {
-  items: Tip[];
-  total: number;
-}
 
 export const getCommunityTips = async (limit?: string): Promise<GetResponseType<TipsResponse>> => {
   try {

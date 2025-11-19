@@ -1,20 +1,12 @@
-import styled from 'styled-components';
-import { FlexColumn, FlexRow, HeaderText, PageTile } from '@make-software/cspr-design';
-
-const StyledPageTile = styled(PageTile)(() => ({
-  padding: '60px 0',
-  boxShadow: 'none'
-}));
-
-const StyledFlexColumn = styled(FlexColumn)(() => ({
-  width: '400px'
-}));
+import React from 'react';
+import { FlexColumn, FlexRow, HeaderText } from '@make-software/cspr-design';
+import { StyledFlexColumn, StyledPageTile } from './styled';
 
 export interface NoTipsProps {
   message?: string;
 }
 
-const NoTips = ({ message }: NoTipsProps) => {
+export const NoTips: React.FC<NoTipsProps> = ({ message }) => {
   return (
     <StyledPageTile>
       <FlexRow align={'center'} justify={'center'}>
@@ -29,5 +21,3 @@ const NoTips = ({ message }: NoTipsProps) => {
     </StyledPageTile>
   );
 };
-
-export default NoTips;

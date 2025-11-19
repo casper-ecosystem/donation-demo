@@ -1,31 +1,15 @@
+import React from 'react';
 import { ClickUI, ThemeModeType, useClickBadge } from '@make-software/csprclick-ui';
+
 import { accountMenuItems } from './settings/account-menu';
-import styled from 'styled-components';
-
-const TopBarSection = styled.section<{ theme: any }>(({ theme }) => ({
-  backgroundColor: theme.topBarSectionBackgroundColor,
-  position: 'fixed',
-  zIndex: 1,
-  width: '100%'
-}));
-
-const TopBarContainer = styled.div(({ theme }) =>
-  theme.withMedia({
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    maxWidth: ['540px', '720px', '1200px'],
-    margin: '0 auto',
-    padding: '0 12px'
-  })
-);
+import { TopBarContainer, TopBarSection } from './styled';
 
 export interface TopBarProps {
   themeMode: ThemeModeType | undefined;
   onThemeSwitch: () => void;
 }
 
-const ClickTopBar = ({ themeMode, onThemeSwitch }: TopBarProps) => {
+export const ClickTopBar: React.FC<TopBarProps> = ({ themeMode, onThemeSwitch }) => {
   const { setLeftBadge } = useClickBadge();
 
   setLeftBadge({
@@ -49,5 +33,3 @@ const ClickTopBar = ({ themeMode, onThemeSwitch }: TopBarProps) => {
     </TopBarSection>
   );
 };
-
-export default ClickTopBar;

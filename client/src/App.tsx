@@ -2,12 +2,9 @@ import { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useClickRef, ThemeModeType } from '@make-software/csprclick-ui';
 import { AccountType } from '@make-software/csprclick-core-types';
-import { AppTheme } from './utils/theme';
-import ClickTopBar from './components/click-top-bar';
-import Container from './components/common/container/container';
-import HeroSection from './components/hero-section';
-import TipsList from './components/tips';
-import PageFooter from './components/page-footer';
+
+import { AppTheme } from '@/utils';
+import { ClickTopBar, Container, HeroSection, PageFooter, TipsList } from '@/components';
 
 const MainSection = styled.section(({ theme }) =>
   theme.withMedia({

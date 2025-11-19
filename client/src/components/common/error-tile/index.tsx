@@ -1,17 +1,15 @@
-import styled from 'styled-components';
+import React from 'react';
 import { BodyText, FlexColumn, FlexRow, HeaderText } from '@make-software/cspr-design';
-import { ErrorResult } from '../../../api/tips-requests';
 
-const StyledFlexColumn = styled(FlexColumn)(() => ({
-  width: '400px',
-  height: '400px'
-}));
+import { ErrorResult } from '@/entities';
+
+import { StyledFlexColumn } from './styled';
 
 interface ErrorTileProps {
   error: ErrorResult;
 }
 
-export const ErrorTile = ({ error }: ErrorTileProps) => {
+export const ErrorTile: React.FC<ErrorTileProps> = ({ error }) => {
   return (
     <FlexRow align={'center'} justify={'center'}>
       <StyledFlexColumn itemsSpacing={24} align={'center'} justify={'center'}>

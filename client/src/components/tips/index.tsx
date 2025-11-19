@@ -1,61 +1,13 @@
-import { useEffect } from 'react';
-import { PageTile, Table } from '@make-software/cspr-design';
-import { ErrorTile } from 'components/common/error-tile/error-tile';
-import { LoadMoreButton } from 'components/common/load-more-button/load-more-button';
-import TipsTableRow from './components/tips-table-row/tips-table-row';
-import TipsDataHeaders from './components/tips-data-header/tips-data-headers';
-import { useGetTips } from 'hooks/use-get-tips';
-import { Tip } from 'api/tips-requests';
-import NoTips from 'components/common/no-tips/no-tips';
+import React from 'react';
 
-interface TipsListProps {
-  refetchSignal: number;
-}
+import { TableTile } from '@/components';
 
-const TipsTable = ({ refetchSignal }: TipsListProps) => {
-  const { loading, error, data, refetch } = useGetTips('5');
+import { TipsListProps, TipsTable } from './components';
 
-  useEffect(() => {
-    refetchSignal > 0 && refetch();
-  }, [refetchSignal]);
-
-  if (loading) {
-    return <NoTips message={'Loading...'} />;
-  }
-
-  if (error) {
-    return <ErrorTile error={error} />;
-  }
-
-  if (!data || !data.items || data.items?.length < 1) {
-    return <NoTips />;
-  }
-
+export const TipsList: React.FC<TipsListProps> = ({ refetchSignal }) => {
   return (
-    <Table
-      renderHeader={() => <TipsDataHeaders itemCounter={data.items?.length} />}
-      renderData={() => data.items?.map((t: Tip) => <TipsTableRow tip={t} key={t.id} />)}
-      renderFooter={() =>
-        data.items?.length >= 5 ? (
-          <LoadMoreButton
-            isCollapsed={data.items?.length < data?.total}
-            handleLoadMore={() => refetch()}
-            handleReset={() => refetch('5')}
-          />
-        ) : (
-          <></>
-        )
-      }
-    />
-  );
-};
-
-const TipsList = ({ refetchSignal }: TipsListProps) => {
-  return (
-    <PageTile>
+    <TableTile title="">
       <TipsTable refetchSignal={refetchSignal} />
-    </PageTile>
+    </TableTile>
   );
 };
-
-export default TipsList;

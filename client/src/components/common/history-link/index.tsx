@@ -1,18 +1,8 @@
-import styled from 'styled-components';
+import React from 'react';
+
 import { NavLink, BodyText } from '@make-software/cspr-design';
 
-const StyledWrapper = styled.span(({ theme }) => ({
-  color: theme.styleguideColors.contentBlue,
-  '& > *': {
-    color: theme.styleguideColors.contentBlue
-  },
-  '&:hover > *': {
-    color: theme.styleguideColors.fillPrimaryRed
-  },
-  '&:active > *': {
-    color: theme.styleguideColors.fillPrimaryRedClick
-  }
-}));
+import { StyledWrapper } from './styled';
 
 interface HistoryLinkProps {
   href: string;
@@ -21,7 +11,12 @@ interface HistoryLinkProps {
   monotype?: boolean;
 }
 
-export const HistoryLink = ({ href, children, target, monotype = false }: HistoryLinkProps) => {
+export const HistoryLink: React.FC<HistoryLinkProps> = ({
+  href,
+  children,
+  target,
+  monotype = false
+}) => {
   const normalizedHref =
     href.startsWith('http://') || href.startsWith('https://') ? href : `https://${href}`;
   return (

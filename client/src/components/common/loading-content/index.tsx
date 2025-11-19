@@ -1,6 +1,6 @@
 import { FlexRow } from '@make-software/cspr-design';
 import LoadingIcon from 'assets/icons/loading.svg';
-import { LoadingContainer, LoadingSvgIcon, StyledTitle } from '../modal-styles';
+import { LoadingContainer, LoadingSvgIcon, StyledTitle } from '@/components';
 
 export const LoadingContent = () => {
   return (

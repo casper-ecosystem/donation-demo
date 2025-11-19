@@ -1,25 +1,15 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { StyledInput } from 'components/common/modal-styles';
-import { BodyText, Button, FlexColumn, FlexRow, Textarea } from '@make-software/cspr-design';
+import React, { useState } from 'react';
+import { BodyText, FlexColumn, FlexRow } from '@make-software/cspr-design';
 
-const StyledButton = styled(Button)(({ theme }) =>
-  theme.withMedia({
-    cursor: 'pointer'
-  })
-);
+import { StyledInput } from '@/components';
 
-const StyledTextArea = styled(Textarea)(({ theme }) =>
-  theme.withMedia({
-    width: '100%'
-  })
-);
+import { StyledButton, StyledTextArea } from './styled';
 
 interface TipFormProps {
   onConfirm: (amount: string, message: string) => void;
 }
 
-export const TipForm = ({ onConfirm }: TipFormProps) => {
+export const TipForm: React.FC<TipFormProps> = ({ onConfirm }) => {
   const [amount, setAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [formErrors, setFormErrors] = useState<Record<'amount' | 'message', string>>({
@@ -27,21 +17,15 @@ export const TipForm = ({ onConfirm }: TipFormProps) => {
     message: ''
   });
 
-  const handleFillAmount = (amount: string) => {
-    setFormErrors({
-      ...formErrors,
-      amount: ''
-    });
-    setAmount(amount);
+  const handleFillAmount = (value: string) => {
+    setAmount(value);
+    setFormErrors((prev) => ({ ...prev, amount: '' }));
   };
 
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.target.value;
 
-    setFormErrors({
-      ...formErrors,
-      amount: ''
-    });
+    setFormErrors((prev) => ({ ...prev, amount: '' }));
 
     if (val === '') {
       setAmount(val);
@@ -75,44 +59,37 @@ export const TipForm = ({ onConfirm }: TipFormProps) => {
     const val = event.target.value;
 
     if (val.length <= 180) {
-      setFormErrors({
-        ...formErrors,
-        message: ''
-      });
       setMessage(val);
-      setFormErrors({
-        ...formErrors,
-        message: ''
-      });
+      setFormErrors((prev) => ({ ...prev, message: '' }));
     } else {
-      setFormErrors({
-        ...formErrors,
+      setFormErrors((prev) => ({
+        ...prev,
         message: 'Max limit reached (180 symbols)'
-      });
+      }));
     }
   };
 
-  const handleConfirm = (ev: any) => {
+  const handleConfirm = () => {
+    const nextErrors: Record<'amount' | 'message', string> = { amount: '', message: '' };
+
     if (!amount.length) {
-      setFormErrors({
-        ...formErrors,
-        amount: 'This field is required'
-      });
-      return;
+      nextErrors.amount = 'This field is required';
     }
 
     if (!message.length) {
-      setFormErrors({
-        ...formErrors,
-        message: 'This field is required'
-      });
+      nextErrors.message = 'This field is required';
+    }
+
+    if (nextErrors.amount || nextErrors.message) {
+      setFormErrors(nextErrors);
       return;
     }
 
-    if (!formErrors.amount && !formErrors.message) {
-      onConfirm(amount, message);
-    }
+    onConfirm(amount, message);
   };
+
+  const hasErrors = Boolean(formErrors.amount || formErrors.message);
+  const isIncomplete = !amount.length || !message.length;
 
   return (
     <FlexColumn gap={25}>
@@ -120,7 +97,7 @@ export const TipForm = ({ onConfirm }: TipFormProps) => {
         <StyledInput
           value={amount}
           label={
-            <BodyText size={1} variation={'black'}>
+            <BodyText size={1} variation="black">
               Tip
             </BodyText>
           }
@@ -131,16 +108,18 @@ export const TipForm = ({ onConfirm }: TipFormProps) => {
           validationText={formErrors.amount}
         />
       </FlexRow>
+
       <FlexRow gap={10}>
         <StyledButton onClick={() => handleFillAmount('50')}>50</StyledButton>
         <StyledButton onClick={() => handleFillAmount('250')}>250</StyledButton>
         <StyledButton onClick={() => handleFillAmount('1000')}>1000</StyledButton>
       </FlexRow>
+
       <FlexRow>
         <StyledTextArea
           value={message}
           label={
-            <BodyText size={1} variation={'black'}>
+            <BodyText size={1} variation="black">
               Message
             </BodyText>
           }
@@ -150,11 +129,9 @@ export const TipForm = ({ onConfirm }: TipFormProps) => {
           validationText={formErrors.message}
         />
       </FlexRow>
+
       <FlexRow>
-        <StyledButton
-          disabled={Boolean(formErrors.amount || formErrors.message)}
-          onClick={(e) => handleConfirm(e)}
-        >
+        <StyledButton disabled={hasErrors || isIncomplete} onClick={handleConfirm}>
           Send
         </StyledButton>
       </FlexRow>

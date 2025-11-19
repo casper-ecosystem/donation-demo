@@ -1,11 +1,17 @@
+import React from 'react';
 import { useTheme } from 'styled-components';
 import ReactModal from 'react-modal';
-import { ModalHeader } from '@make-software/cspr-design';
-import { centerModalStyles, ModalContainer } from 'components/common/modal-styles';
-import { LoadingContent } from 'components/common/loading-content/loading-content';
-import { SuccessContent } from 'components/common/success-content/success-content';
-import { CanceledContent } from 'components/common/canceled-content/canceled-content';
-import { ErrorContent } from 'components/common/error-content/error-content';
+
+import {
+  CanceledContent,
+  centerModalStyles,
+  ErrorContent,
+  LoadingContent,
+  ModalContainer,
+  ModalHeader,
+  SuccessContent
+} from '@/components';
+
 import { TipForm } from './tip-form';
 
 export type ModalScreen = 'form' | 'loading' | 'success' | 'cancelled' | 'error' | null;
@@ -16,24 +22,38 @@ interface TipModalProps {
   onConfirm: (amount: string, message: string) => void;
 }
 
-export const TipModal = ({ modalScreen, onClose, onConfirm }: TipModalProps) => {
+export const TipModal: React.FC<TipModalProps> = ({ modalScreen, onClose, onConfirm }) => {
   const theme = useTheme();
 
-  const modalStyles = {
+  const modalStyles: ReactModal.Styles = {
     overlay: {
       backgroundColor: theme.styleguideColors.backgroundOverlay,
       zIndex: 15
     },
     content: {
       ...centerModalStyles,
-      ...{
-        paddingTop: '20px',
-        border: 'none',
-        backgroundColor: theme.styleguideColors.backgroundPrimary,
-        borderTop: `4px solid ${theme.styleguideColors.contentRed}`,
-        borderColor: theme.styleguideColors.contentRed,
-        boxShadow: '0px 16px 48px rgba(26, 25, 25, 0.2)'
-      }
+      paddingTop: '20px',
+      border: 'none',
+      backgroundColor: theme.styleguideColors.backgroundPrimary,
+      borderTop: `4px solid ${theme.styleguideColors.contentRed}`,
+      borderColor: theme.styleguideColors.contentRed,
+      boxShadow: '0px 16px 48px rgba(26, 25, 25, 0.2)'
+    }
+  };
+
+  const renderContent = () => {
+    switch (modalScreen) {
+      case 'loading':
+        return <LoadingContent />;
+      case 'success':
+        return <SuccessContent />;
+      case 'cancelled':
+        return <CanceledContent />;
+      case 'error':
+        return <ErrorContent />;
+      case 'form':
+      default:
+        return <TipForm onConfirm={onConfirm} />;
     }
   };
 
@@ -43,21 +63,10 @@ export const TipModal = ({ modalScreen, onClose, onConfirm }: TipModalProps) => 
       onRequestClose={onClose}
       style={modalStyles}
       shouldCloseOnEsc
-      shouldCloseOnOverlayClick
-    >
+      shouldCloseOnOverlayClick>
       <ModalContainer>
-        <ModalHeader onClose={onClose} marginBottom={'0'} />
-        {modalScreen === 'loading' ? (
-          <LoadingContent />
-        ) : modalScreen === 'success' ? (
-          <SuccessContent />
-        ) : modalScreen === 'cancelled' ? (
-          <CanceledContent />
-        ) : modalScreen === 'error' ? (
-          <ErrorContent />
-        ) : (
-          <TipForm onConfirm={onConfirm} />
-        )}
+        <ModalHeader onClose={onClose} marginBottom="0" />
+        {renderContent()}
       </ModalContainer>
     </ReactModal>
   );

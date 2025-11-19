@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Container = styled.div<{ theme: any }>(({ theme }) =>
+export const Container = styled.div<{ theme: any }>(({ theme }) =>
   theme.withMedia({
     display: 'flex',
     flexDirection: 'column',
@@ -70,5 +70,3 @@ const Container = styled.div<{ theme: any }>(({ theme }) =>
     }
   })
 );
-
-export default Container;
