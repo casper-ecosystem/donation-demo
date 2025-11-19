@@ -7,9 +7,8 @@ import { TipsListProps, TipsTable } from './components';
 export const TipsContainer: React.FC<TipsListProps> = ({ refetchSignal }) => {
   return (
     <Container>
-      <h3>Community Appreciation</h3>
       <Section>
-        <TableTile title="">
+        <TableTile title="Community Appreciation">
           <TipsTable refetchSignal={refetchSignal} />
         </TableTile>
       </Section>
