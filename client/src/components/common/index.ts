@@ -12,3 +12,4 @@ export * from './prize-cell';
 export * from './no-tips';
 export * from './success-content';
 export * from './table-tile';
+export * from './section';

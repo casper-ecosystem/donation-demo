@@ -1,13 +1,18 @@
 import React from 'react';
 
-import { TableTile } from '@/components';
+import { Container, Section, TableTile } from '@/components';
 
 import { TipsListProps, TipsTable } from './components';
 
-export const TipsList: React.FC<TipsListProps> = ({ refetchSignal }) => {
+export const TipsContainer: React.FC<TipsListProps> = ({ refetchSignal }) => {
   return (
-    <TableTile title="">
-      <TipsTable refetchSignal={refetchSignal} />
-    </TableTile>
+    <Container>
+      <h3>Community Appreciation</h3>
+      <Section>
+        <TableTile title="">
+          <TipsTable refetchSignal={refetchSignal} />
+        </TableTile>
+      </Section>
+    </Container>
   );
 };

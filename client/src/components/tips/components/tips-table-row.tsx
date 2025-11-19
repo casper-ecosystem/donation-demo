@@ -18,6 +18,7 @@ interface TipsTableRowProps {
 
 export const TipsTableRow: React.FC<TipsTableRowProps> = ({ tip }) => {
   const accountPath = `${config.cspr_live_url}/transaction/${tip.transaction_hash}`;
+
   return (
     <TableRow key={tip.id}>
       <TableData>

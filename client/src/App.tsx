@@ -4,7 +4,7 @@ import { useClickRef, ThemeModeType } from '@make-software/csprclick-ui';
 import { AccountType } from '@make-software/csprclick-core-types';
 
 import { AppTheme } from '@/utils';
-import { ClickTopBar, Container, HeroSection, PageFooter, TipsList } from '@/components';
+import { ClickTopBar, Container, HeroSection, PageFooter, TipsContainer } from '@/components';
 
 const MainSection = styled.section(({ theme }) =>
   theme.withMedia({
@@ -42,8 +42,7 @@ const App = () => {
           onUpdateTipsList={() => setRefetchSignal(Date.now())}
         />
         <MainSection>
-          <h3>Community Appreciation</h3>
-          <TipsList refetchSignal={refetchSignal} />
+          <TipsContainer refetchSignal={refetchSignal} />
         </MainSection>
       </Container>
       <PageFooter />
