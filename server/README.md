@@ -200,9 +200,9 @@ http GET localhost:4000/api/health
 - [Odra Framework](https://github.com/odradev/odra) - Smart contract development
 
 ## Community & Support
+Need help?
 
-Join the [Casper Developers Telegram](https://t.me/CSPRDevelopers) channel to:
-- Connect with other developers
-- Get technical support
-- Stay updated on ecosystem tools
-- Share your projects
+- 📖 Check the [full documentation](../README.md)
+- 🐛 [Open an issue](https://github.com/your-repo/issues)
+- 💬 Join [Casper Developers Telegram](https://t.me/CSPRDevelopers)
+- 📧 Contact support at [CSPR.build](https://console.cspr.build)
