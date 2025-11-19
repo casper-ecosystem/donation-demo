@@ -18,9 +18,7 @@ export const PrizeCell: React.FC<PrizeCellProps> = ({ amount }) => {
 
   return (
     <FlexRow align={'center'}>
-      <BodyText size={3} monotype>
-        {prizeAmount} CSPR
-      </BodyText>
+      <BodyText size={3}>{prizeAmount} CSPR</BodyText>
     </FlexRow>
   );
 };
