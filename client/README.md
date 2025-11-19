@@ -2,22 +2,6 @@
 
 A modern React 18 frontend application that provides an intuitive interface for tipping developers on the Casper blockchain. Built with the CSPR.click authentication system and CSPR Design System components.
 
-## Features
-
-- **Seamless Wallet Integration**: Connect with all major Casper wallets via CSPR.click
-- **Easy Tipping**: Send CSPR tokens with personalized messages
-- **Tip History**: View all tips sent and received with real-time updates
-- **Modern UI**: Built with CSPR Design System for consistent, professional design
-- **Fast & Responsive**: Optimized React 18 performance with modern tooling
-
-## Technology Stack
-
-- **Framework**: React 18 with hooks and modern patterns
-- **Build Tool**: Vite for lightning-fast development and optimized production builds
-- **Authentication**: [CSPR.click](https://cspr.click) for wallet connection and signing
-- **UI Components**: [CSPR Design System](https://design.casper.network/) for professional UI
-- **Blockchain SDK**: [casper-js-sdk](https://github.com/casper-ecosystem/casper-js-sdk) for transaction building
-- **API Client**: Fetch API with custom hooks for backend integration
 
 ## Prerequisites
 
@@ -77,9 +61,6 @@ The application will be available at:
 3. **Open Browser**: Navigate to `http://localhost:3000`
 
 
-
-
-
 ## Resources
 
 - **CSPR.click Documentation**: [https://docs.cspr.click](https://docs.cspr.click)
@@ -89,9 +70,4 @@ The application will be available at:
 - **Vite Documentation**: [https://vitejs.dev](https://vitejs.dev)
 
 ## Community & Support
-Need help?
-
-- 📖 Check the [full documentation](../README.md)
-- 🐛 [Open an issue](https://github.com/your-repo/issues)
-- 💬 Join [Casper Developers Telegram](https://t.me/CSPRDevelopers)
-- 📧 Contact support at [CSPR.build](https://console.cspr.build)
+Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connect with other developers.
