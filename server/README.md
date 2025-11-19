@@ -15,7 +15,7 @@ The Event Listener subscribes to smart contract events via CSPR.cloud's real-tim
 
 ## Prerequisites
 
-- **Node.js**: Version 16.x or higher
+- **Node.js**: Version 20.12.0 or higher
 - **npm**: Version 8.x or higher
 - **MySQL**: Version 8.0 or higher
 - **CSPR.cloud API Key**: Obtain from [CSPR.build Console](https://console.cspr.build)
@@ -61,20 +61,9 @@ CSPR_CLOUD_ACCESS_KEY=your_access_key_here
 
 **Database Connection:**
 ```env
-# Default values for Docker setup
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=tip_barista
+# Default value for Docker setup
+DB_URI="mysql://root:password@localhost:3306/donation"
 ```
-
-**Network Selection:**
-```env
-# Use 'testnet' for development, 'mainnet' for production
-CASPER_NETWORK=testnet
-```
-
 
 
 ## Installation
@@ -157,7 +146,6 @@ Returns server status and database connectivity.
 **Solution**:
 - Verify `DONATION_CONTRACT_PACKAGE_HASH` matches deployed contract
 - Check contract has emitted events (view on [Testnet Explorer](https://testnet.cspr.live))
-- Ensure `CASPER_NETWORK` matches contract deployment (testnet/mainnet)
 - Review logs for connection errors: `npm run event-handler:dev`
 
 ### Port Already in Use
@@ -200,9 +188,4 @@ http GET localhost:4000/api/health
 - [Odra Framework](https://github.com/odradev/odra) - Smart contract development
 
 ## Community & Support
-Need help?
-
-- 📖 Check the [full documentation](../README.md)
-- 🐛 [Open an issue](https://github.com/your-repo/issues)
-- 💬 Join [Casper Developers Telegram](https://t.me/CSPRDevelopers)
-- 📧 Contact support at [CSPR.build](https://console.cspr.build)
+Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connect with other developers.

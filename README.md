@@ -1,6 +1,7 @@
 # Tip the Barista Demo dApp
 
-A demonstration application showcasing how to build a full-stack dApp on the Casper Network. This example implements a simple tipping system where users can send CSPR tokens to developers as appreciation.
+A demonstration application showcasing how to build a full-stack dApp on the Casper Network.
+The dApp allows users to send tips with CSPR tokens to a developer to show their appreciation. The tips are stored in a smart contract and indexed by CSPR.cloud. The dApp also provides a list of all tips sent so far.
 
 ## What You'll Learn
 
@@ -8,9 +9,8 @@ This demo demonstrates:
 
 - **Authentication & Wallet Integration**: Using CSPR.click, a Web3 authentication layer that integrates with all Casper ecosystem wallets
 - **Blockchain Data Indexing**: Using CSPR.cloud, an enterprise-grade middleware platform that provides access to indexed and enriched blockchain data with real-time streaming
-- **Smart Contract Development**: Writing contracts with [Odra framework](https://github.com/odradev/odra)
+- **Smart Contract Development**: Writing contracts with Odra framework
 - **Event Handling**: Listening to and indexing smart contract events
-- **Full-Stack Architecture**: Connecting frontend, backend, and blockchain components
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ This starts the database, event listener, API server, and web client.
 ### 1. Register for API Access
 
 Create a free account at [CSPR.build](https://console.cspr.build) to obtain:
-- CSPR.click access keys (for wallet authentication)
+- CSPR.click application id (for wallet authentication)
 - CSPR.cloud access keys (for blockchain data indexing)
 
 ### 2. Smart Contract
@@ -104,16 +104,6 @@ The server includes an event listener and REST API.
 └──────────────────┘
 ```
 
-## Technology Stack
-
-- **Blockchain**: Casper Network - a Layer-1 blockchain with upgradeable smart contracts and Proof-of-Stake consensus
-- **Smart Contracts**: Odra framework (Rust-based)
-- **Indexing**: CSPR.cloud API
-- **Authentication**: CSPR.click
-- **Backend**: Node.js/TypeScript
-- **Database**: MySQL
-- **Frontend**: React/TypeScript
-- **Infrastructure**: Docker & Docker Compose
 
 ## Project Structure
 
@@ -122,8 +112,7 @@ The server includes an event listener and REST API.
 ├── client/              # React frontend application
 ├── server/              # Backend API and event listener
 ├── smart-contract/      # Odra smart contract source
-└── infra/
-    └── local/          # Docker Compose configuration
+└── infra/               # Dockerfiles and Docker Compose configuration
 ```
 
 ## About Casper Network
@@ -141,12 +130,9 @@ Casper is a Proof of Stake enterprise blockchain designed to help enterprises bu
 - [CSPR.build Console](https://console.cspr.build) - Developer tools access
 - [CSPR.cloud Documentation](https://docs.cspr.cloud/) - API reference
 - [Testnet Explorer](https://testnet.cspr.live) - View transactions and contracts
-- [Odra Framework](https://github.com/odradev/odra) - Smart contract development
+- [Odra Framework](https://odra.dev/) - Smart contract development
+- [CSPR.click Documentation](https://docs.cspr.click) - Unified SDK that simplifies Web3 application onboarding
+- [CSPR Design System](https://cspr.design/) - CSPR.suite UI components library for React applications
 
 ## Community & Support
-Need help?
-
-- 📖 Check the [full documentation](../README.md)
-- 🐛 [Open an issue](https://github.com/your-repo/issues)
-- 💬 Join [Casper Developers Telegram](https://t.me/CSPRDevelopers)
-- 📧 Contact support at [CSPR.build](https://console.cspr.build)
+Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connect with other developers.
