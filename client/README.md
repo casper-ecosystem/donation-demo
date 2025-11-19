@@ -64,7 +64,7 @@ The application will be available at:
 ## Resources
 
 - **CSPR.click Documentation**: [https://docs.cspr.click](https://docs.cspr.click)
-- **CSPR Design System**: [https://use.cspr.design/](https://use.cspr.design/)
+- **CSPR Design System**: [https://cspr.design/](https://cspr.design/)
 - **Casper JS SDK**: [https://github.com/casper-ecosystem/casper-js-sdk](https://github.com/casper-ecosystem/casper-js-sdk)
 - **React Documentation**: [https://react.dev](https://react.dev)
 - **Vite Documentation**: [https://vitejs.dev](https://vitejs.dev)
