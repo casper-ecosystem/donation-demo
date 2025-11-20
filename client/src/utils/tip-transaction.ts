@@ -39,13 +39,10 @@ export const buildTipTransaction = async (sender: string, amount: string, messag
     .wasm(contractWasm)
     .payment(Number.parseInt(config.transaction_payment, 10))
     .chainName(window.csprclick?.chainName!)
-    .build();
-  const wrappedTransaction = new TransactionWrapper(
-    undefined,
-    sessionTransaction.getTransactionV1()
-  );
+    .build()
+    .getTransactionWrapper();
 
   return {
-    transaction: TransactionWrapper.toJSON(wrappedTransaction)
+    transaction: TransactionWrapper.toJSON(sessionTransaction)
   };
 };
