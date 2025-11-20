@@ -8,7 +8,7 @@ export const TipsContainer: React.FC<TipsListProps> = ({ refetchSignal }) => {
   return (
     <Container>
       <Section>
-        <TableTile title="Community Appreciation">
+        <TableTile title="Previous tips">
           <TipsTable refetchSignal={refetchSignal} />
         </TableTile>
       </Section>
