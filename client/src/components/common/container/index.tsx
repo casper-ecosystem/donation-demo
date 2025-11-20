@@ -30,27 +30,12 @@ export const Container = styled.div<{ theme: any }>(({ theme }) =>
     b: {
       cursor: 'pointer'
     },
-    // span: {
-    //   fontSize: '16px',
-    //   fontWeight: '400',
-    //   lineHeight: '24px',
-    //   color: theme.contentPrimary
-    // },
+
     pre: {
       background: theme.backgroundPrimary,
       code: {
         color: theme.codeColor
       }
-    },
-    button: {
-      // background: theme.contentPrimary,
-      // color: theme.fillSecondary,
-      // height: '38px',
-      // padding: '8px 16px',
-      // marginTop: '20px',
-      // fontSize: '14px',
-      // fontWeight: '600',
-      // lineHeight: '20px'
     },
     ol: {
       color: theme.contentPrimary,

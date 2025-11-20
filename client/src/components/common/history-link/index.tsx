@@ -19,10 +19,11 @@ export const HistoryLink: React.FC<HistoryLinkProps> = ({
 }) => {
   const normalizedHref =
     href.startsWith('http://') || href.startsWith('https://') ? href : `https://${href}`;
+
   return (
     <StyledWrapper>
       <NavLink href={normalizedHref} target={target}>
-        <BodyText size={3} monotype={monotype}>
+        <BodyText size={3} monotype={monotype} scale={'sm'}>
           {children}
         </BodyText>
       </NavLink>

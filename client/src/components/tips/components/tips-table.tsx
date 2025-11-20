@@ -37,7 +37,7 @@ export const TipsTable: React.FC<TipsListProps> = ({ refetchSignal }) => {
   return (
     <Table
       renderDataHeaders={() => <TipsDataHeaders />}
-      renderData={() => data.items.map((t) => <TipsTableRow tip={t} key={t.id} />)}
+      renderData={() => data?.items?.map((t) => <TipsTableRow tip={t} key={t.id} />)}
       renderFooter={() =>
         (data.total ?? 0) > 5 && (
           <LoadMoreButton

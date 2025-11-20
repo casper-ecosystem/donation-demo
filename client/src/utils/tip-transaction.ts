@@ -5,15 +5,11 @@ import {
   Hash,
   PublicKey,
   SessionBuilder,
-  TransactionV1
+  TransactionWrapper
 } from 'casper-js-sdk';
 import { getProxyWasm } from '@/api';
 
-export const buildTipTransaction = async (
-  sender: string,
-  amount: string,
-  message: string
-): Promise<{ transaction: { Version1: unknown } }> => {
+export const buildTipTransaction = async (sender: string, amount: string, message: string) => {
   const contractWasm = await getProxyWasm();
 
   const tipArgs = Args.fromMap({
@@ -41,18 +37,15 @@ export const buildTipTransaction = async (
     .from(PublicKey.fromHex(sender))
     .runtimeArgs(args)
     .wasm(contractWasm)
-    .payment(Number.parseInt(config.transaction_payment, 10)) // in motes
+    .payment(Number.parseInt(config.transaction_payment, 10))
     .chainName(window.csprclick?.chainName!)
     .build();
-
-  const txV1 = sessionTransaction.getTransactionV1();
-  if (!txV1) {
-    throw new Error('Failed to build TransactionV1');
-  }
+  const wrappedTransaction = new TransactionWrapper(
+    undefined,
+    sessionTransaction.getTransactionV1()
+  );
 
   return {
-    transaction: {
-      Version1: TransactionV1.toJSON(txV1)
-    }
+    transaction: TransactionWrapper.toJSON(wrappedTransaction)
   };
 };

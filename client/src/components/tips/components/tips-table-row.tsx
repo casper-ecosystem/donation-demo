@@ -4,11 +4,13 @@ import {
   TableRow,
   formatHash,
   HashLength,
-  formatTimestamp
+  formatTimestamp,
+  BodyText,
+  formatTimestampAge
 } from '@make-software/cspr-design';
 
 import { Tip } from '@/entities';
-import { AccountInfoCell, HistoryLink, PrizeCell } from '@/components';
+import { AccountInfoCell, HistoryLink, TokenAmountCell, Tooltip } from '@/components';
 
 import { StyledMessageText, StyledTimeText } from './styled';
 
@@ -26,20 +28,28 @@ export const TipsTableRow: React.FC<TipsTableRowProps> = ({ tip }) => {
       </TableData>
 
       <TableData>
-        <PrizeCell amount={tip.amount_cspr} />
+        <TokenAmountCell amount={tip.amount_cspr} />
       </TableData>
       <TableData>
-        <StyledMessageText>{tip.message}</StyledMessageText>
+        <StyledMessageText size={3} scale="sm">
+          {tip.message}
+        </StyledMessageText>
       </TableData>
       <TableData>
-        <HistoryLink href={accountPath} target={'_blank'} monotype>
-          {formatHash(tip.transaction_hash, HashLength.TINY)}
-        </HistoryLink>
+        <Tooltip tooltipContent={tip.transaction_hash}>
+          <BodyText size={3} monotype>
+            <HistoryLink href={accountPath} target={'_blank'} monotype>
+              {formatHash(tip.transaction_hash, HashLength.TINY)}
+            </HistoryLink>
+          </BodyText>
+        </Tooltip>
       </TableData>
       <TableData>
-        <StyledTimeText size={3} monotype>
-          {formatTimestamp(tip.timestamp)}
-        </StyledTimeText>
+        <Tooltip tooltipContent={formatTimestamp(tip.timestamp)} monotype>
+          <StyledTimeText size={3} noWrap>
+            {formatTimestampAge(tip.timestamp)}
+          </StyledTimeText>
+        </Tooltip>
       </TableData>
     </TableRow>
   );

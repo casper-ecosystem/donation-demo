@@ -56,11 +56,6 @@ export const Section = styled.div<{ border?: boolean; withBackground?: boolean; 
           marginBottom: '0'
         }
       },
-      table: {
-        // marginLeft: '30px',
-        // fontSize: '14px',
-        // color: theme.contentPrimary
-      },
       button: {
         cursor: 'pointer',
         marginTop: '24px',
