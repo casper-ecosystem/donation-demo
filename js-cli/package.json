@@ -1,0 +1,25 @@
+{
+  "name": "js-contract-client",
+  "description": "Donation Demo JS contract client",
+  "version": "0.1.0",
+  "scripts": {
+    "scripts:donate": "ts-node donate.ts"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "dotenv": "^16.0.1",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@ethersproject/bignumber": "^5.7.0",
+    "@make-software/ces-js-parser": "2.0.0",
+    "@noble/hashes": "^1.8.0",
+    "casper-js-sdk": "^5",
+    "commander": "^10.0.0",
+    "ts-results": "^3.3.0"
+  }
+}

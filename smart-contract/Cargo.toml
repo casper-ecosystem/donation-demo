@@ -1,0 +1,39 @@
+[package]
+name = "tips_demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+odra = { version = "2.4.0", features = [], default-features = false }
+
+[dev-dependencies]
+odra-test = { version = "2.4.0", features = [], default-features = false }
+
+[build-dependencies]
+odra-build = { version = "2.4.0", features = [], default-features = false }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+odra-build = { version = "2.4.0", features = [], default-features = false }
+odra-cli = { version = "2.4.0", features = [], default-features = false }
+
+[[bin]]
+name = "tips_demo_build_contract"
+path = "bin/build_contract.rs"
+test = false
+
+[[bin]]
+name = "tips_demo_build_schema"
+path = "bin/build_schema.rs"
+test = false
+
+[[bin]]
+name = "tips_demo_cli"
+path = "bin/cli.rs"
+test = false
+
+[profile.release]
+codegen-units = 1
+lto = true
+
+[profile.dev.package."*"]
+opt-level = 3

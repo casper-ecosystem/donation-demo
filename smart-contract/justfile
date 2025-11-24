@@ -1,0 +1,30 @@
+default:
+    just -l
+
+build-contracts:
+    cargo odra build
+
+test:
+    cargo odra test -b casper
+
+lint:
+    cargo fmt
+
+cli *ARGS:
+    cargo run --bin tips_demo_cli -- {{ARGS}}
+
+nctl-up:
+    docker run --rm -it --name casper-nctl -d \
+        -p 11101:11101 \
+        -p 14101:14101 \
+        -p 18101:18101 \
+        makesoftware/casper-nctl
+
+nctl-down:
+    docker stop casper-nctl
+
+nctl-copy-keys:
+    docker cp casper-nctl:/home/casper/casper-nctl/assets/net-1/users/user-1/ ./user-1-keys
+    docker cp casper-nctl:/home/casper/casper-nctl/assets/net-1/users/user-2/ ./user-2-keys
+    docker cp casper-nctl:/home/casper/casper-nctl/assets/net-1/users/user-3/ ./user-3-keys
+

@@ -1,0 +1,9 @@
+const config = {
+  donation_contract_package_hash: "$DONATION_CONTRACT_PACKAGE_HASH",
+  donation_api_url: "$DONATION_API_URL",
+  cspr_click_app_name: "$CSPR_CLICK_APP_NAME",
+  cspr_click_app_id: "$CSPR_CLICK_APP_ID",
+  cspr_click_providers: $CSPR_CLICK_PROVIDERS,
+  cspr_live_url: "$CSPR_LIVE_URL",
+  transaction_payment: "$TRANSACTION_PAYMENT",
+};
