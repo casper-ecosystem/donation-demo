@@ -11,3 +11,4 @@ dist
 .settings/
 *.sublime-workspace
 user-?-keys/
+.DS_Store
