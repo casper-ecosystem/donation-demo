@@ -552,6 +552,12 @@ You can adapt them for:
 
 ---
 
+### Next Steps
+
+**[→ Continue to Part 5: Building the backend with CSPR.cloud streaming](./05-building-the-backend-with-cspr-cloud-streaming.md)**
+
+---
+
 ## Resources
 
 - [Casper Network](https://casper.network) - Official website

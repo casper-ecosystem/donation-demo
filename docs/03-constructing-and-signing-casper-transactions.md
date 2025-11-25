@@ -372,6 +372,12 @@ Building and signing transactions for Casper with CSPR.click involves:
 
 ---
 
+### Next Steps
+
+**[→ Continue to Part 4: Writing smart contracts with Odra framework](./04-writing-smart-contracts-with-odra.md)**
+
+---
+
 ## Resources
 
 - **CSPR.click Documentation**: [https://docs.cspr.click](https://docs.cspr.click)

@@ -264,6 +264,14 @@ From here, the next steps in your own project typically are:
 
 You now have a solid, **reusable frontend foundation** for any Casper dApp.
 
+--- 
+
+### Next Steps
+
+**[→ Continue to Part 3: Constructing and sign CSPR transactions](./03-constructing-and-signing-casper-transactions.md)**
+
+---
+
 ## Resources
 
 - **CSPR.click Documentation**: [https://docs.cspr.click](https://docs.cspr.click)

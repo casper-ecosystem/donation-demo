@@ -22,12 +22,12 @@ The **Donation Demo** is a practical, production-ready pattern for Casper dApps 
 
 Users will be able to:
 
-- ✅ Connect their wallet with **CSPR.click** (supports Casper Wallet, Ledger, MetaMask)
-- ✅ Enter a donation amount and message
-- ✅ Sign & send a CSPR transfer to a smart contract
-- ✅ Have the donation stored on-chain with event emission
-- ✅ View all donations through a responsive frontend
-- ✅ See real-time updates as new donations arrive
+- Connect their wallet with **CSPR.click** (supports Casper Wallet, Ledger, MetaMask)
+- Enter a donation amount and message
+- Sign & send a CSPR transfer to a smart contract
+- Have the donation stored on-chain with event emission
+- View all donations through a responsive frontend
+- See real-time updates as new donations arrive
 
 ### Architecture Highlights
 
