@@ -8,7 +8,7 @@ You can treat the example as a *reference implementation* and adapt the patterns
 
 ## 1. What is Odra?
 
-[Odra](https://github.com/odradev/odra) is a Rust-based smart contract framework for Casper that provides:
+[Odra](https://odra.dev/) is a Rust-based smart contract framework for Casper that provides:
 
 - High-level abstractions over Casper host functions
 - Clean patterns for **modules**, **storage**, **events**, and **errors**
@@ -551,3 +551,11 @@ You can adapt them for:
 - Mainnet
 
 ---
+
+## Resources
+
+- [Casper Network](https://casper.network) - Official website
+- [Odra Framework](https://odra.dev/) - Smart contract development
+
+## Community & Support
+Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connect with other developers.

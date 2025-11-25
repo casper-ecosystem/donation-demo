@@ -27,15 +27,16 @@ Casper Network → CSPR.cloud Streaming → Event Listener → Database ← REST
 
 You’ll need:
 
-- Node.js v18+ (LTS)
-- npm / pnpm / yarn
-- MySQL 8+ (or another database supported by TypeORM)
+-  **Node.js**: Version 20.12.0 or higher
+- **npm**: Version 8.x or higher
+- **MySQL**: Version 8.0 or higher (or another database supported by TypeORM)
 - A deployed **Casper smart contract** that emits CES-compatible events
 - A **CSPR.cloud** account and:
   - **API URL** (e.g. `https://api.testnet.cspr.cloud`)
   - **Streaming URL** (e.g. `wss://streaming.testnet.cspr.cloud`)
   - **Access key**
 - The **contract package hash** of your smart contract
+
 
 ---
 
@@ -44,8 +45,8 @@ You’ll need:
 Create a new backend project:
 
 ```bash
-mkdir my-casper-backend
-cd my-casper-backend
+mkdir server
+cd server
 npm init -y
 ```
 
@@ -241,7 +242,7 @@ If you know your event schema, you can define a more specific payload type and p
 
 ---
 
-## 7. Event Listener with CSPR.cloud Streaming (Generic)
+## 7. Event Listener with CSPR.cloud Streaming
 
 Your **Event Listener** is a long-running Node.js process that:
 
@@ -588,3 +589,14 @@ To adapt this to your project:
 - Add authentication/authorization if needed.
 
 This is a solid starting point for any **event-driven Casper application backend**.
+
+## Resources
+
+- [Casper Network](https://casper.network) - Official website
+- [CSPR.build Console](https://console.cspr.build) - Developer tools access
+- [CSPR.cloud Documentation](https://docs.cspr.cloud/) - API reference
+- [Testnet Explorer](https://testnet.cspr.live) - View transactions and contracts
+- [Odra Framework](https://odra.dev/) - Smart contract development
+
+## Community & Support
+Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connect with other developers.
