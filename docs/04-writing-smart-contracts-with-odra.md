@@ -24,7 +24,7 @@ Instead of dealing directly with low-level storage and URefs, you work with:
 
 ---
 
-## 2. Project Setup (Generic)
+## 2. Project Setup
 
 ### 2.1 Create a new library crate
 
@@ -118,7 +118,7 @@ src/
   my_module.rs
 ```
 
-### 3.1 `lib.rs` (Generic)
+### 3.1 `lib.rs`
 
 ```rust
 #![cfg_attr(not(test), no_std)]
@@ -522,7 +522,7 @@ just build-contracts
 
 ---
 
-## 9. Deployment Configuration (Generic)
+## 9. Deployment Configuration
 
 Odra uses environment variables to connect to a Casper node and sign deploys.
 
