@@ -6,8 +6,6 @@ export const TipsDataHeaders = () => (
     <TableDataHeader>Amount</TableDataHeader>
     <TableDataHeader>Message</TableDataHeader>
     <TableDataHeader>Transaction Hash</TableDataHeader>
-    <TableDataHeader align="right" fixedWidthRem={6.25}>
-      Age
-    </TableDataHeader>
+    <TableDataHeader fixedWidthRem={6.25}>Age</TableDataHeader>
   </TableRow>
 );
