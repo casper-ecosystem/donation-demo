@@ -150,7 +150,7 @@ const contractWasm = await getProxyWasm();
 ```
 
 - The proxy WASM is fetched from your backend API
-- This pattern allows you to call any contract dynamically
+- This pattern is used with Odra's ***payable*** entry point to attach a certain amount of CSPR that is transferred from the caller's purse to the contract.
 - The WASM is deployed as part of the session code
 
 ### 2. Preparing Arguments
@@ -282,6 +282,18 @@ const buildNativeTransfer = async (sender: string, recipient: string, amount: st
 ---
 
 ## Debugging Transactions
+
+The `onStatusUpdate` callback passed to `CSPR.click.send()` enables your dApp to react to each stage of the transaction lifecycle.  
+This is useful for:
+
+- Updating UI states (loading, success, error)
+- Debugging transaction failures
+- Surfacing Casper execution errors
+- Inspecting CSPR.cloud execution results
+
+A full list of supported status update events is available in the official documentation:  
+🔗 https://docs.cspr.click/cspr.click-sdk/react/processing-status-updates#receive-transaction-updates
+
 ### Inspect Status Callback Data
 
 In `onStatusUpdate`, log all fields:

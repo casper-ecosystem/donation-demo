@@ -23,8 +23,6 @@ npx create-react-app client --template @make-software/csprclick-react
 This template gives you, out of the box:
 
 - **CSPR.click integration**
-    - `@make-software/csprclick-ui`
-    - `@make-software/csprclick-core-types`
 - **Casper JS SDK** pre-installed and wired
 - A pre-configured **ClickProvider** that wraps your app
 - Example **wallet connect / disconnect** UI
@@ -55,25 +53,18 @@ The `@make-software/csprclick-react` template comes with built-in support for mu
 - **Ledger**
 - **MetaMask** (for EVM-compatible flows, when applicable)
 
-CSPR.click UI components (`@make-software/csprclick-ui`) provide:
+CSPR.click UI components provide:
 
 - A **common UX** across different Casper apps
 - Consistent **wallet connection flows**
-- An interface for managing:
-    - Accounts
-    - Networks
-    - Future ecosystem-wide features (e.g. settings, identity, permissions)
+- An interface for managing common dApp options or setings (e.g. themes, networks, currencies, etc.).
 
 You’ll see a **top bar / header** in the template containing:
 
-- A “Connect Wallet” button
+- A “Sign In” button
 - Selectors for active account / network (depending on configuration)
 
-You are expected to **customize this header** for your own dApp:
-
-- Add / remove wallet-related controls
-- Add project logo, navigation, or links
-- Adjust which settings the user can change (e.g. network selector on/off)
+You may ***customize this header*** to meet your own dApp needs.
 
 The idea is: you get a **ready-made wallet UX**, and you adapt it to your product.
 
@@ -100,13 +91,13 @@ public/config.js
 
 ```js
 const config = {
-  contract_package_hash: "$DONATION_CONTRACT_PACKAGE_HASH",
-  api_url: "$API_URL",
-  cspr_click_app_name: "$CSPR_CLICK_APP_NAME",
-  cspr_click_app_id: "$CSPR_CLICK_APP_ID",
-  cspr_click_providers: "$CSPR_CLICK_PROVIDERS",
-  cspr_live_url: "$CSPR_LIVE_URL",
-  transaction_payment: "$TRANSACTION_PAYMENT",
+  contract_package_hash: "ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035",
+  api_url: "http://localhost:4000",
+  cspr_click_app_name: "Donation Demo",
+  cspr_click_app_id: "csprclick-template",
+  cspr_click_providers: ['casper-wallet', 'ledger', 'metamask-snap'],
+  cspr_live_url: "https://testnet.cspr.live",
+  transaction_payment: "10000000000"
 };
 
 ```
@@ -206,9 +197,9 @@ Example usage:
 import { Button, FlexRow } from '@make-software/cspr-design';
 
 export const WalletConnectSection = () => (
-  <FlexRow align="center" gap={16}>
-    <Button>Connect Wallet</Button>
-  </FlexRow>
+        <FlexRow align="center" gap={16}>
+          <Button>Connect Wallet</Button>
+        </FlexRow>
 );
 ```
 
@@ -220,18 +211,18 @@ The template typically comes with a **top bar** that includes:
 
 - App name / logo placeholder
 - **CSPR.click UI components** for:
-    - Connecting / disconnecting a wallet
-    - Choosing active account (if multiple)
-    - Showing the connected public key
-    - Potentially selecting network (testnet/mainnet) depending on configuration
+  - Connecting / disconnecting a wallet
+  - Choosing active account (if multiple)
+  - Showing the connected public key
+  - Potentially selecting network (testnet/mainnet) depending on configuration
 
 For your own application, you should:
 
 - Replace the placeholder project name with **your branding**
 - Decide whether users should be able to:
-    - Switch networks
-    - Switch accounts
-    - See extra settings (e.g., language, theme)
+  - Switch networks
+  - Switch accounts
+  - See extra settings (e.g., language, theme)
 - Remove controls that you don’t need for your dApp’s UX
 - Add your own navigation (e.g., “Dashboard”, “My Positions”, “Donations”, “Admin”)
 
@@ -241,18 +232,18 @@ The goal is to keep **wallet UX consistent** (thanks to CSPR.click UI), while gi
 
 ## 7. Summary
 
-By using the official `@make-software/csprclick-react` template, you get:
+By using the official React project template, you get:
 
 - A fully working **React** app
 - Preconfigured **CSPR.click** integration
 - Multi-wallet support:
-    - Casper Wallet
-    - Ledger
-    - MetaMask (where relevant)
+  - Casper Wallet
+  - Ledger
+  - MetaMask (where relevant)
 - **Casper JS SDK** already installed and ready to use
 - CSPR.click UI components for:
-    - Connecting wallets
-    - Managing accounts and settings
+  - Connecting wallets
+  - Managing accounts and settings
 - A flexible header/top bar that you can customize for your own UX
 - Optional **CSPR.design** for ecosystem-aligned UI components
 

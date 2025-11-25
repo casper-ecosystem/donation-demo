@@ -24,7 +24,7 @@ Users will be able to:
 
 - Connect their wallet with **CSPR.click** (supports Casper Wallet, Ledger, MetaMask)
 - Enter a donation amount and message
-- Sign & send a CSPR transfer to a smart contract
+- Sign & send a Transaction to call a smart contract
 - Have the donation stored on-chain with event emission
 - View all donations through a responsive frontend
 - See real-time updates as new donations arrive
@@ -45,9 +45,9 @@ This demo showcases:
 
 ---
 
-## CSPR Suite Tools Used
+## Casper Ecosystem Tools Used
 
-This demo uses several tools from the **CSPR Suite** – a collection of developer tools that eliminate boilerplate and accelerate Casper dApp development.
+This demo uses several tools from the **Casper Ecosystem** – a collection of developer tools that eliminate boilerplate and accelerate Casper dApp development.
 
 | Product | Purpose | When to Use | Documentation |
 |---------|---------|-------------|---------------|
@@ -111,17 +111,6 @@ This demo uses several tools from the **CSPR Suite** – a collection of develop
 - Wallet connection configuration
 
 You now have everything needed to start building!
-
----
-
-## About Casper Network
-
-Casper is a Proof of Stake enterprise blockchain designed to help enterprises build blockchain-enabled products and services, featuring upgradeable smart contracts, developer-friendly features, and lower transaction costs than most Layer-1 blockchain offerings. Key features include:
-
-- **Upgradeable Smart Contracts**: Modify contracts post-deployment without complex migrations
-- **Developer-Friendly**: Supports Rust and other mainstream languages via WebAssembly
-- **Enterprise-Ready**: Multi-signature transactions and weighted key permissions at protocol level
-- **Predictable Costs**: Stable gas fees during high network activity
 
 ---
 
