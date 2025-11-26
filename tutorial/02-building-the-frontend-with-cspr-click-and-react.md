@@ -1,4 +1,3 @@
-
 # Building the Front-End Interface
 
 In this section, you will set up the frontend part of your Casper dApp using:
@@ -8,7 +7,7 @@ In this section, you will set up the frontend part of your Casper dApp using:
 - **Casper JS SDK**
 - Optionally **CSPR.design** for UI
 
-To make things easy, we’ll use an official React template that already includes all the Casper–specific setup you need.
+To make things easy, we'll use an official React template that already includes all the Casper–specific setup you need.
 
 ---
 
@@ -59,9 +58,9 @@ CSPR.click UI components provide:
 - Consistent **wallet connection flows**
 - An interface for managing common dApp options or setings (e.g. themes, networks, currencies, etc.).
 
-You’ll see a **top bar / header** in the template containing:
+You'll see a **top bar / header** in the template containing:
 
-- A “Sign In” button
+- A "Sign In" button
 - Selectors for active account / network (depending on configuration)
 
 You may ***customize this header*** to meet your own dApp needs.
@@ -70,8 +69,7 @@ The idea is: you get a **ready-made wallet UX**, and you adapt it to your produc
 
 ---
 
-
-# 3. Environment Configuration (`public/config.js`)
+## 3. Environment Configuration (`public/config.js`)
 
 Most Casper dApps need **dynamic environment configuration**, such as:
 
@@ -99,7 +97,6 @@ const config = {
   cspr_live_url: "https://testnet.cspr.live",
   transaction_payment: "10000000000"
 };
-
 ```
 
 ### Accessing config in your app:
@@ -114,7 +111,7 @@ console.log(config.cspr_click_app_id);
 
 ### Why this approach?
 
-- You **don’t need separate builds** for staging/production.
+- You **don't need separate builds** for staging/production.
 - You can deploy once and just **change `config.js`** on the server.
 - Works perfectly with static hosting (Vercel, Netlify, Cloudflare).
 
@@ -155,7 +152,7 @@ For real projects (staging/production), you should:
 1. Go to **CSPR.build Console**
 2. Create your own CSPR.click application
 3. Copy the generated **App ID**
-4. Replace `cspr_click_app_id` in ```public/config.js``` with your own:
+4. Replace `cspr_click_app_id` in `public/config.js` with your own:
 
 ```ts
 appId: config.cspr_click_app_id
@@ -223,8 +220,15 @@ For your own application, you should:
   - Switch networks
   - Switch accounts
   - See extra settings (e.g., language, theme)
-- Remove controls that you don’t need for your dApp’s UX
-- Add your own navigation (e.g., “Dashboard”, “My Positions”, “Donations”, “Admin”)
+- Remove controls that you don't need for your dApp's UX
+- Add your own navigation (e.g., "Dashboard", "My Positions", "Donations", "Admin")
+
+### Creating a Custom Theme
+
+You can create your own custom theme to match your brand identity. CSPR.click supports full theme customization including colors, typography, spacing, and more.
+
+Learn how to create and apply custom themes:  
+**[Create your own custom theme with CSPR.click](https://docs.cspr.click/cspr.click-sdk/react/customizing-the-top-bar/create-your-own-theme)**
 
 The goal is to keep **wallet UX consistent** (thanks to CSPR.click UI), while giving you **full control over the app layout and user journey**.
 

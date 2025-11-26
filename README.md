@@ -3,6 +3,23 @@
 A demonstration application showcasing how to build a full-stack dApp on the Casper Network.
 The dApp allows users to send tips with CSPR tokens to a developer to show their appreciation. The tips are stored in a smart contract and indexed by CSPR.cloud. The dApp also provides a list of all tips sent so far.
 
+---
+
+## 📚 **[Step-by-Step Tutorial Available!](./tutorial/README.md)**
+
+**New to Casper development?** Follow our comprehensive tutorial to learn how to build this dApp from scratch:
+
+**[→ Start the Tutorial: From Idea to dApp in Minutes](./tutorial/README.md)**
+
+The tutorial covers:
+- Building a React frontend with CSPR.click wallet integration
+- Writing smart contracts with the Odra framework
+- Constructing and signing Casper transactions
+- Building a backend with CSPR.cloud event streaming
+- Integrating all components into a full-stack dApp
+
+---
+
 ## What You'll Learn
 
 This demo demonstrates:
@@ -11,6 +28,8 @@ This demo demonstrates:
 - **Blockchain Data Indexing**: Using CSPR.cloud, an enterprise-grade middleware platform that provides access to indexed and enriched blockchain data with real-time streaming
 - **Smart Contract Development**: Writing contracts with Odra framework
 - **Event Handling**: Listening to and indexing smart contract events
+
+![From idea to dApp in minutes, on Casper](./tutorial/assets/demo-overview.png)
 
 ## Prerequisites
 
@@ -119,6 +138,7 @@ The server includes an event listener and REST API.
 
 ```
 .
+├── tutorial/            # 📚 Step-by-step tutorial (START HERE!)
 ├── client/              # React frontend application
 ├── server/              # Backend API and event listener
 ├── smart-contract/      # Odra smart contract source

@@ -1,22 +1,9 @@
-# Building a Full-Stack dApp on the Casper Network
-
-Welcome to the **Donation Demo** tutorial — a complete, step-by-step guide that teaches you how to build a **full-stack decentralized application (dApp)** on the **Casper Network** using modern tools from the **CSPR Suite**.
-
-By the end of this tutorial, you will learn how to:
-
-- Build a **React** frontend with wallet connection using **CSPR.click**
-- Write an **Odra smart contract** that accepts donations
-- Use **CSPR.cloud** to index blockchain events
-- Build a **Node.js backend** that consumes events and exposes a REST API
-- Combine everything into a clean full-stack Casper dApp
-
-This tutorial is designed for **ecosystem developers** who want to learn how to structure real Casper applications by following a working, fully functional example.
-
----
-
 ## What We're Building
 
 The **Donation Demo** is a practical, production-ready pattern for Casper dApps that demonstrates event-driven architecture.
+
+![From idea to dApp in minutes, on Casper](assets/demo-overview.png)
+
 
 ### User Features
 
