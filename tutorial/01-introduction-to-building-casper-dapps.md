@@ -73,7 +73,7 @@ This demo uses several tools from the **Casper Ecosystem** – a collection of d
 1. Log into CSPR.build Console
 2. Go to **"CSPR.cloud keys** section
 3. Click **"Create key"**
-4. Copy and save your access key securely:
+4. Copy and save your access key securely
 5. ⚠️ **Keep this secret!** Don't commit it to Git
 
 **You'll use this key for:**
@@ -109,9 +109,9 @@ You now have everything needed to start building!
 - [CSPR.build Console](https://console.cspr.build) - Developer tools access
 - [CSPR.cloud Documentation](https://docs.cspr.cloud/) - API reference
 - [Testnet Explorer](https://testnet.cspr.live) - View transactions and contracts
-- [Odra Framework](https://odra.dev/) - Smart contract development
+- [Odra Framework](https://odra.dev/docs/) - Smart contract development
 - [CSPR.click Documentation](https://docs.cspr.click) - Unified SDK that simplifies Web3 application onboarding
 - [CSPR Design System](https://cspr.design/) - CSPR.suite UI components library for React applications
 
 ## Community & Support
-Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connect with other developers.
+Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram group to connect with other developers.
