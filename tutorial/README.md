@@ -2,7 +2,7 @@
 
 ![From idea to dApp in minutes, on Casper](assets/banner.jpg)
 
-Welcome to the **Donation Demo** tutorial - a complete, step-by-step guide that teaches you how to build a **full-stack decentralized application (dApp)** on the **Casper Network** using modern tools from the **CSPR Suite**.
+Welcome to the **Donation Demo** tutorial — a complete, step-by-step guide showing how to build a **full-stack decentralized application (dApp)** on the **Casper Network** using modern tools from the **CSPR Suite**.
 
 By the end of this tutorial, you will learn how to:
 
@@ -13,6 +13,15 @@ By the end of this tutorial, you will learn how to:
 - Combine everything into a clean full-stack Casper dApp
 
 This tutorial is designed for **ecosystem developers** who want to learn how to structure real Casper applications by following a working, fully functional example.
+
+---
+
+## 🌐 Live Demo
+
+> Try the demo live:  
+> **https://donation-demo.casper.network**
+
+Explore the app, send a tip, and see how all components come together before diving into the implementation.
 
 ---
 
@@ -43,4 +52,5 @@ Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connec
 
 ---
 
-**Ready to build?** Let's get started with [Part 1: Introduction to Building Casper dApps](./01-introduction-to-building-casper-dapps.md)!
+**Ready to build?** Let's get started with  
+👉 **[Part 1: Introduction to Building Casper dApps](./01-introduction-to-building-casper-dapps.md)**  
