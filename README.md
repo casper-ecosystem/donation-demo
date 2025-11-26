@@ -5,20 +5,14 @@ The dApp allows users to send tips with CSPR tokens to a developer to show their
 
 ---
 
-## 📚 **[Step-by-Step Tutorial Available!](./tutorial/README.md)**
+## 📚 New to Casper development?
 
-**New to Casper development?** Follow our comprehensive tutorial to learn how to build this dApp from scratch:
+We also provide a comprehensive, step-by-step tutorial that teaches you how to build this entire dApp from scratch.
 
-**[→ Start the Tutorial: From Idea to dApp in Minutes](./tutorial/README.md)**
+→ [**Start the Tutorial: From Idea to dApp in Minutes**](./tutorial/README.md)
 
-The tutorial covers:
-- Building a React frontend with CSPR.click wallet integration
-- Writing smart contracts with the Odra framework
-- Constructing and signing Casper transactions
-- Building a backend with CSPR.cloud event streaming
-- Integrating all components into a full-stack dApp
+…or continue reading this page to set up your local environment and try the demo firsthand.
 
----
 
 ## What You'll Learn
 
@@ -29,7 +23,14 @@ This demo demonstrates:
 - **Smart Contract Development**: Writing contracts with Odra framework
 - **Event Handling**: Listening to and indexing smart contract events
 
+### Live Demo
+
+> 🌐 **Try it live:** [donation-demo.casper.network](https://donation-demo.casper.network)
+
+---
+
 ![From idea to dApp in minutes, on Casper](./tutorial/assets/demo-overview.png)
+
 
 ## Prerequisites
 

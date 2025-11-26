@@ -26,12 +26,6 @@ This demo showcases:
 - **Backend:** Node.js + Express + TypeORM + MySQL
 - **Real-time Updates:** WebSocket event listener
 
-### Live Demo
-
-> 🌐 **Try it live:** [donation-demo.casper.network](https://donation-demo.casper.network)
-
----
-
 ## Casper Ecosystem Tools Used
 
 This demo uses several tools from the **Casper Ecosystem** – a collection of developer tools that eliminate boilerplate and accelerate Casper dApp development.
