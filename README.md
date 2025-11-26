@@ -139,7 +139,7 @@ The server includes an event listener and REST API.
 
 ```
 .
-├── tutorial/            # 📚 Step-by-step tutorial (START HERE!)
+├── tutorial/            # 📚 Step-by-step tutorial
 ├── client/              # React frontend application
 ├── server/              # Backend API and event listener
 ├── smart-contract/      # Odra smart contract source
