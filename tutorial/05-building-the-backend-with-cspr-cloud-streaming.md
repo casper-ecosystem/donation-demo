@@ -6,7 +6,7 @@ This section explains how to build a **generic Node.js backend** for any Casper 
 - Stores those events in a **relational database** (for example, MySQL) for fast querying
 - Exposes a **REST API** that your frontend can use to fetch indexed data
 
-Nothing in this tutorial is tied to a specific project or use case — you can adapt it to **any** contract that emits CES-compatible events.
+Nothing in this tutorial is tied to a specific project or use case - you can adapt it to **any** contract that emits CES-compatible events.
 
 ---
 

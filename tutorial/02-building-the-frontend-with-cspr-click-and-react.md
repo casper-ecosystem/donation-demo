@@ -163,15 +163,15 @@ You can learn more about all available options in the
 
 Typical things you might customize:
 
-- `appName` — how your app is shown in wallet / consent UI
-- `providers` — which wallets you want to support
-- `contentMode` — how CSPR.click UI is displayed (`IFRAME` vs `POPUP` etc.)
+- `appName` - how your app is shown in wallet / consent UI
+- `providers` - which wallets you want to support
+- `contentMode` - how CSPR.click UI is displayed (`IFRAME` vs `POPUP` etc.)
 
 ---
 
 ## 5. Installing CSPR.design (Optional but Recommended)
 
-To keep your dApp visually aligned with the broader Casper ecosystem, you can use **CSPR.design** — a React UI component library:
+To keep your dApp visually aligned with the broader Casper ecosystem, you can use **CSPR.design** - a React UI component library:
 
 ```bash
 npm install @make-software/cspr-design

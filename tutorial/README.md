@@ -2,7 +2,7 @@
 
 ![From idea to dApp in minutes, on Casper](assets/banner.jpg)
 
-Welcome to the **Donation Demo** tutorial — a complete, step-by-step guide that teaches you how to build a **full-stack decentralized application (dApp)** on the **Casper Network** using modern tools from the **CSPR Suite**.
+Welcome to the **Donation Demo** tutorial - a complete, step-by-step guide that teaches you how to build a **full-stack decentralized application (dApp)** on the **Casper Network** using modern tools from the **CSPR Suite**.
 
 By the end of this tutorial, you will learn how to:
 
