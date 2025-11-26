@@ -88,7 +88,7 @@ public/config.js
 ### Example `public/config.js`:
 
 ```js
-const config = {
+window.config = {
   contract_package_hash: "ca0f4eedc84e03b6bc39ce664ef05dff00a96214194e706d50bfc43d84124035",
   api_url: "http://localhost:4000",
   cspr_click_app_name: "Donation Demo",
@@ -131,7 +131,6 @@ const config = {
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
   <title>CSPR.click app</title>
-  <script src="/config.js"></script>
   <link rel="stylesheet" href="%PUBLIC_URL%/prism.css" />
 </head>
 <body>
@@ -146,19 +145,42 @@ const config = {
   To begin the development, run `npm start` or `yarn start`.
   To create a production bundle, use `npm run build` or `yarn build`.
 -->
+  <script src="/config.js"></script>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
 ```
 
 **Key points:**
-- Place the `<script src="/config.js"></script>` **before** your main app script
+- Place the `<script src="/config.js"></script>` in the `<body>`, **before** your main app script
 - This ensures the config is loaded and available when your React app initializes
 - The config will be accessible globally via `window.config`
 
-### Accessing config in your app:
+### TypeScript Declaration (`src/globals.d.ts`):
 
+Create this file to get proper TypeScript support:
 ```ts
-const config = (window as any).config;
+export {};
+
+declare global {
+  interface Window {
+    config: {
+      contract_package_hash: string;
+      api_url: string;
+      cspr_click_app_name: string;
+      cspr_click_app_id: string;
+      cspr_click_providers: string[];
+      cspr_live_url: string;
+      transaction_payment: string;
+    };
+  }
+}
+```
+
+### Accessing config in your app:
+```ts
+// With TypeScript declaration, no need for 'as any'
+const config = window.config;
 
 console.log(config.api_url);
 console.log(config.contract_package_hash);
@@ -170,6 +192,8 @@ console.log(config.cspr_click_app_id);
 - You **don't need separate builds** for staging/production.
 - You can deploy once and just **change `config.js`** on the server.
 - Works perfectly with static hosting (Vercel, Netlify, Cloudflare).
+- The config is loaded before your app starts, ensuring it's always available.
+- You can modify configuration without rebuilding or redeploying your app.
 
 This is now the recommended way to manage environment configuration for Casper dApps.
 
