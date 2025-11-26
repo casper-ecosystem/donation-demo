@@ -181,7 +181,7 @@ export class ContractEventEntity {
   message: string;
 
   @Column({ type: 'varchar' })
-  transaction_hash: any; // full event payload (flexible)
+  transaction_hash: any;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
@@ -585,7 +585,7 @@ This setup lets you:
 To adapt this to your project:
 
 - Customize the **payload type** and **entity fields** to match your contract events.
-- Extend the REST API with domain-specific endpoints (e.g. `/positions`, `/orders`, `/votes`).
+- Extend the REST API with domain-specific endpoints.
 - Add authentication/authorization if needed.
 
 This is a solid starting point for any **event-driven Casper application backend**.
