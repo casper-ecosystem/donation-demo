@@ -17,32 +17,56 @@ You can treat the example as a *reference implementation* and adapt the patterns
 
 Instead of dealing directly with low-level storage and URefs, you work with:
 
-- `Var<T>` – single-value storage cells  
-- `Mapping<K, V>` – map-like storage  
-- `SubModule<T>` – nested modules for storage or logic  
+- `Var<T>` – single-value storage cells
+- `Mapping<K, V>` – map-like storage
+- `SubModule<T>` – nested modules for storage or logic
 - `#[odra::module]`, `#[odra::event]`, `#[odra::odra_error]` – macros to define contract structure
 
 ---
 
 ## 2. Project Setup
 
-### 2.1 Create a new library crate
+### 2.1 Create a new project using the Odra template
 
 ```bash
-cargo new my-odra-contract --lib
+cargo odra new --name my-odra-contract
 cd my-odra-contract
 ```
 
-### 2.2 Add Odra dependencies
+This command creates a complete project structure with all necessary files pre-configured:
 
-In `Cargo.toml`:
+- `Cargo.toml` – with Odra dependencies already set up
+- `Odra.toml` – contract registration file
+- `build.rs` – build script for Odra's build pipeline
+- `src/lib.rs` – main library file
+- Source files for your contract module
+- Build binaries in `bin/` directory
+
+**You don't need to create or add any files manually** – the template contains everything you need. Simply modify the generated files to implement your contract logic.
+
+### 2.2 Understanding the Generated Structure
+
+After running `cargo odra new`, your project will have this structure:
+
+```text
+my-odra-contract/
+  ├── Cargo.toml          # Dependencies pre-configured
+  ├── Odra.toml           # Contract registration
+  ├── build.rs            # Build script
+  ├── bin/
+  │   ├── build_schema.rs
+  │   ├── build_contract.rs
+  │   └── cli.rs
+  └── src/
+      ├── lib.rs
+      └── [your_module].rs
+```
+
+### 2.3 Key Configuration Files (Pre-generated)
+
+**Cargo.toml** – Already includes:
 
 ```toml
-[package]
-name = "my_odra_contract"
-version = "0.1.0"
-edition = "2021"
-
 [dependencies]
 odra = { version = "2.4.0", default-features = false }
 
@@ -62,33 +86,10 @@ name = "build_contract"
 path = "bin/build_contract.rs"
 test = false
 
-[[bin]]
-name = "my_odra_contract_cli"
-path = "bin/cli.rs"
-test = false
-
-[profile.release]
-codegen-units = 1
-lto = true
+# ... additional configuration
 ```
 
-> In the demo project, the crate is configured very similarly, with Odra as the main dependency and `odra-build` used by the build script.
-
-### 2.3 Add `build.rs`
-
-`build.rs` at the root:
-
-```rust
-pub fn main() {
-    odra_build::build();
-}
-```
-
-This enables Odra’s build pipeline (`cargo odra build`).
-
-### 2.4 Odra.toml – Registering Contracts
-
-Create `Odra.toml` to tell Odra which modules are deployable contracts:
+**Odra.toml** – Registers your contract (you'll update the `fqn` to match your module):
 
 ```toml
 [[contracts]]
@@ -97,20 +98,26 @@ fqn = "my_module::MyContract"
 
 - `fqn` = fully-qualified name of the contract module: `module_name::StructName`.
 
-In the **example project**, you’ll see:
+In the **example project**, this is:
 
 ```toml
 [[contracts]]
 fqn = "tips::TipTheBarista"
 ```
 
-This means the contract is defined in `src/tips.rs` as `TipTheBarista`.
+**build.rs** – Already configured:
+
+```rust
+pub fn main() {
+    odra_build::build();
+}
+```
 
 ---
 
 ## 3. Module Structure
 
-Your `src` directory typically looks like this:
+The generated `src` directory looks like this:
 
 ```text
 src/
@@ -118,7 +125,7 @@ src/
   my_module.rs
 ```
 
-### 3.1 `lib.rs`
+### 3.1 `lib.rs` (Pre-generated)
 
 ```rust
 #![cfg_attr(not(test), no_std)]
@@ -138,7 +145,7 @@ extern crate alloc;
 pub mod tips;
 ```
 
-So the main module is `tips`, and it exposes the `TipTheBarista` contract.
+The main module is `tips`, exposing the `TipTheBarista` contract.
 
 ---
 
@@ -193,7 +200,7 @@ pub enum ContractErrors {
 
 ### 4.2 How the Example Project Uses This
 
-In the demo project’s `tips.rs`:
+In the demo project's `tips.rs`:
 
 - The contract defines named-key storage for:
   - `CONTRACT_NAME`
@@ -362,12 +369,12 @@ pub fn execute_action(&mut self, message: String) {
 
 ### 6.2 How the Example Uses It
 
-The demo’s `donate` method is exactly this pattern:
+The demo's `donate` method is exactly this pattern:
 
-- `#[odra(payable)]` – accepts CSPR  
-- `attached_value()` – reads the sent amount  
-- Compares to a **minimum threshold** (`MINIMUM_AMOUNT`)  
-- Transfers to `recipient` stored in contract storage  
+- `#[odra(payable)]` – accepts CSPR
+- `attached_value()` – reads the sent amount
+- Compares to a **minimum threshold** (`MINIMUM_AMOUNT`)
+- Transfers to `recipient` stored in contract storage
 - Emits a `Tip` event
 
 This makes the contract compatible with **CSPR.cloud event indexing**, which the backend uses to track tips.
