@@ -36,7 +36,7 @@ This demo uses several tools from the **Casper Ecosystem** – a collection of d
 | **CSPR.cloud** | Event indexing & blockchain API | When you need to query blockchain data efficiently or display historical events | [docs.cspr.cloud](https://docs.cspr.cloud) |
 | **CSPR.design** | React UI component library | For building ecosystem-aligned user interfaces | [cspr.design](https://cspr.design) |
 | **CSPR.build** | Developer console | Managing API keys, monitoring usage, and configuring services | [console.cspr.build](https://console.cspr.build) |
-| **Odra Framework** | Smart contract framework | Writing Casper smart contracts in Rust with high-level abstractions | [odra.dev](https://odra.dev/docs/) |
+| **Odra Framework** | Smart contract framework | Writing Casper smart contracts in Rust with high-level abstractions | [odra.dev/docs](https://odra.dev/docs/) |
 | **Casper JS SDK** | JavaScript SDK | Building transactions and interacting with the blockchain from JavaScript/TypeScript | [npm: casper-js-sdk](https://www.npmjs.com/package/casper-js-sdk) |
 
 ## Tutorial Structure
