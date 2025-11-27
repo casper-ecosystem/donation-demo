@@ -596,7 +596,7 @@ This is a solid starting point for any **event-driven Casper application backend
 - [CSPR.build Console](https://console.cspr.build) - Developer tools access
 - [CSPR.cloud Documentation](https://docs.cspr.cloud/) - API reference
 - [Testnet Explorer](https://testnet.cspr.live) - View transactions and contracts
-- [Odra Framework](https://odra.dev/) - Smart contract development
+- [Odra Framework](https://odra.dev/docs/) - Smart contract development
 
 ## Community & Support
 Join [Casper Developers](https://t.me/CSPRDevelopers) Telegram channel to connect with other developers.

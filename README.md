@@ -23,6 +23,19 @@ This demo demonstrates:
 - **Smart Contract Development**: Writing contracts with Odra framework
 - **Event Handling**: Listening to and indexing smart contract events
 
+## Casper Ecosystem Tools Used
+
+This demo uses several tools from the **Casper Ecosystem** – a collection of developer tools that eliminate boilerplate and accelerate Casper dApp development.
+
+| Product | Purpose | When to Use | Documentation |
+|---------|---------|-------------|---------------|
+| **CSPR.click** | Wallet connection & transaction signing | Every dApp needs this for user authentication and transaction submission | [docs.cspr.click](https://docs.cspr.click) |
+| **CSPR.cloud** | Event indexing & blockchain API | When you need to query blockchain data efficiently or display historical events | [docs.cspr.cloud](https://docs.cspr.cloud) |
+| **CSPR.design** | React UI component library | For building ecosystem-aligned user interfaces | [cspr.design](https://cspr.design) |
+| **CSPR.build** | Developer console | Managing API keys, monitoring usage, and configuring services | [console.cspr.build](https://console.cspr.build) |
+| **Odra Framework** | Smart contract framework | Writing Casper smart contracts in Rust with high-level abstractions | [odra.dev](https://odra.dev/docs/) |
+| **Casper JS SDK** | JavaScript SDK | Building transactions and interacting with the blockchain from JavaScript/TypeScript | [npm: casper-js-sdk](https://www.npmjs.com/package/casper-js-sdk) |
+
 ### Live Demo
 
 > 🌐 **Try it live:** [donation-demo.casper.network](https://donation-demo.casper.network)
@@ -45,15 +58,15 @@ Before you begin, ensure you have:
 The fastest way to run the complete application:
 
 1. **Configure environment variables**:
-   ```bash
+```bash
    cp server/.env.example server/.env
-   ```
-   The default values work for testnet deployment with Docker.
+```
+The default values work for testnet deployment with Docker.
 
 2. **Launch all services**:
-   ```bash
+```bash
    docker compose -f infra/local/docker-compose.yaml --project-name tip-barista up -d
-   ```
+```
 
 This starts the database, event listener, API server, and web client.
 
@@ -101,7 +114,6 @@ The server includes an event listener and REST API.
 4. Run the development server
 
 ## Architecture Overview
-
 ```
                           ┌──────────────────────┐
                           │     Casper Network   │
@@ -136,7 +148,6 @@ The server includes an event listener and REST API.
 
 
 ## Project Structure
-
 ```
 .
 ├── tutorial/            # 📚 Step-by-step tutorial
@@ -161,7 +172,7 @@ Casper is a Proof of Stake enterprise blockchain designed to help enterprises bu
 - [CSPR.build Console](https://console.cspr.build) - Developer tools access
 - [CSPR.cloud Documentation](https://docs.cspr.cloud/) - API reference
 - [Testnet Explorer](https://testnet.cspr.live) - View transactions and contracts
-- [Odra Framework](https://odra.dev/) - Smart contract development
+- [Odra Framework](https://odra.dev/docs/) - Smart contract development
 - [CSPR.click Documentation](https://docs.cspr.click) - Unified SDK that simplifies Web3 application onboarding
 - [CSPR Design System](https://cspr.design/) - CSPR.suite UI components library for React applications
 
