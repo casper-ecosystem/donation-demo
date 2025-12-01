@@ -13,10 +13,10 @@ export const ClickTopBar: React.FC<TopBarProps> = ({ themeMode, onThemeSwitch })
   const { setLeftBadge } = useClickBadge();
 
   setLeftBadge({
-    title: `📄 Go to CSPR.click docs`,
+    title: `{} Check the source code`,
     background: 'blue',
     color: 'white',
-    link: 'https://docs.cspr.click/'
+    link: 'https://github.com/casper-ecosystem/donation-demo'
   });
 
   return (
