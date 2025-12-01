@@ -3,7 +3,7 @@ import CSPRClickIcon from 'assets/logos/click-logo.svg';
 import CloudIcon from 'assets/logos/cloud.svg';
 import DocsIcon from 'assets/logos/docs.svg';
 
-const openInNewTab = (url: string) => () => window.open(url, '_blank');
+const openInNewTab = (url: string) => window.open(url, '_blank');
 
 type MenuItemConfig = {
   label: string;
@@ -35,7 +35,7 @@ export const accountMenuItems = [
   ...menuConfig.map((item: MenuItemConfig, index: number) => (
     <AccountMenuItem
       key={index}
-      onClick={openInNewTab(item.url)}
+      onClick={() => openInNewTab(item.url)}
       icon={item.icon}
       label={item.label}
       {...(item.badge && { badge: item.badge })}
