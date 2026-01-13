@@ -18,14 +18,25 @@ const MainSection = styled.section(({ theme }) =>
 const App = () => {
   const clickRef = useClickRef();
   const [themeMode, setThemeMode] = useState<ThemeModeType>(ThemeModeType.light);
-  const [activeAccount, setActiveAccount] = useState<AccountType | null>(null);
+  const [connectedAccount, setConnectedAccount] = useState<AccountType | null>(null);
   const [refetchSignal, setRefetchSignal] = useState<number>(0);
 
   useEffect(() => {
-    clickRef?.on('csprclick:signed_in', (evt: any) => setActiveAccount(evt.account));
-    clickRef?.on('csprclick:switched_account', (evt: any) => setActiveAccount(evt.account));
-    clickRef?.on('csprclick:signed_out', () => setActiveAccount(null));
-    clickRef?.on('csprclick:switched_account', () => setActiveAccount(null));
+    if (!clickRef) return;
+
+    const handleSignedIn = (evt: any) => setConnectedAccount(evt.account);
+    const handleSwitchedAccount = (evt: any) => setConnectedAccount(evt.account);
+    const handleSignedOut = () => setConnectedAccount(null);
+
+    clickRef.on('csprclick:signed_in', handleSignedIn);
+    clickRef.on('csprclick:switched_account', handleSwitchedAccount);
+    clickRef.on('csprclick:signed_out', handleSignedOut);
+
+    return () => {
+      clickRef.off('csprclick:signed_in', handleSignedIn);
+      clickRef.off('csprclick:switched_account', handleSwitchedAccount);
+      clickRef.off('csprclick:signed_out', handleSignedOut);
+    };
   }, [clickRef?.on]);
 
   return (
@@ -38,7 +49,7 @@ const App = () => {
       />
       <Container>
         <HeroSection
-          isConnected={!!activeAccount}
+          isConnected={!!connectedAccount}
           onUpdateTipsList={() => setRefetchSignal(Date.now())}
         />
         <MainSection>

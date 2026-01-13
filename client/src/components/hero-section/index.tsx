@@ -60,7 +60,7 @@ export const HeroSection: React.FC<WelcomeProps> = ({ isConnected, onUpdateTipsL
 
     setModalScreen('loading');
 
-    clickRef?.send(tipTransaction, sender, onStatusUpdate).catch((err: any) => {
+    clickRef?.send(tipTransaction.toJSON() as object, sender, onStatusUpdate).catch((err: any) => {
       setModalScreen('error');
       alert('Error: ' + err);
     });
