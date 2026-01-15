@@ -3,7 +3,6 @@ import { LoadingContainer, StyledTitle } from '../modal-styles';
 
 export const SuccessContent = () => {
   return (
-    <>
       <FlexRow justify={'center'}>
         <LoadingContainer itemsSpacing={54} align={'center'} justify={'center'}>
           <StyledTitle size={1} scale="lg" margin={'32px 0'}>
@@ -12,6 +11,5 @@ export const SuccessContent = () => {
           </StyledTitle>
         </LoadingContainer>
       </FlexRow>
-    </>
   );
 };

@@ -6,7 +6,7 @@ import { AccountType } from '@make-software/csprclick-core-types';
 import { AppTheme } from '@/utils';
 import { ClickTopBar, Container, HeroSection, PageFooter, TipsContainer } from '@/components';
 
-const MainSection = styled.section(({ theme }) =>
+const ContentSection = styled.section(({ theme }) =>
   theme.withMedia({
     maxWidth: ['100%', '720px', '1200px'],
     width: '100%',
@@ -52,9 +52,9 @@ const App = () => {
           isConnected={!!connectedAccount}
           onUpdateTipsList={() => setRefetchSignal(Date.now())}
         />
-        <MainSection>
+        <ContentSection>
           <TipsContainer refetchSignal={refetchSignal} />
-        </MainSection>
+        </ContentSection>
       </Container>
       <PageFooter />
     </ThemeProvider>

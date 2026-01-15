@@ -4,7 +4,6 @@ import { LoadingContainer, LoadingSvgIcon, StyledTitle } from '@/components';
 
 export const LoadingContent = () => {
   return (
-    <>
       <FlexRow justify={'center'} align={'center'}>
         <LoadingContainer itemsSpacing={54} align={'center'} justify={'center'}>
           <LoadingSvgIcon src={LoadingIcon} width={100} height={100} />
@@ -13,6 +12,5 @@ export const LoadingContent = () => {
           </StyledTitle>
         </LoadingContainer>
       </FlexRow>
-    </>
   );
 };

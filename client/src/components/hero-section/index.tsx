@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { TransactionStatus } from '@make-software/csprclick-core-types';
 import { useClickRef } from '@make-software/csprclick-ui';
-
 import { buildTipTransaction } from '@/utils';
-
 import { TipModal, ModalScreen } from './components';
 import {
   Container, Content,
@@ -79,7 +77,6 @@ export const HeroSection: React.FC<WelcomeProps> = ({ isConnected, onUpdateTipsL
               {isConnected ? 'Send a tip' : 'Connect Wallet'}
             </LearnMoreButton>
           </Content>
-
     </Container>
   );
 };

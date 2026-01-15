@@ -3,7 +3,6 @@ import { LoadingContainer, StyledTitle } from '@/components';
 
 export const ErrorContent = () => {
   return (
-    <>
       <FlexRow justify={'center'}>
         <LoadingContainer itemsSpacing={54} align={'center'} justify={'center'}>
           <StyledTitle size={1} scale="lg" margin={'32px 0'}>
@@ -11,6 +10,5 @@ export const ErrorContent = () => {
           </StyledTitle>
         </LoadingContainer>
       </FlexRow>
-    </>
   );
 };
