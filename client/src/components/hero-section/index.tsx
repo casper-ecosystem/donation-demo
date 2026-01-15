@@ -6,13 +6,10 @@ import { buildTipTransaction } from '@/utils';
 
 import { TipModal, ModalScreen } from './components';
 import {
-  Container,
+  Container, Content,
   GreetingText,
-  InfoContainer,
   KillerAppText,
   LearnMoreButton,
-  StyledInfo,
-  StyledWrapper
 } from './styled';
 
 interface WelcomeProps {
@@ -73,9 +70,7 @@ export const HeroSection: React.FC<WelcomeProps> = ({ isConnected, onUpdateTipsL
         onClose={() => setModalScreen(null)}
         onConfirm={handleSignTransaction}
       />
-      <StyledWrapper>
-        <InfoContainer>
-          <StyledInfo>
+          <Content>
             <GreetingText>Tip the barista</GreetingText>
             <KillerAppText>
               Say thanks. Support the developer. Keep open-source thriving.
@@ -83,9 +78,8 @@ export const HeroSection: React.FC<WelcomeProps> = ({ isConnected, onUpdateTipsL
             <LearnMoreButton onClick={handleSendTipClick}>
               {isConnected ? 'Send a tip' : 'Connect Wallet'}
             </LearnMoreButton>
-          </StyledInfo>
-        </InfoContainer>
-      </StyledWrapper>
+          </Content>
+
     </Container>
   );
 };
