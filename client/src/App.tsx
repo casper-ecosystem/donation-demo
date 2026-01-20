@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useClickRef, ThemeModeType } from '@make-software/csprclick-ui';
 import { AccountType } from '@make-software/csprclick-core-types';
 
 import { AppTheme } from '@/utils';
-import { ClickTopBar, Container, HeroSection, PageFooter, TipsContainer } from '@/components';
+import { ClickTopBar, Container, HeroSection, PageFooter, Section, TableTile } from '@/components';
+import { TipsTable } from "@/components/tips/components";
 
-const ContentSection = styled.section(({ theme }) =>
+const ContentSection = styled(Section)(({ theme }) =>
   theme.withMedia({
     maxWidth: ['100%', '720px', '1200px'],
     width: '100%',
@@ -53,7 +54,9 @@ const App = () => {
           onUpdateTipsList={() => setRefetchSignal(Date.now())}
         />
         <ContentSection>
-          <TipsContainer refetchSignal={refetchSignal} />
+            <TableTile title="Previous tips">
+                <TipsTable refetchSignal={refetchSignal} />
+            </TableTile>
         </ContentSection>
       </Container>
       <PageFooter />
