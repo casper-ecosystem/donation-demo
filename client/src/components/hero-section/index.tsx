@@ -7,7 +7,7 @@ import {
   Container, Content,
   GreetingText,
   KillerAppText,
-  LearnMoreButton,
+  SendTipButton,
 } from './styled';
 
 interface WelcomeProps {
@@ -73,9 +73,9 @@ export const HeroSection: React.FC<WelcomeProps> = ({ isConnected, onUpdateTipsL
             <KillerAppText>
               Say thanks. Support the developer. Keep open-source thriving.
             </KillerAppText>
-            <LearnMoreButton onClick={handleSendTipClick}>
+            <SendTipButton onClick={handleSendTipClick}>
               {isConnected ? 'Send a tip' : 'Connect Wallet'}
-            </LearnMoreButton>
+            </SendTipButton>
           </Content>
     </Container>
   );

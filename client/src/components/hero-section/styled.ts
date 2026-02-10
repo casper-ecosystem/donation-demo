@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import mobileBgImage from '@/assets/backgrounds/bg-mobile-full.jpg';
 import desktopBgImage from '@/assets/backgrounds/bg-desktop-full.jpg';
+import { Button } from "@make-software/cspr-design";
 
 const breakpoints = {
     sm: '768px',
@@ -61,15 +62,10 @@ export const KillerAppText = styled.div(({ theme }) =>
   })
 );
 
-export const LearnMoreButton = styled.div(({ theme }) =>
+export const SendTipButton = styled(Button)(({ theme }) =>
   theme.withMedia({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItem: 'center',
     width: '176px',
     height: '36px',
-    padding: '8px 16px',
-    borderRadius: '4px',
     backgroundColor: '#B2332D',
     fontSize: '14px',
     lineHeight: '20px',

@@ -6,30 +6,24 @@ interface StatusContentProps {
     title: ReactNode;
     subtitle?: ReactNode;
     iconSrc?: string;
-    iconSize?: number;
-    titleMargin?: string;
-    align?: 'center' | 'left' | 'right';
 }
 
 export const StatusContent = ({
     title,
     subtitle,
     iconSrc,
-    iconSize = 100,
-    titleMargin = '32px 0',
-    align = 'center'
 }: StatusContentProps) => {
     return (
         <FlexRow justify="center" align="center">
-            <Content itemsSpacing={54} align={align} justify="center">
+            <Content itemsSpacing={54} align={"center"} justify="center">
                 {iconSrc && (
                     <LoadingSvgIcon
                         src={iconSrc}
-                        width={iconSize}
-                        height={iconSize}
+                        width={100}
+                        height={100}
                     />
                 )}
-                <StyledTitle size={1} scale="lg" margin={titleMargin}>
+                <StyledTitle size={1} scale="lg">
                     {title}
                     {subtitle && <div>{subtitle}</div>}
                 </StyledTitle>

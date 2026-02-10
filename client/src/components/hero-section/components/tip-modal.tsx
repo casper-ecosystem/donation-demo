@@ -52,7 +52,6 @@ export const TipModal: React.FC<TipModalProps> = ({ modalScreen, onClose, onConf
         return <StatusContent
             iconSrc={LoadingIcon}
             title="Sending tip..."
-            titleMargin="0 0 32px 0"
         />
       case MODAL_SCREENS.SUCCESS:
         return <StatusContent
@@ -62,7 +61,6 @@ export const TipModal: React.FC<TipModalProps> = ({ modalScreen, onClose, onConf
       case MODAL_SCREENS.CANCELLED:
         return <StatusContent
             title="Your sign has been canceled"
-            titleMargin="0"
         />
       case MODAL_SCREENS.ERROR:
         return <StatusContent
