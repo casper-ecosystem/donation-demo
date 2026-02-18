@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledWrapper = styled.span(({ theme }) => ({
+export const Container = styled.span(({ theme }) => ({
   color: theme.styleguideColors.contentBlue,
   '& > *': {
     color: theme.styleguideColors.contentBlue

@@ -37,7 +37,7 @@ export const StyledFlexColumn = styled(FlexColumn)(({ theme }) =>
   })
 );
 
-export const LoadingContainer = styled(StyledFlexColumn)(({ theme }) =>
+export const Content = styled(StyledFlexColumn)(({ theme }) =>
   theme.withMedia({
     width: '100%',
     height: '300px'
@@ -51,10 +51,10 @@ export const LoadingSvgIcon = styled(SvgIcon)(() => ({
   animationTimingFunction: 'linear'
 }));
 
-export const StyledTitle = styled(SubtitleText)<{ margin?: string }>(({ theme, margin }) =>
+export const StyledTitle = styled(SubtitleText)(({ theme }) =>
   theme.withMedia({
     fontWeight: 700,
     color: theme.styleguideColors.contentPrimary,
-    margin: margin ? margin : '0 0 32px 0'
+    margin: '32px 0'
   })
 );

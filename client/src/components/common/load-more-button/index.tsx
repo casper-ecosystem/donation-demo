@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from '@make-software/cspr-design';
 
-import { ButtonContainer } from './styled';
+import { Container } from './styled';
 
 interface LoadMoreButtonProps {
   handleLoadMore: () => void;
@@ -19,10 +19,10 @@ export const LoadMoreButton: React.FC<LoadMoreButtonProps> = ({
   const label = isCollapsed ? 'Load more' : 'Load less';
 
   return (
-    <ButtonContainer>
+    <Container>
       <Button color="secondaryRed" onClick={onClick}>
         {label}
       </Button>
-    </ButtonContainer>
+    </Container>
   );
 };

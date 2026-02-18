@@ -1,20 +1,25 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
 import ReactModal from 'react-modal';
+import LoadingIcon from 'assets/icons/loading.svg';
 
 import {
-  CanceledContent,
   centerModalStyles,
-  ErrorContent,
-  LoadingContent,
   ModalContainer,
-  ModalHeader,
-  SuccessContent
+  ModalHeader, StatusContent,
 } from '@/components';
 
 import { TipForm } from './tip-form';
 
-export type ModalScreen = 'form' | 'loading' | 'success' | 'cancelled' | 'error' | null;
+export const MODAL_SCREENS = {
+  FORM: 'form',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  CANCELLED: 'cancelled',
+  ERROR: 'error',
+} as const;
+
+export type ModalScreen = typeof MODAL_SCREENS[keyof typeof MODAL_SCREENS] | null;
 
 interface TipModalProps {
   modalScreen: ModalScreen;
@@ -43,15 +48,25 @@ export const TipModal: React.FC<TipModalProps> = ({ modalScreen, onClose, onConf
 
   const renderContent = () => {
     switch (modalScreen) {
-      case 'loading':
-        return <LoadingContent />;
-      case 'success':
-        return <SuccessContent />;
-      case 'cancelled':
-        return <CanceledContent />;
-      case 'error':
-        return <ErrorContent />;
-      case 'form':
+      case MODAL_SCREENS.LOADING:
+        return <StatusContent
+            iconSrc={LoadingIcon}
+            title="Sending tip..."
+        />
+      case MODAL_SCREENS.SUCCESS:
+        return <StatusContent
+            title="You have successfully sent a tip!"
+            subtitle="Thank you!"
+        />
+      case MODAL_SCREENS.CANCELLED:
+        return <StatusContent
+            title="Your sign has been canceled"
+        />
+      case MODAL_SCREENS.ERROR:
+        return <StatusContent
+            title="Something went wrong. Please try again."
+        />
+      case MODAL_SCREENS.FORM:
       default:
         return <TipForm onConfirm={onConfirm} />;
     }

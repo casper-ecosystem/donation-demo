@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import mobileBgImage from '@/assets/backgrounds/bg-mobile-full.jpg';
 import desktopBgImage from '@/assets/backgrounds/bg-desktop-full.jpg';
+import { Button } from "@make-software/cspr-design";
+
+const breakpoints = {
+    sm: '768px',
+    md: '1024px'
+};
 
 export const Container = styled.section(({ theme }) =>
   theme.withMedia({
@@ -17,37 +23,23 @@ export const Container = styled.section(({ theme }) =>
   })
 );
 
-export const StyledSvgIcon = styled.div<{ theme: any }>(({ theme }) =>
-  theme.withMedia({
-    svg: {
-      height: ['60px', '80px', '80px'],
-      width: ['60px', '80px', '80px'],
-      path: { fill: theme.clickLogo }
+export const Content = styled.div`
+    position: relative;
+    top: 120px;
+
+    max-width: 540px;
+    padding: 0 12px;
+    margin: 0 auto;
+
+    @media (min-width: ${breakpoints.sm}) {
+        max-width: 720px;
+        top: 174px;
     }
-  })
-);
 
-export const StyledWrapper = styled.div(({ theme }) =>
-  theme.withMedia({
-    width: '100%',
-    maxWidth: ['540px', '720px', '1200px'],
-    padding: '0 12px',
-    margin: '0 auto'
-  })
-);
-
-export const InfoContainer = styled.div(({ theme }) =>
-  theme.withMedia({
-    display: 'flex'
-  })
-);
-
-export const StyledInfo = styled.div(({ theme }) =>
-  theme.withMedia({
-    position: 'relative',
-    top: ['120px', '174px', '174px']
-  })
-);
+    @media (min-width: ${breakpoints.md}) {
+        max-width: 960px;
+    }
+`;
 
 export const GreetingText = styled.div(({ theme }) =>
   theme.withMedia({
@@ -70,15 +62,10 @@ export const KillerAppText = styled.div(({ theme }) =>
   })
 );
 
-export const LearnMoreButton = styled.div(({ theme }) =>
+export const SendTipButton = styled(Button)(({ theme }) =>
   theme.withMedia({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItem: 'center',
     width: '176px',
     height: '36px',
-    padding: '8px 16px',
-    borderRadius: '4px',
     backgroundColor: '#B2332D',
     fontSize: '14px',
     lineHeight: '20px',
